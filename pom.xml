@@ -2,10 +2,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.groupdocs</groupId>
     <artifactId>annotaion-tomcat</artifactId>
-    <version>1.3.0</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
   
-    <name>GroupDocs Java Viewer - Sample Spring</name>
+    <name>GroupDocs Java Annotation - Sample Spring</name>
     <url>http://maven.apache.org</url>
 	
     <properties>
