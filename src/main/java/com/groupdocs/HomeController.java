@@ -7,7 +7,6 @@ import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.domain.GroupDocsFilePath;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
 
 /**
  * User: liosha
@@ -85,37 +81,16 @@ public class HomeController extends GroupDocsAnnotation {
         return "index";
     }
 
-    @Override
-    public Object getFileHandler(String path, HttpServletResponse httpServletResponse){
-        try{
-            return annotationHandler.getFileHandler(path, httpServletResponse);
-        }catch(Exception ex){
-            return null;
-        }
-    }
-
     /**
      * Download file [GET request]
      * @param path
      * @param response
-     * @return
+     * @throws java.lang.Exception
      */
-    @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
-    public void getFileHandler(HttpServletRequest request, HttpServletResponse response, @RequestParam("path") String path) throws Exception {
-        File file = (File) getFileHandler(path, response);
-        if (file != null) {
-            OutputStream outputStream = response.getOutputStream();
-            FileInputStream fileInputStream = new FileInputStream(file);
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-            IOUtils.copy(bufferedInputStream, outputStream);
-            bufferedInputStream.close();
-            fileInputStream.close();
-        }
-    }
-
     @Override
-    public Object getDocumentPageImageHandler(String guid, String width, Integer quality, Boolean usePdf, Integer pageIndex) throws Exception {
-        return annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex);
+    @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
+    public void getFileHandler(@RequestParam("path") String path, HttpServletResponse response) throws Exception {
+        annotationHandler.getFileHandler(path, response);
     }
 
     /**
@@ -125,19 +100,13 @@ public class HomeController extends GroupDocsAnnotation {
      * @param quality
      * @param usePdf
      * @param pageIndex
-     * @return
      * @throws Exception
      */
+    @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
-    public void getDocumentPageImageHandler(HttpServletRequest request, HttpServletResponse response, @RequestParam("path") String guid, @RequestParam("width") String width,
-                                            @RequestParam("quality") Integer quality, @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex) throws Exception {
-        File file = (File) getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex);
-        OutputStream outputStream = response.getOutputStream();
-        FileInputStream fileInputStream = new FileInputStream(file);
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-        IOUtils.copy(bufferedInputStream, outputStream);
-        bufferedInputStream.close();
-        fileInputStream.close();
+    public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") String width, @RequestParam("quality") Integer quality,
+            @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
+        annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response);
     }
 
     /**
@@ -266,18 +235,6 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.GET)
     public ResponseEntity<String> getPrintableHtmlHandler(String callback, String data, HttpServletRequest request) {
         return jsonOut(annotationHandler.getPrintableHtmlHandler(callback, data, request));
-    }
-
-    @Override
-    @RequestMapping(value = GET_SCRIPT_HANDLER, method = RequestMethod.GET)
-    public Object getScriptHandler(HttpServletRequest request, String name) {
-        return null;
-    }
-
-    @Override
-    @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
-    public Object getCssHandler(HttpServletRequest request, String name) {
-        return null;
     }
 
     @Override
