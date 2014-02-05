@@ -15,6 +15,7 @@
 
     <mvc:annotation-driven />
     <mvc:resources mapping="/document-viewer/assets/**" location="classpath:/assets/" />
+    <mvc:resources mapping="/assets/**" location="classpath:/assets/" />
     <spa:property-placeholder-annotations location="classpath:application.properties" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

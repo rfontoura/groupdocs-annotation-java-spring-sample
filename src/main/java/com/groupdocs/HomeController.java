@@ -36,7 +36,7 @@ public class HomeController extends GroupDocsAnnotation {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return index(model, request, response, "", null);
+        return index(model, request, response, "/files/GroupDocs_Demo.doc", null);
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -103,7 +103,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @throws Exception
      */
     @Override
-    @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
+    @RequestMapping(value = DOCUMENT_VIEWER + GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") String width, @RequestParam("quality") Integer quality,
             @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
         annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response);
@@ -116,7 +116,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @Override
-    @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.POST)
+    @RequestMapping(value = DOCUMENT_VIEWER + VIEW_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> viewDocumentHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.viewDocumentHandler(request));
     }
@@ -142,7 +142,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @Override
-    @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
+    @RequestMapping(value = DOCUMENT_VIEWER + LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
     public ResponseEntity<String> loadFileBrowserTreeDataHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.loadFileBrowserTreeDataHandler(request));
     }
@@ -193,7 +193,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @Override
-    @RequestMapping(value = GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.POST)
+    @RequestMapping(value = DOCUMENT_VIEWER + GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPdf2JavaScriptHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.getPdf2JavaScriptHandler(request));
     }
