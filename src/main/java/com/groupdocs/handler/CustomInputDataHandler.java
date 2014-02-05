@@ -2,7 +2,7 @@ package com.groupdocs.handler;
 
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.FileType;
-import com.groupdocs.viewer.resources.InputDataHandler;
+import com.groupdocs.viewer.handlers.InputDataHandler;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
