@@ -240,7 +240,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = LIST_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object listAnnotationsHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.listAnnotationsHandler(request));
     }
 
     @Override
