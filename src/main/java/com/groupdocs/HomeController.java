@@ -294,13 +294,13 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = SAVE_TEXT_FIELD_HANDLER, method = RequestMethod.POST)
     public Object saveTextFieldHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.saveTextFieldHandler(request));
     }
 
     @Override
     @RequestMapping(value = SET_TEXT_FIELD_COLOR_HANDLER, method = RequestMethod.POST)
     public Object setTextFieldColorHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.setTextFieldColorHandler(request));
     }
 
     @Override
