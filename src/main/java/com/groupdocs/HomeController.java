@@ -258,7 +258,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = CREATE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object createAnnotationHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.createAnnotationHandler(request));
     }
 
     @Override
@@ -364,7 +364,7 @@ public class HomeController extends GroupDocsAnnotation {
         return null;
     }
 
-    @RequestMapping(value = "/signalr1_1_2/hubs/abort", method = RequestMethod.POST)
+    @RequestMapping(value = "/signalr1_1_2/abort", method = RequestMethod.POST)
     public Object signalRHubsAbort(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String uid) throws IOException{
         response.getOutputStream().close();
         return null;
