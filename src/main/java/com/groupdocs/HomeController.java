@@ -270,7 +270,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = ADD_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object addAnnotationReplyHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.addAnnotationReplyHandler(request));
     }
 
     @Override
@@ -306,7 +306,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = MOVE_ANNOTATION_MARKER_HANDLER, method = RequestMethod.POST)
     public Object moveAnnotationMarkerHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.moveAnnotationMarkerHandler(request));
     }
 
     @RequestMapping(value = "/signalr1_1_2/hubs", method = RequestMethod.GET)
