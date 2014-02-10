@@ -288,7 +288,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.deleteAnnotationHandler(request));
     }
 
     @Override
