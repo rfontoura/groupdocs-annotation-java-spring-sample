@@ -2,7 +2,6 @@ package com.groupdocs;
 
 import com.google.gson.Gson;
 import com.groupdocs.annotation.config.ServiceConfiguration;
-import com.groupdocs.annotation.domain.Assets;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
@@ -50,9 +49,8 @@ public class HomeController extends GroupDocsAnnotation {
             String licensePath = applicationConfig.getLicensePath();
             // Assets path, where all js and css files will be stored
             String assetsDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getAbsolutePath() + "\\assets\\";
-            // INITIALIZE GroupDocs Java Viewer Object
-            Assets assets = new Assets(assetsDir, DOCUMENT_VIEWER);
-            ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, assets, Boolean.FALSE);
+            // INITIALIZE GroupDocs Java Annotation Object
+            ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, Boolean.FALSE);
             annotationHandler = new AnnotationHandler(config);
             // InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
         }
@@ -81,6 +79,21 @@ public class HomeController extends GroupDocsAnnotation {
         return "index";
     }
 
+    @Override
+    public void getJsHandler(String scriptName, HttpServletResponse response) throws IOException {
+        annotationHandler.getJsHandler(scriptName, response);
+    }
+
+    @Override
+    public void getCssHandler(String s, HttpServletResponse response) throws IOException {
+        annotationHandler.getCssHandler(s, response);
+    }
+
+    @Override
+    public void getImageHandler(String s, HttpServletResponse response) throws IOException {
+        annotationHandler.getImageHandler(s, response);
+    }
+
     /**
      * Download file [GET request]
      * @param path
@@ -103,7 +116,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @throws Exception
      */
     @Override
-    @RequestMapping(value = DOCUMENT_VIEWER + GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
+    @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") String width, @RequestParam("quality") Integer quality,
             @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
         annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response);
@@ -116,7 +129,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @Override
-    @RequestMapping(value = DOCUMENT_VIEWER + VIEW_DOCUMENT_HANDLER, method = RequestMethod.POST)
+    @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> viewDocumentHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.viewDocumentHandler(request));
     }
@@ -142,7 +155,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @Override
-    @RequestMapping(value = DOCUMENT_VIEWER + LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
+    @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
     public ResponseEntity<String> loadFileBrowserTreeDataHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.loadFileBrowserTreeDataHandler(request));
     }
@@ -193,7 +206,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @Override
-    @RequestMapping(value = DOCUMENT_VIEWER + GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.POST)
+    @RequestMapping(value = GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPdf2JavaScriptHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.getPdf2JavaScriptHandler(request));
     }
