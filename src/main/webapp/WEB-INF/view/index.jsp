@@ -46,7 +46,7 @@
 
                     graphicsContainerSelector: '.annotationsContainer',
 
-                    userName: '',userId: 'f910dd4dc9504a41'
+                    userName: '${userName}',userId: '${userGuid}'
 
                 });
                 var annotationsViewer = $(annotationWidget).groupdocsAnnotation('getViewer');

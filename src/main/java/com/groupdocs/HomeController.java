@@ -34,12 +34,12 @@ public class HomeController extends GroupDocsAnnotation {
     protected AnnotationHandler annotationHandler = null;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return index(model, request, response, "/files/GroupDocs_Demo.doc", null);
+    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userName", required = false) String userName) throws Exception {
+        return index(model, request, response, "/files/GroupDocs_Demo.doc", null, userName);
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl) throws Exception {
+    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "userName", required = false) String userName) throws Exception {
         if (annotationHandler == null) {
             // Application path
             String appPath = "http://" + request.getServerName() + ":" + request.getServerPort();
@@ -47,8 +47,6 @@ public class HomeController extends GroupDocsAnnotation {
             String basePath = applicationConfig.getBasePath();
             // File license path
             String licensePath = applicationConfig.getLicensePath();
-            // Assets path, where all js and css files will be stored
-            String assetsDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getAbsolutePath() + "\\assets\\";
             // INITIALIZE GroupDocs Java Annotation Object
             ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, Boolean.FALSE);
             annotationHandler = new AnnotationHandler(config);
@@ -76,6 +74,10 @@ public class HomeController extends GroupDocsAnnotation {
         model.addAttribute("showZoom", applicationConfig.getShowZoom());
         model.addAttribute("showPaging", applicationConfig.getShowPaging());
         model.addAttribute("showSearch", applicationConfig.getShowSearch());
+
+        String userGuid = annotationHandler.addCollaborator(userName);
+        model.addAttribute("userName", userName == null ? "Anonimous" : userName);
+        model.addAttribute("userGuid", userGuid);
         return "index";
     }
 
