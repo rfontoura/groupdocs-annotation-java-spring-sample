@@ -120,7 +120,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") String width, @RequestParam("quality") Integer quality,
-            @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
+                                            @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
         annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response);
     }
 
@@ -291,13 +291,13 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = EDIT_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object editAnnotationReplyHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.editAnnotationReplyHandler(request));
     }
 
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationReplyHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.deleteAnnotationReplyHandler(request));
     }
 
     @Override
@@ -325,7 +325,7 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @RequestMapping(value = "/signalr1_1_2/hubs", method = RequestMethod.GET)
-    public Object signalRHubs(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public Object signalRHubs(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/javascript; charset=UTF-8");
         response.getOutputStream().write("(function(e,t){\"use strict\";function r(t,n){return function(){n.apply(t,e.makeArray(arguments))}}function i(t,n){var i,s,o,u,a;for(i in t){if(t.hasOwnProperty(i)){s=t[i];if(!s.hubName){continue}if(n){a=s.on}else{a=s.off}for(o in s.client){if(s.client.hasOwnProperty(o)){u=s.client[o];if(!e.isFunction(u)){continue}a.call(s,o,r(s,u))}}}}}if(typeof e.signalR!==\"function\"){throw new Error(\"SignalR: SignalR is not loaded. Please ensure jquery.signalR-x.js is referenced before ~/signalr/hubs.\")}var n=e.signalR;e.hubConnection.prototype.createHubProxies=function(){var t={};this.starting(function(){i(t,true);this._registerSubscribedHubs()}).disconnected(function(){i(t,false)});t.annotationHub=this.createHubProxy(\"annotationHub\");t.annotationHub.client={};t.annotationHub.server={broadcastDocumentScale:function(n,r,i,s){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"BroadcastDocumentScale\"],e.makeArray(arguments)))},broadcastDocumentScroll:function(n,r,i,s,o,u){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"BroadcastDocumentScroll\"],e.makeArray(arguments)))},broadcastMouseCursorPosition:function(n,r,i,s,o,u,a){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"BroadcastMouseCursorPosition\"],e.makeArray(arguments)))},broadcastSlaveConnected:function(n){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"BroadcastSlaveConnected\"],e.makeArray(arguments)))},getClient:function(n){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"GetClient\"],e.makeArray(arguments)))},getConnectionIdsToCall:function(n,r){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"GetConnectionIdsToCall\"],e.makeArray(arguments)))},getConnectionUser:function(n){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"GetConnectionUser\"],e.makeArray(arguments)))},setDocumentGuidForConnection:function(n){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"SetDocumentGuidForConnection\"],e.makeArray(arguments)))},setUserGuidForConnection:function(n,r){return t.annotationHub.invoke.apply(t.annotationHub,e.merge([\"SetUserGuidForConnection\"],e.makeArray(arguments)))}};return t};n.hub=e.hubConnection(\"/signalr1_1_2\",{useDefaultPath:false});e.extend(n,n.hub.createHubProxies())})(window.jQuery,window)".getBytes());
         response.getOutputStream().close();
@@ -333,7 +333,7 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @RequestMapping(value = "/signalr1_1_2/negotiate", method = RequestMethod.GET)
-    public Object signalRNegotiate(HttpServletRequest request, HttpServletResponse response, String _, String uid) throws IOException{
+    public Object signalRNegotiate(HttpServletRequest request, HttpServletResponse response, String _, String uid) throws IOException {
         response.setContentType("application/json; charset=UTF-8");
         response.getOutputStream().write("{\"Url\":\"/signalr1_1_2/hubs\",\"ConnectionToken\":\"kZjUv3VPwqPPpQN3aUMennONGXyq49GNDDsEgslCqwkaZ4a7sto3Fr4A8-IJ474bjnPZwKrM2S3XvuGA-j2LDQla3gfX5wYUYyZ2uNjsa_aXO4SP2gdkXs0yEDLMHH9eUUo4Ii81xuCQWqqYjFTJNoTdmkvwiF_HcDK2LlRDVJsfjsf0H2gXpodU88r7ENl80\",\"ConnectionId\":\"dbc14300-0a4b-46ce-be3d-0e9cd06a8af3\",\"KeepAliveTimeout\":200.0,\"DisconnectTimeout\":300.0,\"TryWebSockets\":false,\"WebSocketServerUrl\":null,\"ProtocolVersion\":\"1.2\"}".getBytes());
         response.getOutputStream().close();
@@ -341,12 +341,12 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @RequestMapping(value = "/signalr1_1_2/hubs/connect", method = RequestMethod.GET)
-    public Object signalRHubsConnect(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String connectionData, String uid, String tid) throws IOException{
+    public Object signalRHubsConnect(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String connectionData, String uid, String tid) throws IOException {
         response.setContentType("text/event-stream");
         boolean initialized = false;
         InputStream inputStream = request.getInputStream();
         OutputStream outputStream = response.getOutputStream();
-        while(true){
+        while (true) {
             if (!initialized)
             {
                 outputStream.write("data: initialized\n\n".getBytes());
@@ -362,17 +362,17 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @RequestMapping(value = "/signalr1_1_2/hubs/reconnect", method = RequestMethod.GET)
-    public Object signalRHubsReconnect(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String connectionData, String uid, String tid) throws IOException{
+    public Object signalRHubsReconnect(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String connectionData, String uid, String tid) throws IOException {
         return signalRHubsConnect(request, response, transport, connectionToken, connectionData, uid, tid);
     }
 
     @RequestMapping(value = "/signalr1_1_2/hubs/ping", method = RequestMethod.GET)
-    public Object signalRHubsPing(HttpServletRequest request, HttpServletResponse response, String uid, String _) throws IOException{
+    public Object signalRHubsPing(HttpServletRequest request, HttpServletResponse response, String uid, String _) throws IOException {
         return null;
     }
 
     @RequestMapping(value = "/signalr1_1_2/send", method = RequestMethod.POST)
-    public Object signalRHubsSend(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String uid) throws IOException{
+    public Object signalRHubsSend(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String uid) throws IOException {
         response.setContentType("application/json; charset=UTF-8");
         response.getOutputStream().write("{\"I\":\"0\"}".getBytes());
         response.getOutputStream().close();
@@ -380,7 +380,7 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @RequestMapping(value = "/signalr1_1_2/abort", method = RequestMethod.POST)
-    public Object signalRHubsAbort(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String uid) throws IOException{
+    public Object signalRHubsAbort(HttpServletRequest request, HttpServletResponse response, String transport, String connectionToken, String uid) throws IOException {
         response.getOutputStream().close();
         return null;
     }
