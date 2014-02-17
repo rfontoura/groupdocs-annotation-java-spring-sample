@@ -14,9 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +40,7 @@ public class HomeController extends GroupDocsAnnotation {
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "userName", required = false) String userName) throws Exception {
         if (annotationHandler == null) {
             // Application path
-            String appPath = "http://" + request.getServerName() + ":" + request.getServerPort();
+            String appPath = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
             // File storage path
             String basePath = applicationConfig.getBasePath();
             // File license path
@@ -82,18 +80,21 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @Override
-    public void getJsHandler(String scriptName, HttpServletResponse response) throws IOException {
-        annotationHandler.getJsHandler(scriptName, response);
+    @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
+    public void getJsHandler(String script, HttpServletResponse response) throws IOException {
+        annotationHandler.getJsHandler(script, response);
     }
 
     @Override
-    public void getCssHandler(String s, HttpServletResponse response) throws IOException {
-        annotationHandler.getCssHandler(s, response);
+    @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
+    public void getCssHandler(String script, HttpServletResponse response) throws IOException {
+        annotationHandler.getCssHandler(script, response);
     }
 
     @Override
-    public void getImageHandler(String s, HttpServletResponse response) throws IOException {
-        annotationHandler.getImageHandler(s, response);
+    @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
+    public void getImageHandler(@PathVariable String name, HttpServletResponse response) throws IOException {
+        annotationHandler.getImageHandler(name, response);
     }
 
     /**
