@@ -1,14 +1,15 @@
 package com.groupdocs.handler;
 
+import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.FileType;
 import com.groupdocs.viewer.handlers.InputDataHandler;
 import org.apache.commons.codec.binary.Base64;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by liosha on 23.01.14.
@@ -49,5 +50,41 @@ public class CustomInputDataHandler extends InputDataHandler {
             return FileType.valueOf(fileName.substring(fileName.lastIndexOf(".") + 1).toUpperCase());
         }
         return FileType.DIRECTORY;
+    }
+
+    @Override
+    public String saveFile(InputStream inputStream, String fileName) {
+        File dest = new File(basePath + fileName);
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+            return Utils.encodeData(basePath + fileName);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if(inputStream != null){
+                    inputStream.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                if(os != null){
+                    os.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+
     }
 }

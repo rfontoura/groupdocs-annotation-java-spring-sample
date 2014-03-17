@@ -57,7 +57,7 @@ public class HomeController extends GroupDocsAnnotation {
         if (StringUtils.isNotEmpty(fileUrl)) {
             groupDocsFilePath = new GroupDocsFilePath(fileUrl);
         } else {
-            groupDocsFilePath = new GroupDocsFilePath(fileId);
+            groupDocsFilePath = new GroupDocsFilePath(fileId, annotationHandler.getConfiguration());
         }
         model.addAttribute("filePath", groupDocsFilePath.getPath());
         // Viewer config
@@ -255,8 +255,8 @@ public class HomeController extends GroupDocsAnnotation {
 
     @Override
     @RequestMapping(value = LIST_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
-    public Object listAnnotationsHandler(HttpServletRequest request) {
-        return jsonOut(annotationHandler.listAnnotationsHandler(request));
+    public Object listAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
+        return jsonOut(annotationHandler.listAnnotationsHandler(request, response));
     }
 
     @Override
