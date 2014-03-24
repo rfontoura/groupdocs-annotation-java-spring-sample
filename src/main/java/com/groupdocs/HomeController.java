@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.HashMap;
 
 /**
  * User: liosha
@@ -37,7 +38,7 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "userName", required = false) String userName) throws Exception {
+    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         if (annotationHandler == null) {
             // Application path
             String appPath = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
@@ -53,29 +54,33 @@ public class HomeController extends GroupDocsAnnotation {
         // Setting header in jsp page
         model.addAttribute("groupdocsHeader", annotationHandler.getHeader());
         // Initialization of Viewer with document from this path
-        GroupDocsFilePath groupDocsFilePath;
+        final GroupDocsFilePath groupDocsFilePath;
         if (StringUtils.isNotEmpty(fileUrl)) {
             groupDocsFilePath = new GroupDocsFilePath(fileUrl);
         } else {
             groupDocsFilePath = new GroupDocsFilePath(fileId, annotationHandler.getConfiguration());
         }
-        model.addAttribute("filePath", groupDocsFilePath.getPath());
-        // Viewer config
-        model.addAttribute("showHeader", applicationConfig.getShowHeader());
-        model.addAttribute("showThumbnails", applicationConfig.getShowThumbnails());
-        model.addAttribute("openThumbnails", applicationConfig.getOpenThumbnails());
+        final String userGuid = annotationHandler.addCollaborator(userName);
+        HashMap<String, String> params = new HashMap<String, String>() {{
+            put("filePath", groupDocsFilePath.getPath());
+            put("showHeader", Boolean.toString(applicationConfig.getShowHeader()));
+            put("showThumbnails", Boolean.toString(applicationConfig.getShowThumbnails()));
+            put("openThumbnails", Boolean.toString(applicationConfig.getOpenThumbnails()));
+            put("width", Integer.toString(applicationConfig.getWidth()));
+            put("height", Integer.toString(applicationConfig.getHeight()));
+            put("showFolderBrowser", Boolean.toString(applicationConfig.getShowFolderBrowser())); // Not used
+            put("showPrint", Boolean.toString(applicationConfig.getShowPrint()));
+            put("showDownload", Boolean.toString(applicationConfig.getShowDownload())); // Not used
+            put("showZoom", Boolean.toString(applicationConfig.getShowZoom()));
+            put("showPaging", Boolean.toString(applicationConfig.getShowPaging()));
+            put("showSearch", Boolean.toString(applicationConfig.getShowSearch())); // Not used
+            put("userName", userName == null ? "Anonimous" : userName);
+            put("userGuid", userGuid);
+        }};
+        model.addAttribute("groupdocsScripts", annotationHandler.getScripts(params));
         model.addAttribute("width", applicationConfig.getWidth());
         model.addAttribute("height", applicationConfig.getHeight());
-        model.addAttribute("showFolderBrowser", applicationConfig.getShowFolderBrowser());
-        model.addAttribute("showPrint", applicationConfig.getShowPrint());
-        model.addAttribute("showDownload", applicationConfig.getShowDownload());
-        model.addAttribute("showZoom", applicationConfig.getShowZoom());
-        model.addAttribute("showPaging", applicationConfig.getShowPaging());
-        model.addAttribute("showSearch", applicationConfig.getShowSearch());
 
-        String userGuid = annotationHandler.addCollaborator(userName);
-        model.addAttribute("userName", userName == null ? "Anonimous" : userName);
-        model.addAttribute("userGuid", userGuid);
         return "index";
     }
 
@@ -99,6 +104,7 @@ public class HomeController extends GroupDocsAnnotation {
 
     /**
      * Download file [GET request]
+     *
      * @param path
      * @param response
      * @throws java.lang.Exception
@@ -111,6 +117,7 @@ public class HomeController extends GroupDocsAnnotation {
 
     /**
      * Get image file [GET request]
+     *
      * @param guid
      * @param width
      * @param quality
