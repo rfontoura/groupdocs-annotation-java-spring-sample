@@ -84,18 +84,39 @@ public class HomeController extends GroupDocsAnnotation {
         return "index";
     }
 
+    /**
+     * Get JavaScript file [GET request]
+     *
+     * @param script
+     * @param response
+     * @throws IOException
+     */
     @Override
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
     public void getJsHandler(String script, HttpServletResponse response) throws IOException {
         annotationHandler.getJsHandler(script, response);
     }
 
+    /**
+     * Get css file [GET request]
+     *
+     * @param script
+     * @param response
+     * @throws IOException
+     */
     @Override
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
     public void getCssHandler(String script, HttpServletResponse response) throws IOException {
         annotationHandler.getCssHandler(script, response);
     }
 
+    /**
+     * Get image file [GET request]
+     *
+     * @param name
+     * @param response
+     * @throws IOException
+     */
     @Override
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
     public void getImageHandler(@PathVariable String name, HttpServletResponse response) throws IOException {
@@ -116,7 +137,7 @@ public class HomeController extends GroupDocsAnnotation {
     }
 
     /**
-     * Get image file [GET request]
+     * Get document image files [GET request]
      *
      * @param guid
      * @param width
@@ -260,77 +281,157 @@ public class HomeController extends GroupDocsAnnotation {
         return jsonOut(annotationHandler.getPrintableHtmlHandler(callback, data, request));
     }
 
+    /**
+     * Get list of annotations for document [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = LIST_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object listAnnotationsHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.listAnnotationsHandler(request));
     }
 
+    /**
+     * Download document with annotations [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = EXPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object exportAnnotationsHandler(HttpServletRequest request) {
         return null;
     }
 
+    /**
+     * Download document as PDF file [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = GET_PDF_VERSION_OF_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public Object getPdfVersionOfDocumentHandler(HttpServletRequest request) {
         return null;
     }
 
+    /**
+     * Request to create annotation on document [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = CREATE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object createAnnotationHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.createAnnotationHandler(request));
     }
 
+    /**
+     * Get avatar for current user [GET request]
+     *
+     * @param request HTTP servlet request
+     * @param response
+     * @param userId  user id
+     * @return
+     */
     @RequestMapping(value = GET_AVATAR_HANDLER, method = RequestMethod.GET)
     public Object getAvatarHandler(HttpServletRequest request, HttpServletResponse response, String userId) {
         return annotationHandler.getAvatarHandler(request, response, userId);
     }
 
+    /**
+     * Add reply to annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = ADD_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object addAnnotationReplyHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.addAnnotationReplyHandler(request));
     }
 
+    /**
+     * Edit reply for annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = EDIT_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object editAnnotationReplyHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.editAnnotationReplyHandler(request));
     }
 
+    /**
+     * Delete reply from annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationReplyHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.deleteAnnotationReplyHandler(request));
     }
 
+    /**
+     * Delete annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.deleteAnnotationHandler(request));
     }
 
+    /**
+     * Save text field annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = SAVE_TEXT_FIELD_HANDLER, method = RequestMethod.POST)
     public Object saveTextFieldHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.saveTextFieldHandler(request));
     }
 
+    /**
+     * Set color for text field annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = SET_TEXT_FIELD_COLOR_HANDLER, method = RequestMethod.POST)
     public Object setTextFieldColorHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.setTextFieldColorHandler(request));
     }
 
+    /**
+     * Set annotation marker position [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @Override
     @RequestMapping(value = MOVE_ANNOTATION_MARKER_HANDLER, method = RequestMethod.POST)
     public Object moveAnnotationMarkerHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.moveAnnotationMarkerHandler(request));
     }
 
+    /**
+     * Set new size for annotation [POST request]
+     *
+     * @param request HTTP servlet request
+     * @return
+     */
     @RequestMapping(value = RESIZE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     @Override
     public Object resizeAnnotationHandler(HttpServletRequest request) {
