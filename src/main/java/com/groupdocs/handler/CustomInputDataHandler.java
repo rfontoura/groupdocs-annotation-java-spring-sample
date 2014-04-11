@@ -1,9 +1,9 @@
 package com.groupdocs.handler;
 
-import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.FileType;
 import com.groupdocs.viewer.handlers.InputDataHandler;
+import com.groupdocs.viewer.resources.Utils;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.*;
@@ -85,6 +85,5 @@ public class CustomInputDataHandler extends InputDataHandler {
             }
         }
         return null;
-
     }
 }

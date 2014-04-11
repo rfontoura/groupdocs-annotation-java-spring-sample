@@ -2,6 +2,7 @@ package com.groupdocs;
 
 import com.google.gson.Gson;
 import com.groupdocs.annotation.config.ServiceConfiguration;
+import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.*;
 import java.util.HashMap;
 
@@ -60,7 +62,7 @@ public class HomeController extends GroupDocsAnnotation {
         } else {
             groupDocsFilePath = new GroupDocsFilePath(fileId, annotationHandler.getConfiguration());
         }
-        final String userGuid = annotationHandler.addCollaborator(userName);
+        final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, Color.black);
         HashMap<String, String> params = new HashMap<String, String>() {{
             put("filePath", groupDocsFilePath.getPath());
             put("showHeader", Boolean.toString(applicationConfig.getShowHeader()));
@@ -302,7 +304,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = EXPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object exportAnnotationsHandler(HttpServletRequest request) {
-        return null;
+        return jsonOut(annotationHandler.exportAnnotationsHandler(request));
     }
 
     /**
@@ -436,6 +438,18 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     public Object resizeAnnotationHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.resizeAnnotationHandler(request));
+    }
+
+    @RequestMapping(value = GET_DOCUMENT_COLLABORATORS_HANDLER, method = RequestMethod.POST)
+    @Override
+    public Object getDocumentCollaboratorsHandler(HttpServletRequest request) {
+        return jsonOut(annotationHandler.getDocumentCollaboratorsHandler(request));
+    }
+
+    @RequestMapping(value = GET_FONTS, method = RequestMethod.GET)
+    @Override
+    public Object getFonts(@PathVariable String name, HttpServletResponse response) {
+        return annotationHandler.getFonts(name, response);
     }
 
     protected static ResponseEntity<String> jsonOut(Object obj) {
