@@ -62,7 +62,7 @@ public class HomeController extends GroupDocsAnnotation {
         } else {
             groupDocsFilePath = new GroupDocsFilePath(fileId, annotationHandler.getConfiguration());
         }
-        final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, Color.black);
+        final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, getIntFromColor(Color.black));
         HashMap<String, String> params = new HashMap<String, String>() {{
             put("filePath", groupDocsFilePath.getPath());
             put("showHeader", Boolean.toString(applicationConfig.getShowHeader()));
@@ -464,5 +464,21 @@ public class HomeController extends GroupDocsAnnotation {
             httpHeaders.setContentType(mediaType);
         }
         return new ResponseEntity<String>(obj.toString(), httpHeaders, HttpStatus.CREATED);
+    }
+
+    public int getIntFromColor(Color color){
+        return getIntFromColor(color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public int getIntFromColor(float red, float green, float blue){
+        int R = Math.round(255 * red);
+        int G = Math.round(255 * green);
+        int B = Math.round(255 * blue);
+
+        R = (R << 16) & 0x00FF0000;
+        G = (G << 8) & 0x0000FF00;
+        B = B & 0x000000FF;
+
+        return 0xFF000000 | R | G | B;
     }
 }
