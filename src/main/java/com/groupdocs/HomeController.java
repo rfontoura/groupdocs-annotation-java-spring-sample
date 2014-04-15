@@ -316,7 +316,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = GET_PDF_VERSION_OF_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public Object getPdfVersionOfDocumentHandler(HttpServletRequest request) {
-        return null;
+        return annotationHandler.getPdfVersionOfDocumentHandler(request);
     }
 
     /**
