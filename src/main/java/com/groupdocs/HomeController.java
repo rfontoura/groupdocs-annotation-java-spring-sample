@@ -6,7 +6,9 @@ import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
-import com.groupdocs.viewer.domain.GroupDocsFilePath;
+import com.groupdocs.viewer.domain.FilePath;
+import com.groupdocs.viewer.domain.FileUrl;
+import com.groupdocs.viewer.domain.GroupDocsPath;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -15,12 +17,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -56,11 +61,11 @@ public class HomeController extends GroupDocsAnnotation {
         // Setting header in jsp page
         model.addAttribute("groupdocsHeader", annotationHandler.getHeader());
         // Initialization of Viewer with document from this path
-        final GroupDocsFilePath groupDocsFilePath;
+        final GroupDocsPath groupDocsFilePath;
         if (StringUtils.isNotEmpty(fileUrl)) {
-            groupDocsFilePath = new GroupDocsFilePath(fileUrl);
+            groupDocsFilePath = new FileUrl(fileUrl);
         } else {
-            groupDocsFilePath = new GroupDocsFilePath(fileId, annotationHandler.getConfiguration());
+            groupDocsFilePath = new FilePath(fileId, annotationHandler.getConfiguration());
         }
         final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, getIntFromColor(Color.black));
         HashMap<String, String> params = new HashMap<String, String>() {{
@@ -125,6 +130,18 @@ public class HomeController extends GroupDocsAnnotation {
         annotationHandler.getImageHandler(name, response);
     }
 
+    @Override
+    @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
+    public void getFontHandler(String name, HttpServletResponse response) throws IOException {
+        annotationHandler.getFontHandler(name, response);
+    }
+
+    @Override
+    @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
+    public void getHtmlRecoucesHandler(String filePath, HttpServletResponse response) throws IOException {
+        annotationHandler.getHtmlRecoucesHandler(filePath, response);
+    }
+
     /**
      * Download file [GET request]
      *
@@ -150,7 +167,7 @@ public class HomeController extends GroupDocsAnnotation {
      */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
-    public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") String width, @RequestParam("quality") Integer quality,
+    public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
                                             @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
         annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response);
     }
@@ -283,6 +300,12 @@ public class HomeController extends GroupDocsAnnotation {
         return jsonOut(annotationHandler.getPrintableHtmlHandler(callback, data, request));
     }
 
+    @Override
+    @RequestMapping(value = GET_DOCUMENT_PAGE_HTML_HANDLER, method = RequestMethod.GET)
+    public void getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
+        annotationHandler.getDocumentPageHtmlHandler(request, response);
+    }
+
     /**
      * Get list of annotations for document [POST request]
      *
@@ -316,7 +339,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = GET_PDF_VERSION_OF_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public Object getPdfVersionOfDocumentHandler(HttpServletRequest request) {
-        return annotationHandler.getPdfVersionOfDocumentHandler(request);
+        return jsonOut(annotationHandler.getPdfVersionOfDocumentHandler(request));
     }
 
     /**
@@ -444,12 +467,6 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     public Object getDocumentCollaboratorsHandler(HttpServletRequest request) {
         return jsonOut(annotationHandler.getDocumentCollaboratorsHandler(request));
-    }
-
-    @RequestMapping(value = GET_FONTS, method = RequestMethod.GET)
-    @Override
-    public Object getFonts(@PathVariable String name, HttpServletResponse response) {
-        return annotationHandler.getFonts(name, response);
     }
 
     protected static ResponseEntity<String> jsonOut(Object obj) {

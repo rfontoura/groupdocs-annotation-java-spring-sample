@@ -53,7 +53,7 @@ public class CustomInputDataHandler extends InputDataHandler {
     }
 
     @Override
-    public String saveFile(InputStream inputStream, String fileName) {
+    public String saveFile(InputStream inputStream, String fileName, Integer value) {
         File dest = new File(basePath + fileName);
         OutputStream os = null;
         try {
