@@ -69,26 +69,49 @@ public class HomeController extends GroupDocsAnnotation {
         }
         final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, getIntFromColor(Color.black));
         HashMap<String, String> params = new HashMap<String, String>() {{
-            put("filePath", groupDocsFilePath.getPath());
-            put("showHeader", Boolean.toString(applicationConfig.getShowHeader()));
-            put("showThumbnails", Boolean.toString(applicationConfig.getShowThumbnails()));
-            put("openThumbnails", Boolean.toString(applicationConfig.getOpenThumbnails()));
-            put("width", Integer.toString(applicationConfig.getWidth()));
-            put("height", Integer.toString(applicationConfig.getHeight()));
-            put("showFolderBrowser", Boolean.toString(applicationConfig.getShowFolderBrowser())); // Not used
-            put("showPrint", Boolean.toString(applicationConfig.getShowPrint()));
-            put("showDownload", Boolean.toString(applicationConfig.getShowDownload())); // Not used
-            put("showZoom", Boolean.toString(applicationConfig.getShowZoom()));
-            put("showPaging", Boolean.toString(applicationConfig.getShowPaging()));
-            put("showSearch", Boolean.toString(applicationConfig.getShowSearch())); // Not used
-            put("userName", userName == null ? "Anonimous" : userName);
-            put("userGuid", userGuid);
-
-            // TODO: Add parameters
+            // You can skip parameters which have default value
+            put("filePath",                             groupDocsFilePath.getPath()); // Default value: empty string
+            put("width",                                Integer.toString(applicationConfig.getWidth()));            // Default value: 800
+            put("height",                               Integer.toString(applicationConfig.getHeight()));           // Default value: 600
+            put("quality",                              "75");              // Default value: 90
+            put("enableRightClickMenu",                 "true");            // Default value: true
+            put("showHeader",                           Boolean.toString(applicationConfig.getShowHeader()));       // Default value: true
+            put("showZoom",                             Boolean.toString(applicationConfig.getShowZoom()));         // Default value: true
+            put("showPaging",                           Boolean.toString(applicationConfig.getShowPaging()));       // Default value: true
+            put("showPrint",                            Boolean.toString(applicationConfig.getShowPrint()));        // Default value: false
+            put("showFileExplorer",                     "true");            // Default value: true
+            put("showThumbnails",                       Boolean.toString(applicationConfig.getShowThumbnails()));   // Default value: true
+            put("openThumbnails",                       Boolean.toString(applicationConfig.getOpenThumbnails()));   // Default value: false
+            put("zoomToFitWidth",                       "false");           // Default value: false
+            put("zoomToFitHeight",                      "false");           // Default value: false
+            put("initialZoom",                          "100");             // Default value: 100
+            put("preloadPagesCount",                    "0");               // Default value: 0
+            put("enableSidePanel",                      "true");            // Default value: true
+            put("strikeOutColor",                       "");                // Default value: empty string
+            put("enabledTools",                         "255");             // Default value: 255
+            put("saveReplyOnFocusLoss",                 "false");           // Default value: false
+            put("strikeoutMode",                        "0");               // Default value: 0
+            put("sideboarContainerSelector",            "div.comments_sidebar_wrapper"); // Default value: div.comments_sidebar_wrapper
+            put("usePageNumberInUrlHash",               "false");           // Default value: false
+            put("textSelectionSynchronousCalculation",  "true");            // Default value: true
+            put("variableHeightPageSupport",            "true");            // Default value: true
+            put("useJavaScriptDocumentDescription",     "true");            // Default value: true
+            put("isRightPanelEnabled",                  "true");            // Default value: true
+            put("createMarkup",                         "true");            // Default value: true
+            put("use_pdf",                              "true");            // Default value: true
+            put("_mode",                                "annotatedDocument");           // Default value: annotatedDocument
+            put("selectionContainerSelector",           "[name='selection-content']");  // Default value: [name='selection-content']
+            put("graphicsContainerSelector",            ".annotationsContainer");       // Default value: .annotationsContainer
+            put("widgetId",                             "annotation-widget");           // Default value: annotation-widget
+            put("userName",                             userName == null ? "Anonimous" : userName);
+            put("userGuid",                             userGuid);
+//            put("showFolderBrowser", Boolean.toString(applicationConfig.getShowFolderBrowser())); // Not used
+//            put("showDownload", Boolean.toString(applicationConfig.getShowDownload())); // Not used
+//            put("showSearch", Boolean.toString(applicationConfig.getShowSearch())); // Not used
         }};
         model.addAttribute("groupdocsScripts", annotationHandler.getScripts(params));
-        model.addAttribute("width", applicationConfig.getWidth());
-        model.addAttribute("height", applicationConfig.getHeight());
+        model.addAttribute("width", applicationConfig.getWidth());   // It is for sample JSP (index.jsp)
+        model.addAttribute("height", applicationConfig.getHeight()); // It is for sample JSP (index.jsp)
 
         return "index";
     }
