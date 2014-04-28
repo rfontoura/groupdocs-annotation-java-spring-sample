@@ -6,9 +6,7 @@ import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
-import com.groupdocs.viewer.domain.FilePath;
-import com.groupdocs.viewer.domain.FileUrl;
-import com.groupdocs.viewer.domain.GroupDocsPath;
+import com.groupdocs.viewer.domain.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -41,11 +39,11 @@ public class HomeController extends GroupDocsAnnotation {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userName", required = false) String userName) throws Exception {
-        return index(model, request, response, "/files/GroupDocs_Demo.doc", null, userName);
+        return index(model, request, response, null, null, "/files/GroupDocs_Demo.doc", null, userName);
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
+    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "filePath", required = false) String filePath, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         if (annotationHandler == null) {
             // Application path
             String appPath = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
@@ -62,10 +60,22 @@ public class HomeController extends GroupDocsAnnotation {
         model.addAttribute("groupdocsHeader", annotationHandler.getHeader());
         // Initialization of Viewer with document from this path
         final GroupDocsPath groupDocsFilePath;
-        if (StringUtils.isNotEmpty(fileUrl)) {
+
+        if(fileId !=null && !fileId.isEmpty()){
+            groupDocsFilePath = new FileId(fileId);
+        }else if(filePath != null && !filePath.isEmpty()){
+            groupDocsFilePath = new FilePath(filePath, annotationHandler.getConfiguration());
+        }else if(fileUrl != null && !fileUrl.isEmpty()){
             groupDocsFilePath = new FileUrl(fileUrl);
+        }else if(tokenId != null && !tokenId.isEmpty()){
+            TokenId tki = new TokenId(tokenId);
+            if(tki.isExpired()){
+                groupDocsFilePath = null;
+            }else{
+                groupDocsFilePath = tki;
+            }
         } else {
-            groupDocsFilePath = new FilePath(fileId, annotationHandler.getConfiguration());
+            groupDocsFilePath = null;
         }
         final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, getIntFromColor(Color.black));
         HashMap<String, String> params = new HashMap<String, String>() {{
