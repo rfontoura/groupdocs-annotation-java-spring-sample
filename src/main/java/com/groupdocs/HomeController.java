@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 /**
  * User: liosha
@@ -45,6 +46,7 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "filePath", required = false) String filePath, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         if (annotationHandler == null) {
+            TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             // Application path
             String appPath = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
             // File storage path
