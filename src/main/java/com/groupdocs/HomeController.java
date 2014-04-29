@@ -54,7 +54,7 @@ public class HomeController extends GroupDocsAnnotation {
             // File license path
             String licensePath = applicationConfig.getLicensePath();
             // INITIALIZE GroupDocs Java Annotation Object
-            ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, Boolean.FALSE);
+            ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, Boolean.FALSE, applicationConfig.getWidth());
             annotationHandler = new AnnotationHandler(config);
             // InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
         }
