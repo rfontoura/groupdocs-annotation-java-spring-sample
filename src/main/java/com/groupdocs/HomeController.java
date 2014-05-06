@@ -79,7 +79,17 @@ public class HomeController extends GroupDocsAnnotation {
         } else {
             groupDocsFilePath = null;
         }
-        final String userGuid = annotationHandler.addCollaborator(userName, groupDocsFilePath.getPath(), AccessRights.All, getIntFromColor(Color.black));
+        final String userGuid = annotationHandler.addCollaborator(
+                userName,
+                groupDocsFilePath.getPath(),
+                AccessRights.from(
+                        AccessRights.CAN_VIEW,
+                        AccessRights.CAN_ANNOTATE,
+                        AccessRights.CAN_EXPORT,
+                        AccessRights.CAN_DOWNLOAD,
+                        AccessRights.CAN_DELETE
+                ),
+                getIntFromColor(Color.black));
         HashMap<String, String> params = new HashMap<String, String>() {{
             // You can skip parameters which have default value
             put("filePath",                             groupDocsFilePath.getPath()); // Default value: empty string
