@@ -7,7 +7,6 @@ import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.domain.*;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,7 +55,8 @@ public class HomeController extends GroupDocsAnnotation {
             // INITIALIZE GroupDocs Java Annotation Object
             ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, Boolean.FALSE, applicationConfig.getWidth());
             annotationHandler = new AnnotationHandler(config);
-            // InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
+//            annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
+//            InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
         }
         // Setting header in jsp page
         model.addAttribute("groupdocsHeader", annotationHandler.getHeader());
@@ -132,8 +132,8 @@ public class HomeController extends GroupDocsAnnotation {
 //            put("showSearch", Boolean.toString(applicationConfig.getShowSearch())); // Not used
         }};
         model.addAttribute("groupdocsScripts", annotationHandler.getScripts(params));
-        model.addAttribute("width", applicationConfig.getWidth());   // It is for sample JSP (index.jsp)
-        model.addAttribute("height", applicationConfig.getHeight()); // It is for sample JSP (index.jsp)
+        model.addAttribute("width", applicationConfig.getWidth());   // This is for sample JSP (index.jsp)
+        model.addAttribute("height", applicationConfig.getHeight()); // This is for sample JSP (index.jsp)
 
         return "index";
     }

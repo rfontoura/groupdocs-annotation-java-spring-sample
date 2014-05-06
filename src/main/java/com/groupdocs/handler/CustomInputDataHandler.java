@@ -15,8 +15,8 @@ import java.util.logging.Logger;
  * Created by liosha on 23.01.14.
  */
 public class CustomInputDataHandler extends InputDataHandler {
-    private HashMap<String, String> fileId2FilePath = new HashMap<String, String>();
-    private HashMap<String, String> fileId2FileName = new HashMap<String, String>();
+    private final HashMap<String, String> fileId2FilePath = new HashMap<String, String>();
+    private final HashMap<String, String> fileId2FileName = new HashMap<String, String>();
     private String basePath = null;
 
     public CustomInputDataHandler(ServiceConfiguration serviceConfiguration) {
@@ -37,8 +37,11 @@ public class CustomInputDataHandler extends InputDataHandler {
     @Override
     public InputStream getFile(String guid) {
         try {
+            if (new File(guid).exists()) {
+                return new FileInputStream(guid);
+            }
             return new FileInputStream(fileId2FilePath.get(guid));
-        } catch (Exception e){
+        } catch (FileNotFoundException e){
             return null;
         }
     }
