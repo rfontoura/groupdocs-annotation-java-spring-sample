@@ -5,6 +5,7 @@ import com.groupdocs.annotation.config.ServiceConfiguration;
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
+import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class HomeController extends GroupDocsAnnotation {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             // Application path
-            String appPath = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+            String appPath = Utils.makeAppPath(request);
             // File storage path
             String basePath = applicationConfig.getBasePath();
             // File license path
@@ -59,7 +60,7 @@ public class HomeController extends GroupDocsAnnotation {
 //            InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
         }
         // Setting header in jsp page
-        model.addAttribute("groupdocsHeader", annotationHandler.getHeader());
+        model.addAttribute("groupdocsHeader", annotationHandler.getHeader(request));
         // Initialization of Viewer with document from this path
         final GroupDocsPath groupDocsFilePath;
 
@@ -131,7 +132,7 @@ public class HomeController extends GroupDocsAnnotation {
 //            put("showDownload", Boolean.toString(applicationConfig.getShowDownload())); // Not used
 //            put("showSearch", Boolean.toString(applicationConfig.getShowSearch())); // Not used
         }};
-        model.addAttribute("groupdocsScripts", annotationHandler.getScripts(params));
+        model.addAttribute("groupdocsScripts", annotationHandler.getScripts(request, params));
         model.addAttribute("width", applicationConfig.getWidth());   // This is for sample JSP (index.jsp)
         model.addAttribute("height", applicationConfig.getHeight()); // This is for sample JSP (index.jsp)
 
