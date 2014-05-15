@@ -104,15 +104,20 @@ public class HomeController extends GroupDocsAnnotation {
             put("showPrint",                            Boolean.toString(applicationConfig.getShowPrint()));        // Default value: false
             put("showFileExplorer",                     "true");            // Default value: true
             put("showThumbnails",                       Boolean.toString(applicationConfig.getShowThumbnails()));   // Default value: true
+            put("showToolbar",                          "true");            // Default value: true
             put("openThumbnails",                       Boolean.toString(applicationConfig.getOpenThumbnails()));   // Default value: false
             put("zoomToFitWidth",                       "false");           // Default value: false
             put("zoomToFitHeight",                      "false");           // Default value: false
             put("initialZoom",                          "100");             // Default value: 100
             put("preloadPagesCount",                    "0");               // Default value: 0
             put("enableSidePanel",                      "true");            // Default value: true
+            put("scrollOnFocus",                        "true");            // Default value: true
             put("strikeOutColor",                       "");                // Default value: empty string
-            put("enabledTools",                         "255");             // Default value: 255
+            put("enabledTools",                         "511");             // Default value: 511
+            put("connectorPosition",                    "0");               // Default value: 0
             put("saveReplyOnFocusLoss",                 "false");           // Default value: false
+            put("clickableAnnotations",                 "false");           // Default value: false
+            put("disconnectUncommented",                "false");           // Default value: false
             put("strikeoutMode",                        "0");               // Default value: 0
             put("sideboarContainerSelector",            "div.comments_sidebar_wrapper"); // Default value: div.comments_sidebar_wrapper
             put("usePageNumberInUrlHash",               "false");           // Default value: false
