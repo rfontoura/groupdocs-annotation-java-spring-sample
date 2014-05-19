@@ -8,6 +8,8 @@ import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.domain.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,12 +21,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -477,7 +482,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = SAVE_TEXT_FIELD_HANDLER, method = RequestMethod.POST)
     public Object saveTextFieldHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.saveTextFieldHandler(request,response));
+        return jsonOut(annotationHandler.saveTextFieldHandler(request, response));
     }
 
     /**
@@ -516,10 +521,41 @@ public class HomeController extends GroupDocsAnnotation {
         return jsonOut(annotationHandler.resizeAnnotationHandler(request, response));
     }
 
+    /**
+     * Return list of collaborators [POST request]
+     * @param request HTTP servlet request
+     * @return object with response parameters
+     */
     @RequestMapping(value = GET_DOCUMENT_COLLABORATORS_HANDLER, method = RequestMethod.POST)
     @Override
     public Object getDocumentCollaboratorsHandler(HttpServletRequest request, HttpServletResponse response) {
         return jsonOut(annotationHandler.getDocumentCollaboratorsHandler(request, response));
+    }
+
+    /**
+     * Upload file to GroupDocs.Annotation [POST request]
+     * @param request http request
+     * @param response http response
+     * @return token id as json
+     */
+    @RequestMapping(value = UPLOAD_FILE, method = RequestMethod.POST)
+    public void uploadFileHandler(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException{
+        if (request instanceof DefaultMultipartHttpServletRequest){
+            DefaultMultipartHttpServletRequest multipartRequest = (DefaultMultipartHttpServletRequest)request;
+
+            Map<String,MultipartFile> fileMap = multipartRequest.getFileMap();
+            if (fileMap.keySet().iterator().hasNext()) {
+                String fileName = fileMap.keySet().iterator().next();
+                MultipartFile multipartFile = fileMap.get(fileName);
+                String uploadResponse = (String) annotationHandler.uploadFile(multipartFile.getInputStream(), multipartFile.getOriginalFilename(), 0);
+                // Convert upload response to json object
+                JSONObject obj = new JSONObject(uploadResponse);
+                // Get token id
+                String tokenId = obj.getString("tokenId");
+                // Redirect to uploaded file
+                response.sendRedirect(request.getContextPath() + VIEW + "?fileId=" + tokenId);
+            }
+        }
     }
 
     protected static ResponseEntity<String> jsonOut(Object obj) {
