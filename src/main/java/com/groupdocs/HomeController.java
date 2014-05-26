@@ -3,13 +3,12 @@ package com.groupdocs;
 import com.google.gson.Gson;
 import com.groupdocs.annotation.config.ServiceConfiguration;
 import com.groupdocs.annotation.domain.AccessRights;
+import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.domain.*;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
@@ -534,28 +534,44 @@ public class HomeController extends GroupDocsAnnotation {
 
     /**
      * Upload file to GroupDocs.Annotation [POST request]
+     * @param fld action
      * @param request http request
      * @param response http response
      * @return token id as json
      */
+    @Override
     @RequestMapping(value = UPLOAD_FILE, method = RequestMethod.POST)
-    public void uploadFileHandler(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException{
-        if (request instanceof DefaultMultipartHttpServletRequest){
-            DefaultMultipartHttpServletRequest multipartRequest = (DefaultMultipartHttpServletRequest)request;
+    public ResponseEntity<String> uploadFileHandler(
+            @RequestParam("user_id") String userId,
+            @RequestParam("fld") String fld,
+            HttpServletRequest request,
+            HttpServletResponse response) throws IOException{
+        if (annotationHandler == null) { return jsonOut(new StatusResponse(false, "Please, reload page!")); }
 
-            Map<String,MultipartFile> fileMap = multipartRequest.getFileMap();
+        String uploadFileName = null;
+        InputStream uploadInputStream = null;
+        if (request instanceof DefaultMultipartHttpServletRequest){
+            Map<String,MultipartFile> fileMap = ((DefaultMultipartHttpServletRequest)request).getFileMap();
             if (fileMap.keySet().iterator().hasNext()) {
                 String fileName = fileMap.keySet().iterator().next();
                 MultipartFile multipartFile = fileMap.get(fileName);
-                String uploadResponse = (String) annotationHandler.uploadFile(multipartFile.getInputStream(), multipartFile.getOriginalFilename(), 0);
-                // Convert upload response to json object
-                JSONObject obj = new JSONObject(uploadResponse);
-                // Get token id
-                String tokenId = obj.getString("tokenId");
-                // Redirect to uploaded file
-                response.sendRedirect(request.getContextPath() + VIEW + "?fileId=" + tokenId);
+                uploadFileName = multipartFile.getOriginalFilename();
+                uploadInputStream = multipartFile.getInputStream();
             }
         }
+        return jsonOut(annotationHandler.uploadFileHandler(userId, fld, uploadFileName, uploadInputStream, 0, request, response));
+    }
+
+    /**
+     * @see com.groupdocs.annotation.handler.GroupDocsAnnotation
+     * @param request http servlet request
+     * @param response http servlet response
+     * @return object with response parameters
+     */
+    @Override
+    @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
+    public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response){
+        return jsonOut(annotationHandler.importAnnotationsHandler(request, response));
     }
 
     protected static ResponseEntity<String> jsonOut(Object obj) {
