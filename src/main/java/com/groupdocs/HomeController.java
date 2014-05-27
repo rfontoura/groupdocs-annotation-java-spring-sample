@@ -532,32 +532,6 @@ public class HomeController extends GroupDocsAnnotation {
         return jsonOut(annotationHandler.getDocumentCollaboratorsHandler(request, response));
     }
 
-    /**
-     * Upload file to GroupDocs.Annotation [POST request]
-     * @param request http request
-     * @param response http response
-     * @return token id as json
-     */
-    @RequestMapping(value = UPLOAD_FILE, method = RequestMethod.POST)
-    public void uploadFileHandler(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException{
-        if (request instanceof DefaultMultipartHttpServletRequest){
-            DefaultMultipartHttpServletRequest multipartRequest = (DefaultMultipartHttpServletRequest)request;
-
-            Map<String,MultipartFile> fileMap = multipartRequest.getFileMap();
-            if (fileMap.keySet().iterator().hasNext()) {
-                String fileName = fileMap.keySet().iterator().next();
-                MultipartFile multipartFile = fileMap.get(fileName);
-                String uploadResponse = (String) annotationHandler.uploadFile(multipartFile.getInputStream(), multipartFile.getOriginalFilename(), 0);
-                // Convert upload response to json object
-                JSONObject obj = new JSONObject(uploadResponse);
-                // Get token id
-                String tokenId = obj.getString("tokenId");
-                // Redirect to uploaded file
-                response.sendRedirect(request.getContextPath() + VIEW + "?fileId=" + tokenId);
-            }
-        }
-    }
-
     protected static ResponseEntity<String> jsonOut(Object obj) {
         return typeOut(obj, MediaType.APPLICATION_JSON);
     }
