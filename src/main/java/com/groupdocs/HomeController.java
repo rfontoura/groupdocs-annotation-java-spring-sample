@@ -114,16 +114,16 @@ public class HomeController extends GroupDocsAnnotation {
             put("zoomToFitWidth",                       "false");           // Default value: false
             put("zoomToFitHeight",                      "false");           // Default value: false
             put("initialZoom",                          "100");             // Default value: 100
-            put("preloadPagesCount",                    "0");               // Default value: 0
+            put("preloadPagesCount",                    "2");               // Default value: 0
             put("enableSidePanel",                      "true");            // Default value: true
             put("scrollOnFocus",                        "true");            // Default value: true
             put("strikeOutColor",                       "");                // Default value: empty string
-            put("enabledTools",                         "511");             // Default value: 511
+            put("enabledTools",                         "2047");            // Default value: 2047
             put("connectorPosition",                    "0");               // Default value: 0
             put("saveReplyOnFocusLoss",                 "false");           // Default value: false
-            put("clickableAnnotations",                 "false");           // Default value: false
+            put("clickableAnnotations",                 "true");           // Default value: true
             put("disconnectUncommented",                "false");           // Default value: false
-            put("strikeoutMode",                        "0");               // Default value: 0
+            put("strikeoutMode",                        "1");               // Default value: 0
             put("sideboarContainerSelector",            "div.comments_sidebar_wrapper"); // Default value: div.comments_sidebar_wrapper
             put("usePageNumberInUrlHash",               "false");           // Default value: false
             put("textSelectionSynchronousCalculation",  "true");            // Default value: true
