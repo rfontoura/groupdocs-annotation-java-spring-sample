@@ -1,6 +1,5 @@
 package com.groupdocs;
 
-import com.google.gson.Gson;
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.handler.AnnotationHandler;
@@ -202,7 +201,7 @@ public class HomeController extends GroupDocsAnnotation {
      */
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
-    public void getFileHandler(@RequestParam("path") String path, @RequestParam("getPdf") boolean getPdf, HttpServletResponse response) throws Exception {
+    public void getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response) throws Exception {
         annotationHandler.getFileHandler(path, getPdf, response);
     }
 
