@@ -1,13 +1,13 @@
 package com.groupdocs;
 
 import com.google.gson.Gson;
-import com.groupdocs.annotation.config.ServiceConfiguration;
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
+import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -52,15 +52,8 @@ public class HomeController extends GroupDocsAnnotation {
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "filePath", required = false) String filePath, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
-            // Application path
-            String appPath = Utils.makeAppPath(request);
-            // File storage path
-            String basePath = applicationConfig.getBasePath();
-            // File license path
-            String licensePath = applicationConfig.getLicensePath();
-            // INITIALIZE GroupDocs Java Annotation Object
-            ServiceConfiguration config = new ServiceConfiguration(appPath, basePath, licensePath, Boolean.FALSE, applicationConfig.getWidth());
-            annotationHandler = new AnnotationHandler(config);
+            ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
+            annotationHandler = new AnnotationHandler(serviceConfiguration);
 //            annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
 //            InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
         }
@@ -76,7 +69,7 @@ public class HomeController extends GroupDocsAnnotation {
         }else if(fileUrl != null && !fileUrl.isEmpty()){
             groupDocsFilePath = new FileUrl(fileUrl);
         }else if(tokenId != null && !tokenId.isEmpty()){
-            TokenId tki = new TokenId(tokenId);
+            TokenId tki = new TokenId(tokenId, applicationConfig.getEncryptionKey());
             if(tki.isExpired()){
                 groupDocsFilePath = null;
             }else{
@@ -96,51 +89,51 @@ public class HomeController extends GroupDocsAnnotation {
                         AccessRights.CAN_DELETE
                 ),
                 getIntFromColor(Color.black));
-        HashMap<String, String> params = new HashMap<String, String>() {{
+        HashMap<String, Object> params = new HashMap<String, Object>() {{
             // You can skip parameters which have default value
             put("filePath",                             groupDocsFilePath.getPath()); // Default value: empty string
-            put("width",                                Integer.toString(applicationConfig.getWidth()));            // Default value: 800
-            put("height",                               Integer.toString(applicationConfig.getHeight()));           // Default value: 600
-            put("quality",                              "75");              // Default value: 90
-            put("enableRightClickMenu",                 "true");            // Default value: true
-            put("showHeader",                           Boolean.toString(applicationConfig.getShowHeader()));       // Default value: true
-            put("showZoom",                             Boolean.toString(applicationConfig.getShowZoom()));         // Default value: true
-            put("showPaging",                           Boolean.toString(applicationConfig.getShowPaging()));       // Default value: true
-            put("showPrint",                            Boolean.toString(applicationConfig.getShowPrint()));        // Default value: false
-            put("showFileExplorer",                     "true");            // Default value: true
-            put("showThumbnails",                       Boolean.toString(applicationConfig.getShowThumbnails()));   // Default value: true
-            put("showToolbar",                          "true");            // Default value: true
-            put("openThumbnails",                       Boolean.toString(applicationConfig.getOpenThumbnails()));   // Default value: false
-            put("zoomToFitWidth",                       "false");           // Default value: false
-            put("zoomToFitHeight",                      "false");           // Default value: false
-            put("initialZoom",                          "100");             // Default value: 100
-            put("preloadPagesCount",                    "2");               // Default value: 0
-            put("enableSidePanel",                      "true");            // Default value: true
-            put("scrollOnFocus",                        "true");            // Default value: true
-            put("strikeOutColor",                       "");                // Default value: empty string
-            put("enabledTools",                         "2047");            // Default value: 2047
-            put("connectorPosition",                    "0");               // Default value: 0
-            put("saveReplyOnFocusLoss",                 "false");           // Default value: false
-            put("clickableAnnotations",                 "true");           // Default value: true
-            put("disconnectUncommented",                "false");           // Default value: false
-            put("strikeoutMode",                        "1");               // Default value: 0
-            put("sideboarContainerSelector",            "div.comments_sidebar_wrapper"); // Default value: div.comments_sidebar_wrapper
-            put("usePageNumberInUrlHash",               "false");           // Default value: false
-            put("textSelectionSynchronousCalculation",  "true");            // Default value: true
-            put("variableHeightPageSupport",            "true");            // Default value: true
-            put("useJavaScriptDocumentDescription",     "true");            // Default value: true
-            put("isRightPanelEnabled",                  "true");            // Default value: true
-            put("createMarkup",                         "true");            // Default value: true
-            put("use_pdf",                              "true");            // Default value: true
-            put("_mode",                                "annotatedDocument");           // Default value: annotatedDocument
-            put("selectionContainerSelector",           "[name='selection-content']");  // Default value: [name='selection-content']
-            put("graphicsContainerSelector",            ".annotationsContainer");       // Default value: .annotationsContainer
-            put("widgetId",                             "annotation-widget");           // Default value: annotation-widget
+            put("width",                                applicationConfig.getWidth());            // Default value: 800
+            put("height",                               applicationConfig.getHeight());           // Default value: 600
+            put("quality",                              applicationConfig.getQuality());              // Default value: 90
+            put("enableRightClickMenu",                 applicationConfig.isEnableRightClickMenu());            // Default value: true
+            put("showHeader",                           applicationConfig.isShowHeader());       // Default value: true
+            put("showZoom",                             applicationConfig.isShowZoom());         // Default value: true
+            put("showPaging",                           applicationConfig.isShowPaging());       // Default value: true
+            put("showPrint",                            applicationConfig.isShowPrint());        // Default value: false
+            put("showFileExplorer",                     applicationConfig.isShowFileExplorer());            // Default value: true
+            put("showThumbnails",                       applicationConfig.isShowThumbnails());   // Default value: true
+            put("showToolbar",                          applicationConfig.isShowToolbar());            // Default value: true
+            put("openThumbnails",                       applicationConfig.isOpenThumbnails());   // Default value: false
+            put("zoomToFitWidth",                       applicationConfig.isZoomToFitWidth());           // Default value: false
+            put("zoomToFitHeight",                      applicationConfig.isZoomToFitHeight());           // Default value: false
+            put("initialZoom",                          applicationConfig.getInitialZoom());             // Default value: 100
+            put("preloadPagesCount",                    applicationConfig.getPreloadPagesCount());               // Default value: 0
+            put("enableSidePanel",                      applicationConfig.isEnableSidePanel());            // Default value: true
+            put("scrollOnFocus",                        applicationConfig.isScrollOnFocus());            // Default value: true
+            put("strikeOutColor",                       applicationConfig.getStrikeOutColor());                // Default value: empty string
+            put("enabledTools",                         applicationConfig.getEnabledTools());            // Default value: 2047
+            put("connectorPosition",                    applicationConfig.getConnectorPosition());               // Default value: 0
+            put("saveReplyOnFocusLoss",                 applicationConfig.isSaveReplyOnFocusLoss());           // Default value: false
+            put("clickableAnnotations",                 applicationConfig.isClickableAnnotations());           // Default value: true
+            put("disconnectUncommented",                applicationConfig.isDisconnectUncommented());           // Default value: false
+            put("strikeoutMode",                        applicationConfig.getStrikeoutMode());               // Default value: 0
+            put("sideboarContainerSelector",            applicationConfig.getSidebarContainerSelector()); // Default value: div.comments_sidebar_wrapper
+            put("usePageNumberInUrlHash",               applicationConfig.isUsePageNumberInUrlHash());           // Default value: false
+            put("textSelectionSynchronousCalculation",  applicationConfig.isTextSelectionSynchronousCalculation());            // Default value: true
+            put("variableHeightPageSupport",            applicationConfig.isVariableHeightPageSupport());            // Default value: true
+            put("useJavaScriptDocumentDescription",     applicationConfig.isUseJavaScriptDocumentDescription());            // Default value: true
+            put("isRightPanelEnabled",                  applicationConfig.isRightPanelEnabled());            // Default value: true
+            put("createMarkup",                         applicationConfig.isCreateMarkup());            // Default value: true
+            put("use_pdf",                              applicationConfig.isUse_pdf());            // Default value: true
+            put("_mode",                                applicationConfig.getMode());           // Default value: annotatedDocument
+            put("selectionContainerSelector",           applicationConfig.getSelectionContainerSelector());  // Default value: [name='selection-content']
+            put("graphicsContainerSelector",            applicationConfig.getGraphicsContainerSelector());       // Default value: .annotationsContainer
+            put("widgetId",                             applicationConfig.getWidgetId());           // Default value: annotation-widget
             put("userName",                             userName == null ? "Anonimous" : userName);
             put("userGuid",                             userGuid);
-//            put("showFolderBrowser", Boolean.toString(applicationConfig.getShowFolderBrowser())); // Not used
-//            put("showDownload", Boolean.toString(applicationConfig.getShowDownload())); // Not used
-//            put("showSearch", Boolean.toString(applicationConfig.getShowSearch())); // Not used
+//            put("showFolderBrowser", applicationConfig.getShowFolderBrowser())); // Not used
+//            put("showDownload", applicationConfig.getShowDownload())); // Not used
+//            put("showSearch", applicationConfig.getShowSearch())); // Not used
         }};
         model.addAttribute("groupdocsScripts", annotationHandler.getScripts(request, params));
         model.addAttribute("width", applicationConfig.getWidth());   // This is for sample JSP (index.jsp)
@@ -202,15 +195,15 @@ public class HomeController extends GroupDocsAnnotation {
 
     /**
      * Download file [GET request]
-     *
-     * @param path
-     * @param response
+     * @param path file path
+     * @param getPdf get pdf file
+     * @param response http servlet response
      * @throws java.lang.Exception
      */
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
-    public void getFileHandler(@RequestParam("path") String path, HttpServletResponse response) throws Exception {
-        annotationHandler.getFileHandler(path, response);
+    public void getFileHandler(@RequestParam("path") String path, @RequestParam("getPdf") boolean getPdf, HttpServletResponse response) throws Exception {
+        annotationHandler.getFileHandler(path, getPdf, response);
     }
 
     /**
@@ -290,7 +283,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getImageUrlsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(new Gson().toJson(annotationHandler.getImageUrlsHandler(request, response)));
+        return jsonOut(annotationHandler.getImageUrlsHandler(request, response));
     }
 
     /**
@@ -362,6 +355,24 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = GET_DOCUMENT_PAGE_HTML_HANDLER, method = RequestMethod.GET)
     public void getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
         annotationHandler.getDocumentPageHtmlHandler(request, response);
+    }
+
+    /**
+     * @see com.groupdocs.annotation.handler.AnnotationHandler
+     */
+    @Override
+    @RequestMapping(value = GET_PDF_WITH_PRINT_DIALOG, method = RequestMethod.GET)
+    public void getPdfWithPrintDialog(String path, HttpServletResponse response) {
+        annotationHandler.getPdfWithPrintDialog(path, response);
+    }
+
+    /**
+     * @see com.groupdocs.annotation.handler.AnnotationHandler
+     */
+    @Override
+    @RequestMapping(value = REORDER_PAGE_HANDLER, method = RequestMethod.POST)
+    public Object reorderPageHandler(HttpServletRequest request, HttpServletResponse response) {
+        return jsonOut(annotationHandler.reorderPageHandler(request, response));
     }
 
     /**
