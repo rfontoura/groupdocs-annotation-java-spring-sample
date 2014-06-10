@@ -4,7 +4,6 @@ import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
-import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.*;
@@ -582,6 +581,12 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response){
         return jsonOut(annotationHandler.importAnnotationsHandler(request, response));
+    }
+
+    @Override
+    @RequestMapping(value = GET_PRINT_VIEW_HANDLER, method = RequestMethod.POST)
+    public ResponseEntity<String> getPrintViewHandler(HttpServletRequest request, HttpServletResponse response) {
+        return jsonOut(annotationHandler.getPrintViewHandler(request, response));
     }
 
     protected static ResponseEntity<String> jsonOut(Object obj) {
