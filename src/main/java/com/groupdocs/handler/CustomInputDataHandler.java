@@ -72,7 +72,20 @@ public class CustomInputDataHandler extends InputDataHandler {
         } catch (IOException ex) {
             Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            com.groupdocs.annotation.utils.Utils.closeStreams(inputStream, os);
+            try {
+                if(inputStream != null){
+                    inputStream.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                if(os != null){
+                    os.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
