@@ -1,5 +1,6 @@
 package com.groupdocs.filter;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,7 +17,9 @@ public class CorsFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        if(StringUtils.isEmpty(request.getHeader("origin"))) {
+            response.setHeader("Access-Control-Allow-Origin", "*");
+        }
         response.addHeader("Access-Control-Allow-Credentials", "true");
         response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         response.addHeader("Access-Control-Allow-Headers", "X-Requested-With,Origin,Content-Type, Accept");
