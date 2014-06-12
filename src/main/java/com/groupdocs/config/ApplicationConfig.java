@@ -174,6 +174,8 @@ public class ApplicationConfig implements ServiceConfigurationBase {
     protected String graphicsContainerSelector;
     @Property(key = "groupdocs.annotation.widgetId")
     protected String widgetId;
+    @Property(key = "groupdocs.annotation.useBrowserCache")
+    protected boolean useBrowserCache;
 
     public String getLicensePath() {
         return licensePath;
@@ -209,6 +211,15 @@ public class ApplicationConfig implements ServiceConfigurationBase {
 
     public boolean isUseCache() {
         return useCache;
+    }
+
+    @Override
+    public boolean isUseBrowserCache() {
+        return useBrowserCache;
+    }
+
+    public void setUseBrowserCache(boolean useBrowserCache) {
+        this.useBrowserCache = useBrowserCache;
     }
 
     public void setUseCache(boolean useCache) {

@@ -31,9 +31,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 /**
- * User: liosha
  * Date: 05.12.13
- * Time: 22:54
  */
 @Controller
 public class HomeController extends GroupDocsAnnotation {
