@@ -7,6 +7,11 @@ Groupdocs Annotation for Java (Spring Sample)
 4. Run file `run.bat` to start sample application
 5. Open URL `http://127.0.0.1:8080/` in your browser, make sure that port 8080 is free (you can change port number in your tomcat configuration)
 
+For change context path
+* Update `path` attribute in file `src/main/webapp/META-INF/context.xml`
+* Update `path` in tomcat7-maven-plugin (file `pom.xml`)
+* Update `groupdocs.annotation.applicationPath` parameter in `src/main/resources/application.properties`
+
 ###[Sign, Manage, Annotate, Assemble, Compare and Convert Documents with GroupDocs](http://groupdocs.com)
 1. [Sign documents online with GroupDocs Signature](http://groupdocs.com/apps/signature)
 2. [PDF, Word and Image Annotation with GroupDocs Annotation](http://groupdocs.com/apps/annotation)

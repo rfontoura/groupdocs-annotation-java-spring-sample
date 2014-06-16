@@ -28,43 +28,62 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-                    <!--
-		- Servlet that dispatches request to registered handlers (Controller implementations).
-	-->
-    <!--
-    <servlet>
-        <servlet-name>dispatcherServlet</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/mvc-config.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>dispatcherServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    -->
 
     <servlet>
-        <servlet-name>appServlet</servlet-name>
+        <servlet-name>atmosphereSpringServlet</servlet-name>
         <servlet-class>org.atmosphere.cpr.MeteorServlet</servlet-class>
+        <!-- Available parameters - http://atmosphere.github.io/atmosphere/apidocs/constant-values.html -->
         <init-param>
             <param-name>org.atmosphere.servlet</param-name>
             <param-value>org.springframework.web.servlet.DispatcherServlet</param-value>
         </init-param>
         <init-param>
+            <param-name>org.atmosphere.cpr.AtmosphereInterceptor</param-name>
+            <param-value>org.atmosphere.client.TrackMessageSizeInterceptor</param-value>
+        </init-param>
+        <init-param>
+            <param-name>org.atmosphere.mapping</param-name>
+            <param-value>/</param-value>
+        </init-param>
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.cpr.CometSupport.maxInactiveActivity</param-name>-->
+            <!--<param-value>3600000000</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.useStream</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.useWebSocket</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+        <init-param>
+            <param-name>org.atmosphere.useNative</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/mvc-config.xml</param-value>
         </init-param>
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.disableOnStateEvent</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+        <!--<init-param>-->
+            <!--<param-name>org.atmosphere.cpr.asyncSupport</param-name>-->
+            <!--<param-value>org.atmosphere.container.Tomcat7BIOSupportWithWebSocket</param-value>-->
+        <!--</init-param>-->
         <load-on-startup>1</load-on-startup>
+        <!--<async-supported>true</async-supported>-->
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>appServlet</servlet-name>
+        <servlet-name>atmosphereSpringServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!--<session-config>-->
+        <!--<session-timeout>1440</session-timeout>-->
+    <!--</session-config>-->
 
 </web-app>

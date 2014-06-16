@@ -7,6 +7,7 @@ import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.*;
+import org.atmosphere.cpr.AtmosphereResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
@@ -95,7 +93,7 @@ public class HomeController extends GroupDocsAnnotation {
             put("showHeader",                           applicationConfig.isShowHeader());       // Default value: true
             put("showZoom",                             applicationConfig.isShowZoom());         // Default value: true
             put("showPaging",                           applicationConfig.isShowPaging());       // Default value: true
-            put("showPrint",                            applicationConfig.isShowPrint());        // Default value: false
+            put("showPrint",                            applicationConfig.isShowPrint());        // Default value: true
             put("showFileExplorer",                     applicationConfig.isShowFileExplorer());            // Default value: true
             put("showThumbnails",                       applicationConfig.isShowThumbnails());   // Default value: true
             put("showToolbar",                          applicationConfig.isShowToolbar());            // Default value: true
@@ -112,7 +110,7 @@ public class HomeController extends GroupDocsAnnotation {
             put("saveReplyOnFocusLoss",                 applicationConfig.isSaveReplyOnFocusLoss());           // Default value: false
             put("clickableAnnotations",                 applicationConfig.isClickableAnnotations());           // Default value: true
             put("disconnectUncommented",                applicationConfig.isDisconnectUncommented());           // Default value: false
-            put("strikeoutMode",                        applicationConfig.getStrikeoutMode());               // Default value: 0
+            put("strikeoutMode",                        applicationConfig.getStrikeoutMode());               // Default value: 1
             put("sideboarContainerSelector",            applicationConfig.getSidebarContainerSelector()); // Default value: div.comments_sidebar_wrapper
             put("usePageNumberInUrlHash",               applicationConfig.isUsePageNumberInUrlHash());           // Default value: false
             put("textSelectionSynchronousCalculation",  applicationConfig.isTextSelectionSynchronousCalculation());            // Default value: true
@@ -127,9 +125,6 @@ public class HomeController extends GroupDocsAnnotation {
             put("widgetId",                             applicationConfig.getWidgetId());           // Default value: annotation-widget
             put("userName",                             userName == null ? "Anonimous" : userName);
             put("userGuid",                             userGuid);
-//            put("showFolderBrowser", applicationConfig.getShowFolderBrowser())); // Not used
-//            put("showDownload", applicationConfig.getShowDownload())); // Not used
-//            put("showSearch", applicationConfig.getShowSearch())); // Not used
         }};
         model.addAttribute("groupdocsScripts", annotationHandler.getScripts(request, params));
         model.addAttribute("width", applicationConfig.getWidth());   // This is for sample JSP (index.jsp)
@@ -585,6 +580,28 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = GET_PRINT_VIEW_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPrintViewHandler(HttpServletRequest request, HttpServletResponse response) {
         return jsonOut(annotationHandler.getPrintViewHandler(request, response));
+    }
+
+    /**
+     * On ready handler
+     * @param resource resource data received from socket
+     */
+    @Override
+    @ResponseBody
+    @RequestMapping(value = ATMOSPHERE_ANNOTATION, method = RequestMethod.GET)
+    public void onAtmosphereReady(AtmosphereResource resource) {
+        annotationHandler.onAtmosphereReady(resource);
+    }
+
+    /**
+     * On message handler [POST]
+     * @param resource resource data received from socket
+     */
+    @Override
+    @ResponseBody
+    @RequestMapping(value = ATMOSPHERE_ANNOTATION, method = RequestMethod.POST)
+    public void onAtmosphereMessage(AtmosphereResource resource) {
+        annotationHandler.onAtmosphereMessage(resource);
     }
 
     protected static ResponseEntity<String> jsonOut(Object obj) {
