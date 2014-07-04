@@ -6,7 +6,9 @@ import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.config.ServiceConfiguration;
-import com.groupdocs.viewer.domain.*;
+import com.groupdocs.viewer.domain.path.EncodedPath;
+import com.groupdocs.viewer.domain.path.GroupDocsPath;
+import com.groupdocs.viewer.domain.path.TokenId;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -39,11 +41,11 @@ public class HomeController extends GroupDocsAnnotation {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userName", required = false) String userName) throws Exception {
-        return index(model, request, response, null, null, "/files/GroupDocs_Demo.doc", null, userName);
+        return index(model, request, response, "/files/GroupDocs_Demo.doc", null, userName);
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileId", required = false) String fileId, @RequestParam(value = "fileUrl", required = false) String fileUrl, @RequestParam(value = "filePath", required = false) String filePath, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
+    public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "file", required = false) String file, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
@@ -54,27 +56,19 @@ public class HomeController extends GroupDocsAnnotation {
         // Setting header in jsp page
         model.addAttribute("groupdocsHeader", annotationHandler.getHeader(request));
         // Initialization of Viewer with document from this path
-        final GroupDocsPath groupDocsFilePath;
-
-        if(fileId !=null && !fileId.isEmpty()){
-            groupDocsFilePath = new FileId(fileId);
-        }else if(filePath != null && !filePath.isEmpty()){
-            groupDocsFilePath = new FilePath(filePath, annotationHandler.getConfiguration());
-        }else if(fileUrl != null && !fileUrl.isEmpty()){
-            groupDocsFilePath = new FileUrl(fileUrl);
+        GroupDocsPath path = null;
+        if(file != null && !file.isEmpty()){
+            path = new EncodedPath(file, annotationHandler.getConfiguration());
         }else if(tokenId != null && !tokenId.isEmpty()){
             TokenId tki = new TokenId(tokenId, applicationConfig.getEncryptionKey());
-            if(tki.isExpired()){
-                groupDocsFilePath = null;
-            }else{
-                groupDocsFilePath = tki;
+            if(!tki.isExpired()){
+                path = tki;
             }
-        } else {
-            groupDocsFilePath = null;
         }
+        final String initialPath = (path == null) ? "" : path.getPath();
         final String userGuid = annotationHandler.addCollaborator(
                 userName,
-                groupDocsFilePath.getPath(),
+                initialPath,
                 AccessRights.from(
                         AccessRights.CAN_VIEW,
                         AccessRights.CAN_ANNOTATE,
@@ -85,7 +79,7 @@ public class HomeController extends GroupDocsAnnotation {
                 getIntFromColor(Color.black));
         HashMap<String, Object> params = new HashMap<String, Object>() {{
             // You can skip parameters which have default value
-            put("filePath",                             groupDocsFilePath.getPath()); // Default value: empty string
+            put("filePath",                             initialPath); // Default value: empty string
             put("width",                                applicationConfig.getWidth());            // Default value: 800
             put("height",                               applicationConfig.getHeight());           // Default value: 600
             put("quality",                              applicationConfig.getQuality());              // Default value: 90
