@@ -3,7 +3,6 @@ package com.groupdocs;
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.handler.AnnotationHandler;
-import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
@@ -11,8 +10,6 @@ import com.groupdocs.viewer.domain.path.GroupDocsPath;
 import com.groupdocs.viewer.domain.path.TokenId;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,7 +31,7 @@ import java.util.TimeZone;
  * Date: 05.12.13
  */
 @Controller
-public class HomeController extends GroupDocsAnnotation {
+public class HomeController extends HomeControllerBase {
     @Autowired
     protected ApplicationConfig applicationConfig;
     protected AnnotationHandler annotationHandler = null;
@@ -132,12 +129,13 @@ public class HomeController extends GroupDocsAnnotation {
      *
      * @param script
      * @param response
-     * @throws IOException
+     * @return 
      */
     @Override
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
-    public void getJsHandler(String script, HttpServletResponse response) throws IOException {
-        annotationHandler.getJsHandler(script, response);
+    public Object getJsHandler(String script, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getJsHandler(script, response), response);
+        return null;
     }
 
     /**
@@ -145,12 +143,13 @@ public class HomeController extends GroupDocsAnnotation {
      *
      * @param script
      * @param response
-     * @throws IOException
+     * @return 
      */
     @Override
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
-    public void getCssHandler(String script, HttpServletResponse response) throws IOException {
-        annotationHandler.getCssHandler(script, response);
+    public Object getCssHandler(String script, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getCssHandler(script, response), response);
+        return null;
     }
 
     /**
@@ -158,24 +157,27 @@ public class HomeController extends GroupDocsAnnotation {
      *
      * @param name
      * @param response
-     * @throws IOException
+     * @return
      */
     @Override
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
-    public void getImageHandler(@PathVariable String name, HttpServletResponse response) throws IOException {
-        annotationHandler.getImageHandler(name, response);
+    public Object getImageHandler(@PathVariable String name, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getImageHandler(name, response), response);
+        return null;
     }
 
     @Override
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
-    public void getFontHandler(String name, HttpServletResponse response) throws IOException {
-        annotationHandler.getFontHandler(name, response);
+    public Object getFontHandler(String name, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getFontHandler(name, response), response);
+        return null;
     }
 
     @Override
     @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
-    public void getHtmlRecoucesHandler(String filePath, HttpServletResponse response) throws IOException {
-        annotationHandler.getHtmlRecoucesHandler(filePath, response);
+    public Object getHtmlRecoucesHandler(String filePath, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getHtmlRecoucesHandler(filePath, response), response);
+        return null;
     }
 
     /**
@@ -183,12 +185,13 @@ public class HomeController extends GroupDocsAnnotation {
      * @param path file path
      * @param getPdf get pdf file
      * @param response http servlet response
-     * @throws java.lang.Exception
+     * @return 
      */
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
-    public void getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response) throws Exception {
-        annotationHandler.getFileHandler(path, getPdf, response);
+    public Object getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getFileHandler(path, getPdf, response), response);
+        return null;
     }
 
     /**
@@ -199,25 +202,28 @@ public class HomeController extends GroupDocsAnnotation {
      * @param quality
      * @param usePdf
      * @param pageIndex
-     * @throws Exception
+     * @param response
+     * @return 
      */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
-    public void getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
-                                            @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws Exception {
-        annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response);
+    public Object getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
+                                            @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response){
+        writeOutput((InputStream) annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response), response);
+        return null;
     }
 
     /**
      * Generate list of images/pages [POST request]
      *
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> viewDocumentHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.viewDocumentHandler(request, response));
+        return writeOutputJson(annotationHandler.viewDocumentHandler(request, response));
     }
 
     /**
@@ -226,24 +232,26 @@ public class HomeController extends GroupDocsAnnotation {
      * @param callback
      * @param data
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.GET)
     public ResponseEntity<String> viewDocumentHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.viewDocumentHandler(callback, data, request, response));
+        return writeOutputJson(annotationHandler.viewDocumentHandler(callback, data, request, response));
     }
 
     /**
      * Load tree of files from base directory [POST request]
      *
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
     public ResponseEntity<String> loadFileBrowserTreeDataHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.loadFileBrowserTreeDataHandler(request, response));
+        return writeOutputJson(annotationHandler.loadFileBrowserTreeDataHandler(request, response));
     }
 
     /**
@@ -251,24 +259,26 @@ public class HomeController extends GroupDocsAnnotation {
      *
      * @param callback
      * @param data
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.GET)
     public ResponseEntity<String> loadFileBrowserTreeDataHandler(String callback, String data, HttpServletResponse response) {
-        return jsonOut(annotationHandler.loadFileBrowserTreeDataHandler(callback, data, response));
+        return writeOutputJson(annotationHandler.loadFileBrowserTreeDataHandler(callback, data, response));
     }
 
     /**
      * Get thumbs and other images files [POST request]
      *
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getImageUrlsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getImageUrlsHandler(request, response));
+        return writeOutputJson(annotationHandler.getImageUrlsHandler(request, response));
     }
 
     /**
@@ -277,24 +287,26 @@ public class HomeController extends GroupDocsAnnotation {
      * @param callback
      * @param data
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.GET)
     public ResponseEntity<String> getImageUrlsHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getImageUrlsHandler(callback, data, request, response));
+        return writeOutputJson(annotationHandler.getImageUrlsHandler(callback, data, request, response));
     }
 
     /**
      * Converts document to PDF and then to JavaScript for text search and selection [POST request]
      *
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPdf2JavaScriptHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getPdf2JavaScriptHandler(request, response));
+        return writeOutputJson(annotationHandler.getPdf2JavaScriptHandler(request, response));
     }
 
     /**
@@ -302,24 +314,26 @@ public class HomeController extends GroupDocsAnnotation {
      *
      * @param callback
      * @param data
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.GET)
     public ResponseEntity<String> getPdf2JavaScriptHandler(String callback, String data, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getPdf2JavaScriptHandler(callback, data, response));
+        return writeOutputJson(annotationHandler.getPdf2JavaScriptHandler(callback, data, response));
     }
 
     /**
      * Print document [POST request]
      *
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPrintableHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
-        return typeOut(annotationHandler.getPrintableHtmlHandler(request, response), MediaType.TEXT_HTML);
+        return writeOutput(annotationHandler.getPrintableHtmlHandler(request, response), MediaType.TEXT_HTML);
     }
 
     /**
@@ -328,36 +342,45 @@ public class HomeController extends GroupDocsAnnotation {
      * @param callback
      * @param data
      * @param request
+     * @param response
      * @return
      */
     @Override
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.GET)
     public ResponseEntity<String> getPrintableHtmlHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getPrintableHtmlHandler(callback, data, request, response));
+        return writeOutputJson(annotationHandler.getPrintableHtmlHandler(callback, data, request, response));
     }
 
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_HTML_HANDLER, method = RequestMethod.GET)
-    public void getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
-        annotationHandler.getDocumentPageHtmlHandler(request, response);
+    public Object getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
+        writeOutput((InputStream) annotationHandler.getDocumentPageHtmlHandler(request, response), response);
+        return null;
     }
 
     /**
+     * @param path
+     * @param response
+     * @return 
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
     @RequestMapping(value = GET_PDF_WITH_PRINT_DIALOG, method = RequestMethod.GET)
-    public void getPdfWithPrintDialog(String path, HttpServletResponse response) {
-        annotationHandler.getPdfWithPrintDialog(path, response);
+    public Object getPdfWithPrintDialog(String path, HttpServletResponse response) {
+        writeOutput((InputStream) annotationHandler.getPdfWithPrintDialog(path, response), response);
+        return null;
     }
 
     /**
+     * @param request
+     * @param response
+     * @return 
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
     @RequestMapping(value = REORDER_PAGE_HANDLER, method = RequestMethod.POST)
     public Object reorderPageHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.reorderPageHandler(request, response));
+        return writeOutputJson(annotationHandler.reorderPageHandler(request, response));
     }
 
     /**
@@ -369,7 +392,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = LIST_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object listAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.listAnnotationsHandler(request, response));
+        return writeOutputJson(annotationHandler.listAnnotationsHandler(request, response));
     }
 
     /**
@@ -381,7 +404,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = EXPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object exportAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.exportAnnotationsHandler(request, response));
+        return writeOutputJson(annotationHandler.exportAnnotationsHandler(request, response));
     }
 
     /**
@@ -393,7 +416,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = GET_PDF_VERSION_OF_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public Object getPdfVersionOfDocumentHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getPdfVersionOfDocumentHandler(request, response));
+        return writeOutputJson(annotationHandler.getPdfVersionOfDocumentHandler(request, response));
     }
 
     /**
@@ -405,7 +428,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = CREATE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object createAnnotationHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.createAnnotationHandler(request, response));
+        return writeOutputJson(annotationHandler.createAnnotationHandler(request, response));
     }
 
     /**
@@ -417,6 +440,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @return
      */
     @RequestMapping(value = GET_AVATAR_HANDLER, method = RequestMethod.GET)
+    @Override
     public Object getAvatarHandler(HttpServletRequest request, HttpServletResponse response, String userId) {
         return annotationHandler.getAvatarHandler(request, response, userId);
     }
@@ -430,7 +454,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = ADD_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object addAnnotationReplyHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.addAnnotationReplyHandler(request, response));
+        return writeOutputJson(annotationHandler.addAnnotationReplyHandler(request, response));
     }
 
     /**
@@ -442,7 +466,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = EDIT_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object editAnnotationReplyHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.editAnnotationReplyHandler(request, response));
+        return writeOutputJson(annotationHandler.editAnnotationReplyHandler(request, response));
     }
 
     /**
@@ -454,7 +478,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationReplyHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.deleteAnnotationReplyHandler(request, response));
+        return writeOutputJson(annotationHandler.deleteAnnotationReplyHandler(request, response));
     }
 
     /**
@@ -466,7 +490,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.deleteAnnotationHandler(request, response));
+        return writeOutputJson(annotationHandler.deleteAnnotationHandler(request, response));
     }
 
     /**
@@ -478,7 +502,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = SAVE_TEXT_FIELD_HANDLER, method = RequestMethod.POST)
     public Object saveTextFieldHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.saveTextFieldHandler(request, response));
+        return writeOutputJson(annotationHandler.saveTextFieldHandler(request, response));
     }
 
     /**
@@ -490,7 +514,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = SET_TEXT_FIELD_COLOR_HANDLER, method = RequestMethod.POST)
     public Object setTextFieldColorHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.setTextFieldColorHandler(request, response));
+        return writeOutputJson(annotationHandler.setTextFieldColorHandler(request, response));
     }
 
     /**
@@ -502,7 +526,7 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = MOVE_ANNOTATION_MARKER_HANDLER, method = RequestMethod.POST)
     public Object moveAnnotationMarkerHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.moveAnnotationMarkerHandler(request, response));
+        return writeOutputJson(annotationHandler.moveAnnotationMarkerHandler(request, response));
     }
 
     /**
@@ -514,7 +538,7 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = RESIZE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     @Override
     public Object resizeAnnotationHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.resizeAnnotationHandler(request, response));
+        return writeOutputJson(annotationHandler.resizeAnnotationHandler(request, response));
     }
 
     /**
@@ -525,7 +549,7 @@ public class HomeController extends GroupDocsAnnotation {
     @RequestMapping(value = GET_DOCUMENT_COLLABORATORS_HANDLER, method = RequestMethod.POST)
     @Override
     public Object getDocumentCollaboratorsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getDocumentCollaboratorsHandler(request, response));
+        return writeOutputJson(annotationHandler.getDocumentCollaboratorsHandler(request, response));
     }
 
     /**
@@ -534,6 +558,7 @@ public class HomeController extends GroupDocsAnnotation {
      * @param request http request
      * @param response http response
      * @return token id as json
+     * @throws java.io.IOException
      */
     @Override
     @RequestMapping(value = UPLOAD_FILE, method = RequestMethod.POST)
@@ -542,7 +567,7 @@ public class HomeController extends GroupDocsAnnotation {
             @RequestParam("fld") String fld,
             HttpServletRequest request,
             HttpServletResponse response) throws IOException{
-        if (annotationHandler == null) { return jsonOut(new StatusResponse(false, "Please, reload page!")); }
+        if (annotationHandler == null) { return writeOutputJson(new StatusResponse(false, "Please, reload page!")); }
 
         String uploadFileName = null;
         InputStream uploadInputStream = null;
@@ -555,7 +580,7 @@ public class HomeController extends GroupDocsAnnotation {
                 uploadInputStream = multipartFile.getInputStream();
             }
         }
-        return jsonOut(annotationHandler.uploadFileHandler(userId, fld, uploadFileName, uploadInputStream, 0, request, response));
+        return writeOutputJson(annotationHandler.uploadFileHandler(userId, fld, uploadFileName, uploadInputStream, 0, request, response));
     }
 
     /**
@@ -567,13 +592,13 @@ public class HomeController extends GroupDocsAnnotation {
     @Override
     @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response){
-        return jsonOut(annotationHandler.importAnnotationsHandler(request, response));
+        return writeOutputJson(annotationHandler.importAnnotationsHandler(request, response));
     }
 
     @Override
     @RequestMapping(value = GET_PRINT_VIEW_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPrintViewHandler(HttpServletRequest request, HttpServletResponse response) {
-        return jsonOut(annotationHandler.getPrintViewHandler(request, response));
+        return writeOutputJson(annotationHandler.getPrintViewHandler(request, response));
     }
 
     /**
@@ -598,33 +623,4 @@ public class HomeController extends GroupDocsAnnotation {
         annotationHandler.onAtmosphereMessage(resource);
     }
 
-    protected static ResponseEntity<String> jsonOut(Object obj) {
-        return typeOut(obj, MediaType.APPLICATION_JSON);
-    }
-
-    protected static ResponseEntity<String> typeOut(Object obj, MediaType mediaType) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        if (mediaType == MediaType.APPLICATION_JSON) {
-            httpHeaders.set("Content-type", "application/json;charset=UTF-8");
-        } else {
-            httpHeaders.setContentType(mediaType);
-        }
-        return new ResponseEntity<String>(obj.toString(), httpHeaders, HttpStatus.CREATED);
-    }
-
-    public int getIntFromColor(Color color){
-        return getIntFromColor(color.getRed(), color.getGreen(), color.getBlue());
-    }
-
-    public int getIntFromColor(float red, float green, float blue){
-        int R = Math.round(255 * red);
-        int G = Math.round(255 * green);
-        int B = Math.round(255 * blue);
-
-        R = (R << 16) & 0x00FF0000;
-        G = (G << 8) & 0x0000FF00;
-        B = B & 0x000000FF;
-
-        return 0xFF000000 | R | G | B;
-    }
 }
