@@ -38,7 +38,7 @@ public class HomeController extends HomeControllerBase {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userName", required = false) String userName) throws Exception {
-        return index(model, request, response, "/files/GroupDocs_Demo.doc", null, userName);
+        return index(model, request, response, applicationConfig.getBasePath() + "/files/GroupDocs_Demo.doc", null, userName);
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
@@ -134,7 +134,7 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
     public Object getJsHandler(String script, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getJsHandler(script, response), response);
+        writeOutput(annotationHandler.getJsHandler(script, response), response);
         return null;
     }
 
@@ -148,7 +148,7 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
     public Object getCssHandler(String script, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getCssHandler(script, response), response);
+        writeOutput(annotationHandler.getCssHandler(script, response), response);
         return null;
     }
 
@@ -162,21 +162,21 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getImageHandler(@PathVariable String name, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getImageHandler(name, response), response);
+        writeOutput(annotationHandler.getImageHandler(name, response), response);
         return null;
     }
 
     @Override
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
     public Object getFontHandler(String name, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getFontHandler(name, response), response);
+        writeOutput(annotationHandler.getFontHandler(name, response), response);
         return null;
     }
 
     @Override
     @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
     public Object getHtmlRecoucesHandler(String filePath, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getHtmlRecoucesHandler(filePath, response), response);
+        writeOutput(annotationHandler.getHtmlRecoucesHandler(filePath, response), response);
         return null;
     }
 
@@ -190,7 +190,7 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
     public Object getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getFileHandler(path, getPdf, response), response);
+        writeOutput(annotationHandler.getFileHandler(path, getPdf, response), response);
         return null;
     }
 
@@ -209,7 +209,7 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
                                             @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response){
-        writeOutput((InputStream) annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response), response);
+        writeOutput(annotationHandler.getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response), response);
         return null;
     }
 
@@ -354,7 +354,7 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_HTML_HANDLER, method = RequestMethod.GET)
     public Object getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
-        writeOutput((InputStream) annotationHandler.getDocumentPageHtmlHandler(request, response), response);
+        writeOutput(annotationHandler.getDocumentPageHtmlHandler(request, response), response);
         return null;
     }
 
@@ -367,7 +367,7 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_PDF_WITH_PRINT_DIALOG, method = RequestMethod.GET)
     public Object getPdfWithPrintDialog(String path, HttpServletResponse response) {
-        writeOutput((InputStream) annotationHandler.getPdfWithPrintDialog(path, response), response);
+        writeOutput(annotationHandler.getPdfWithPrintDialog(path, response), response);
         return null;
     }
 
@@ -561,7 +561,7 @@ public class HomeController extends HomeControllerBase {
      * @throws java.io.IOException
      */
     @Override
-    @RequestMapping(value = UPLOAD_FILE, method = RequestMethod.POST)
+    @RequestMapping(value = DOCUMENT_ANNOTATION + UPLOAD_FILE, method = RequestMethod.POST)
     public ResponseEntity<String> uploadFileHandler(
             @RequestParam("user_id") String userId,
             @RequestParam("fld") String fld,
@@ -622,5 +622,4 @@ public class HomeController extends HomeControllerBase {
     public void onAtmosphereMessage(AtmosphereResource resource) {
         annotationHandler.onAtmosphereMessage(resource);
     }
-
 }
