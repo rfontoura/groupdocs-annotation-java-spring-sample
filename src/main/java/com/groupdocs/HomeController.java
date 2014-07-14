@@ -66,13 +66,14 @@ public class HomeController extends HomeControllerBase {
         final String userGuid = annotationHandler.addCollaborator(
                 userName,
                 initialPath,
-                AccessRights.from(
-                        AccessRights.CAN_VIEW,
-                        AccessRights.CAN_ANNOTATE,
-                        AccessRights.CAN_EXPORT,
-                        AccessRights.CAN_DOWNLOAD,
-                        AccessRights.CAN_DELETE
-                ),
+                AccessRights.All,
+//                AccessRights.from(
+//                        AccessRights.CAN_VIEW,
+//                        AccessRights.CAN_ANNOTATE,
+//                        AccessRights.CAN_EXPORT,
+//                        AccessRights.CAN_DOWNLOAD,
+//                        AccessRights.CAN_DELETE
+//                ),
                 getIntFromColor(Color.black));
         HashMap<String, Object> params = new HashMap<String, Object>() {{
             // You can skip parameters which have default value
@@ -561,7 +562,7 @@ public class HomeController extends HomeControllerBase {
      * @throws java.io.IOException
      */
     @Override
-    @RequestMapping(value = DOCUMENT_ANNOTATION + UPLOAD_FILE, method = RequestMethod.POST)
+    @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> uploadFileHandler(
             @RequestParam("user_id") String userId,
             @RequestParam("fld") String fld,
