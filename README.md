@@ -7,7 +7,11 @@ Groupdocs Annotation for Java (Spring Sample)
 4. Run file `run.bat` to start sample application
 5. Open URL `http://127.0.0.1:8080/document-annotation` in your browser, make sure that port 8080 is free (you can change port number in your tomcat configuration)
 
-For change context path (`/document-annotation`)
+For change context path when run using tomcat
+* Change context [http://screencast.com/t/FXrXxDGR](http://screencast.com/t/FXrXxDGR)
+* Remove context [http://screencast.com/t/jCgWYIcOzJg](http://screencast.com/t/jCgWYIcOzJg)
+
+For change context path when run using maven (`/document-annotation`)
 * Update `path` attribute in file `src/main/webapp/META-INF/context.xml`
 * Update `path` in tomcat7-maven-plugin (file `pom.xml`)
 * Update `groupdocs.annotation.applicationPath` parameter in `src/main/resources/application.properties`
