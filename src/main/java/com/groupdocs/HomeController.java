@@ -51,7 +51,7 @@ public class HomeController extends HomeControllerBase {
 //            InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
         }
         // Setting header in jsp page
-        model.addAttribute("groupdocsHeader", annotationHandler.getHeader(request));
+        model.addAttribute("groupdocsHeader", annotationHandler.getHeader());
         // Initialization of Viewer with document from this path
         GroupDocsPath path = null;
         if(file != null && !file.isEmpty()){
@@ -75,50 +75,7 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DELETE
 //                ),
                 getIntFromColor(Color.black));
-        HashMap<String, Object> params = new HashMap<String, Object>() {{
-            // You can skip parameters which have default value
-            put("filePath",                             initialPath); // Default value: empty string
-            put("width",                                applicationConfig.getWidth());            // Default value: 800
-            put("height",                               applicationConfig.getHeight());           // Default value: 600
-            put("quality",                              applicationConfig.getQuality());              // Default value: 90
-            put("enableRightClickMenu",                 applicationConfig.isEnableRightClickMenu());            // Default value: true
-            put("showHeader",                           applicationConfig.isShowHeader());       // Default value: true
-            put("showZoom",                             applicationConfig.isShowZoom());         // Default value: true
-            put("showPaging",                           applicationConfig.isShowPaging());       // Default value: true
-            put("showPrint",                            applicationConfig.isShowPrint());        // Default value: true
-            put("showFileExplorer",                     applicationConfig.isShowFileExplorer());            // Default value: true
-            put("showThumbnails",                       applicationConfig.isShowThumbnails());   // Default value: true
-            put("showToolbar",                          applicationConfig.isShowToolbar());            // Default value: true
-            put("openThumbnails",                       applicationConfig.isOpenThumbnails());   // Default value: false
-            put("zoomToFitWidth",                       applicationConfig.isZoomToFitWidth());           // Default value: false
-            put("zoomToFitHeight",                      applicationConfig.isZoomToFitHeight());           // Default value: false
-            put("initialZoom",                          applicationConfig.getInitialZoom());             // Default value: 100
-            put("preloadPagesCount",                    applicationConfig.getPreloadPagesCount());               // Default value: 0
-            put("enableSidePanel",                      applicationConfig.isEnableSidePanel());            // Default value: true
-            put("scrollOnFocus",                        applicationConfig.isScrollOnFocus());            // Default value: true
-            put("strikeOutColor",                       applicationConfig.getStrikeOutColor());                // Default value: empty string
-            put("enabledTools",                         applicationConfig.getEnabledTools());            // Default value: 2047
-            put("connectorPosition",                    applicationConfig.getConnectorPosition());               // Default value: 0
-            put("saveReplyOnFocusLoss",                 applicationConfig.isSaveReplyOnFocusLoss());           // Default value: false
-            put("clickableAnnotations",                 applicationConfig.isClickableAnnotations());           // Default value: true
-            put("disconnectUncommented",                applicationConfig.isDisconnectUncommented());           // Default value: false
-            put("strikeoutMode",                        applicationConfig.getStrikeoutMode());               // Default value: 1
-            put("sideboarContainerSelector",            applicationConfig.getSidebarContainerSelector()); // Default value: div.comments_sidebar_wrapper
-            put("usePageNumberInUrlHash",               applicationConfig.isUsePageNumberInUrlHash());           // Default value: false
-            put("textSelectionSynchronousCalculation",  applicationConfig.isTextSelectionSynchronousCalculation());            // Default value: true
-            put("variableHeightPageSupport",            applicationConfig.isVariableHeightPageSupport());            // Default value: true
-            put("useJavaScriptDocumentDescription",     applicationConfig.isUseJavaScriptDocumentDescription());            // Default value: true
-            put("isRightPanelEnabled",                  applicationConfig.isRightPanelEnabled());            // Default value: true
-            put("createMarkup",                         applicationConfig.isCreateMarkup());            // Default value: true
-            put("use_pdf",                              applicationConfig.isUse_pdf());            // Default value: true
-            put("_mode",                                applicationConfig.getMode());           // Default value: annotatedDocument
-            put("selectionContainerSelector",           applicationConfig.getSelectionContainerSelector());  // Default value: [name='selection-content']
-            put("graphicsContainerSelector",            applicationConfig.getGraphicsContainerSelector());       // Default value: .annotationsContainer
-            put("widgetId",                             applicationConfig.getWidgetId());           // Default value: annotation-widget
-            put("userName",                             userName == null ? "Anonimous" : userName);
-            put("userGuid",                             userGuid);
-        }};
-        model.addAttribute("groupdocsScripts", annotationHandler.getScripts(request, params));
+        model.addAttribute("groupdocsScripts", annotationHandler.getAnnotationScript(null, initialPath, userName, userGuid));
         model.addAttribute("width", applicationConfig.getWidth());   // This is for sample JSP (index.jsp)
         model.addAttribute("height", applicationConfig.getHeight()); // This is for sample JSP (index.jsp)
 
