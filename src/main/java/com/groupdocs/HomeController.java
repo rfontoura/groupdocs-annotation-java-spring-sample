@@ -126,7 +126,7 @@ public class HomeController extends HomeControllerBase {
 
     @Override
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
-    public Object getFontHandler(String name, HttpServletResponse response){
+    public Object getFontHandler(@PathVariable String name, HttpServletResponse response){
         writeOutput(annotationHandler.getFontHandler(name, response), response);
         return null;
     }
