@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -38,7 +37,7 @@ public class HomeController extends HomeControllerBase {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userName", required = false) String userName) throws Exception {
-        return index(model, request, response, applicationConfig.getBasePath() + "/files/GroupDocs_Demo.doc", null, userName);
+        return index(model, request, response, applicationConfig.getBasePath() + "/GroupDocs_Demo.doc", null, userName);
     }
 
     @RequestMapping(value = "/view", method = RequestMethod.GET)
