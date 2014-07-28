@@ -75,9 +75,6 @@ public class HomeController extends HomeControllerBase {
 //                ),
                 getIntFromColor(Color.black));
         model.addAttribute("groupdocsScripts", annotationHandler.getAnnotationScript(null, initialPath, userName, userGuid));
-        model.addAttribute("width", applicationConfig.getWidth());   // This is for sample JSP (index.jsp)
-        model.addAttribute("height", applicationConfig.getHeight()); // This is for sample JSP (index.jsp)
-
         return "index";
     }
 
