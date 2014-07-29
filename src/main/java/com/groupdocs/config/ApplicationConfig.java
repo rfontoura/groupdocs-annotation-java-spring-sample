@@ -44,8 +44,6 @@ public class ApplicationConfig implements IServiceConfiguration {
     protected int height;
     @Property(key = "groupdocs.annotation.backgroundColor")
     protected String backgroundColor;
-    @Property(key = "groupdocs.annotation.showFolderBrowser")
-    protected boolean showFolderBrowser;
     @Property(key = "groupdocs.annotation.showPrint")
     protected boolean showPrint;
     @Property(key = "groupdocs.annotation.showDownload")
@@ -344,11 +342,11 @@ public class ApplicationConfig implements IServiceConfiguration {
 
     @Override
     public boolean isShowFolderBrowser() {
-        return showFolderBrowser;
+        return showFileExplorer;
     }
 
     public void setShowFolderBrowser(boolean showFolderBrowser) {
-        this.showFolderBrowser = showFolderBrowser;
+        this.showFileExplorer = showFolderBrowser;
     }
 
     @Override
