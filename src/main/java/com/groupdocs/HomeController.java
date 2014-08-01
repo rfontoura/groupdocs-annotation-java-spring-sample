@@ -516,11 +516,7 @@ public class HomeController extends HomeControllerBase {
      */
     @Override
     @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
-    public ResponseEntity<String> uploadFileHandler(
-            @RequestParam("user_id") String userId,
-            @RequestParam("fld") String fld,
-            HttpServletRequest request,
-            HttpServletResponse response) throws IOException{
+    public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, HttpServletRequest request, HttpServletResponse response) throws IOException{
         if (annotationHandler == null) { return writeOutputJson(new StatusResponse(false, "Please, reload page!")); }
 
         String uploadFileName = null;

@@ -32,7 +32,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
         } else {
             httpHeaders.setContentType(mediaType);
         }
-        return new ResponseEntity<String>(obj.toString(), httpHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<String>(obj.toString(), httpHeaders, HttpStatus.OK);
     }
 
     protected void writeOutput(Object o, HttpServletResponse response) {
