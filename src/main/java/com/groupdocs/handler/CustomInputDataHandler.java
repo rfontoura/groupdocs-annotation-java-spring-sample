@@ -4,15 +4,15 @@ import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.FileType;
 import com.groupdocs.viewer.handlers.input.InputDataHandler;
 import com.groupdocs.viewer.resources.Utils;
-import org.apache.commons.codec.binary.Base64;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- * Created by liosha on 23.01.14.
+ * @author Aleksey Permyakov, Alex Bobkov
  */
 public class CustomInputDataHandler extends InputDataHandler {
     private final HashMap<String, String> fileId2FilePath = new HashMap<String, String>();
@@ -20,14 +20,14 @@ public class CustomInputDataHandler extends InputDataHandler {
     private String basePath = null;
 
     public CustomInputDataHandler(ServiceConfiguration serviceConfiguration) {
-        basePath = serviceConfiguration.getBasePath() + "/files/";
+        basePath = serviceConfiguration.getBasePath();
     }
 
     @Override
     public HashMap<String, String> getFileList(String directory) {
         File[] files = new File(basePath + directory).listFiles();
         for (File file : files) {
-            String fileId = new String(Base64.encodeBase64(file.getName().getBytes())) + Long.toString(file.length());
+            String fileId = Utils.encodeData(file.getAbsolutePath());
             fileId2FilePath.put(fileId, file.getAbsolutePath());
             fileId2FileName.put(fileId, file.getName());
         }
@@ -37,9 +37,6 @@ public class CustomInputDataHandler extends InputDataHandler {
     @Override
     public InputStream getFile(String guid) {
         try {
-            if (new File(guid).exists()) {
-                return new FileInputStream(guid);
-            }
             return new FileInputStream(fileId2FilePath.get(guid));
         } catch (FileNotFoundException e){
             return null;
@@ -56,37 +53,7 @@ public class CustomInputDataHandler extends InputDataHandler {
     }
 
     @Override
-    public String saveFile(InputStream inputStream, String fileName, Integer value) {
-        File dest = new File(basePath + fileName);
-        OutputStream os = null;
-        try {
-            os = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) > 0) {
-                os.write(buffer, 0, length);
-            }
-            return Utils.encodeData(basePath + fileName);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if(inputStream != null){
-                    inputStream.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                if(os != null){
-                    os.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(CustomInputDataHandler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
+    public String saveFile(InputStream inputStream, String fileName, Integer timeToLive) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
