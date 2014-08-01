@@ -534,7 +534,7 @@ public class HomeController extends HomeControllerBase {
                 uploadInputStream = multipartFile.getInputStream();
             }
         }
-        return writeOutputJson(annotationHandler.uploadFileHandler(userId, fld, uploadFileName, uploadInputStream, 0, request, response));
+        return writeOutputJson(annotationHandler.uploadFileHandler(userId, uploadFileName, uploadInputStream, true));
     }
 
     /**
