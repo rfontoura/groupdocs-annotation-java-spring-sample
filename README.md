@@ -1,4 +1,4 @@
-Groupdocs Annotation for Java (Spring Sample)
+Groupdocs Annotation for Java (Spring Sample) 1.5.0
 ===========================================
 
 1. Install GroupDocs Annotation for Java library into maven http://groupdocs.com/java/document-annotation-library
