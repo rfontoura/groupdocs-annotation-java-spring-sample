@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * Created by Aleksey Permyakov
  */
 @Component
-public class ApplicationConfig extends ServiceConfigurationBase{
+public class ApplicationConfig extends ServiceConfigurationBase {
     @Property(key = "groupdocs.annotation.licensePath")
     protected String licensePath;
     @Property(key = "groupdocs.annotation.applicationPath")
@@ -103,6 +103,8 @@ public class ApplicationConfig extends ServiceConfigurationBase{
     protected boolean useBrowserCache;
     @Property(key = "groupdocs.annotation.widgetId")
     protected String widgetId;
+    @Property(key = "groupdocs.annotation.undoEnabled")
+    private boolean undoEnabled;
 
     @Override
     public String getLicensePath() {
@@ -296,6 +298,15 @@ public class ApplicationConfig extends ServiceConfigurationBase{
     @Override
     public boolean isShowFileExplorer() {
         return showFileExplorer;
+    }
+
+    @Override
+    public boolean isUndoEnabled() {
+        return undoEnabled;
+    }
+
+    public void setUndoEnabled(boolean undoEnabled) {
+        this.undoEnabled = undoEnabled;
     }
 
     public void setShowFileExplorer(boolean showFileExplorer) {
