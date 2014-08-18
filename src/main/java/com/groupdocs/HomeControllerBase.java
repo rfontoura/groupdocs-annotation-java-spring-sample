@@ -2,15 +2,6 @@ package com.groupdocs;
 
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
-
-import java.awt.Color;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.http.HttpServletResponse;
-
 import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.config.ServiceConfiguration;
@@ -20,6 +11,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Alex Bobkov
@@ -44,7 +43,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
     }
 
     protected void writeOutput(Object o, HttpServletResponse response) {
-        if (o instanceof InputStream){
+        if (o instanceof InputStream) {
             writeOutput((InputStream) o, response);
         }
     }
@@ -75,14 +74,14 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
         return 0xFF000000 | R | G | B;
     }
 
-    protected AnnotationHandler annotationHandler(){
+    protected AnnotationHandler annotationHandler() {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
             try {
                 annotationHandler = new AnnotationHandler(serviceConfiguration);
-    //            annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
-    //            InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
+                //            annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
+                //            InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
             } catch (Exception e) {
                 // TODO: // logger
                 e.printStackTrace();

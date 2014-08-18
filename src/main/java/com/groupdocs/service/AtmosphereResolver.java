@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class AtmosphereResolver implements HandlerMethodArgumentResolver {
     /**
      * Check that parameter is supported
+     *
      * @param methodParameter parameter to check
      * @return true if support else false
      */
@@ -27,10 +28,11 @@ public class AtmosphereResolver implements HandlerMethodArgumentResolver {
 
     /**
      * Resolve argument
-     * @param methodParameter Method parameter
+     *
+     * @param methodParameter       Method parameter
      * @param modelAndViewContainer Model and view container
-     * @param nativeWebRequest Native web request
-     * @param webDataBinderFactory Web data binder factory
+     * @param nativeWebRequest      Native web request
+     * @param webDataBinderFactory  Web data binder factory
      * @return argument object
      * @throws Exception
      */

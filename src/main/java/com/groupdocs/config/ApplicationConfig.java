@@ -15,6 +15,8 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected String applicationPath;
     @Property(key = "groupdocs.annotation.basePath")
     protected String basePath;
+    @Property(key = "groupdocs.annotation.uploadPath")
+    private String uploadPath;
     @Property(key = "groupdocs.annotation.useAuthorization")
     protected boolean useAuthorization;
     @Property(key = "groupdocs.annotation.useCache")
@@ -172,6 +174,15 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Override
     public String getLocalesPath() {
         return localesPath;
+    }
+
+    @Override
+    public String getUploadPath() {
+        return uploadPath;
+    }
+
+    public void setUploadPath(String uploadPath) {
+        this.uploadPath = uploadPath;
     }
 
     public void setLocalesPath(String localesPath) {

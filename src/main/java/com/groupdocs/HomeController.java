@@ -2,14 +2,10 @@ package com.groupdocs;
 
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.response.StatusResponse;
-import com.groupdocs.annotation.handler.AnnotationHandler;
-import com.groupdocs.config.ApplicationConfig;
-import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
 import com.groupdocs.viewer.domain.path.GroupDocsPath;
 import com.groupdocs.viewer.domain.path.TokenId;
 import org.atmosphere.cpr.AtmosphereResource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,7 +20,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * Date: 05.12.13
@@ -43,11 +38,11 @@ public class HomeController extends HomeControllerBase {
         model.addAttribute("groupdocsHeader", annotationHandler().getHeader());
         // Initialization of Viewer with document from this path
         GroupDocsPath path = null;
-        if(file != null && !file.isEmpty()){
+        if (file != null && !file.isEmpty()) {
             path = new EncodedPath(file, annotationHandler().getConfiguration());
-        }else if(tokenId != null && !tokenId.isEmpty()){
+        } else if (tokenId != null && !tokenId.isEmpty()) {
             TokenId tki = new TokenId(tokenId, applicationConfig.getEncryptionKey());
-            if(!tki.isExpired()){
+            if (!tki.isExpired()) {
                 path = tki;
             }
         }
@@ -73,11 +68,11 @@ public class HomeController extends HomeControllerBase {
      *
      * @param script
      * @param response
-     * @return 
+     * @return
      */
     @Override
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
-    public Object getJsHandler(String script, HttpServletResponse response){
+    public Object getJsHandler(String script, HttpServletResponse response) {
         writeOutput(annotationHandler().getJsHandler(script, response), response);
         return null;
     }
@@ -87,11 +82,11 @@ public class HomeController extends HomeControllerBase {
      *
      * @param script
      * @param response
-     * @return 
+     * @return
      */
     @Override
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
-    public Object getCssHandler(String script, HttpServletResponse response){
+    public Object getCssHandler(String script, HttpServletResponse response) {
         writeOutput(annotationHandler().getCssHandler(script, response), response);
         return null;
     }
@@ -105,35 +100,36 @@ public class HomeController extends HomeControllerBase {
      */
     @Override
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
-    public Object getImageHandler(@PathVariable String name, HttpServletResponse response){
+    public Object getImageHandler(@PathVariable String name, HttpServletResponse response) {
         writeOutput(annotationHandler().getImageHandler(name, response), response);
         return null;
     }
 
     @Override
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
-    public Object getFontHandler(@PathVariable String name, HttpServletResponse response){
+    public Object getFontHandler(@PathVariable String name, HttpServletResponse response) {
         writeOutput(annotationHandler().getFontHandler(name, response), response);
         return null;
     }
 
     @Override
     @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
-    public Object getHtmlRecoucesHandler(String filePath, HttpServletResponse response){
+    public Object getHtmlRecoucesHandler(String filePath, HttpServletResponse response) {
         writeOutput(annotationHandler().getHtmlRecoucesHandler(filePath, response), response);
         return null;
     }
 
     /**
      * Download file [GET request]
-     * @param path file path
-     * @param getPdf get pdf file
+     *
+     * @param path     file path
+     * @param getPdf   get pdf file
      * @param response http servlet response
-     * @return 
+     * @return
      */
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
-    public Object getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response){
+    public Object getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response) {
         writeOutput(annotationHandler().getFileHandler(path, getPdf, response), response);
         return null;
     }
@@ -147,12 +143,12 @@ public class HomeController extends HomeControllerBase {
      * @param usePdf
      * @param pageIndex
      * @param response
-     * @return 
+     * @return
      */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
-                                            @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response){
+                                              @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
         writeOutput(annotationHandler().getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response), response);
         return null;
     }
@@ -305,7 +301,7 @@ public class HomeController extends HomeControllerBase {
     /**
      * @param path
      * @param response
-     * @return 
+     * @return
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
@@ -318,7 +314,7 @@ public class HomeController extends HomeControllerBase {
     /**
      * @param request
      * @param response
-     * @return 
+     * @return
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
@@ -378,9 +374,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get avatar for current user [GET request]
      *
-     * @param request HTTP servlet request
+     * @param request  HTTP servlet request
      * @param response
-     * @param userId  user id
+     * @param userId   user id
      * @return
      */
     @RequestMapping(value = GET_AVATAR_HANDLER, method = RequestMethod.GET)
@@ -487,6 +483,7 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Return list of collaborators [POST request]
+     *
      * @param request HTTP servlet request
      * @return object with response parameters
      */
@@ -498,38 +495,42 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Upload file to GroupDocs.Annotation [POST request]
-     * @param fld action
-     * @param request http request
+     *
+     * @param fld      action
+     * @param request  http request
      * @param response http response
      * @return token id as json
-     * @throws java.io.IOException
      */
     @Override
     @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
-    public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, HttpServletRequest request, HttpServletResponse response) {
         String uploadFileName = null;
         InputStream uploadInputStream = null;
-        if (request instanceof DefaultMultipartHttpServletRequest){
-            Map<String,MultipartFile> fileMap = ((DefaultMultipartHttpServletRequest)request).getFileMap();
+        if (request instanceof DefaultMultipartHttpServletRequest) {
+            Map<String, MultipartFile> fileMap = ((DefaultMultipartHttpServletRequest) request).getFileMap();
             if (fileMap.keySet().iterator().hasNext()) {
                 String fileName = fileMap.keySet().iterator().next();
                 MultipartFile multipartFile = fileMap.get(fileName);
                 uploadFileName = multipartFile.getOriginalFilename();
-                uploadInputStream = multipartFile.getInputStream();
+                try {
+                    uploadInputStream = multipartFile.getInputStream();
+                } catch (IOException e) {
+                    return writeOutputJson(new StatusResponse(false, "Can't get input stream!"));
+                }
             }
         }
         return writeOutputJson(annotationHandler().uploadFileHandler(userId, uploadFileName, uploadInputStream, true));
     }
 
     /**
-     * @see com.groupdocs.annotation.handler.GroupDocsAnnotation
-     * @param request http servlet request
+     * @param request  http servlet request
      * @param response http servlet response
      * @return object with response parameters
+     * @see com.groupdocs.annotation.handler.GroupDocsAnnotation
      */
     @Override
     @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
-    public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
         return writeOutputJson(annotationHandler().importAnnotationsHandler(request, response));
     }
 
@@ -541,6 +542,7 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * On ready handler
+     *
      * @param resource resource data received from socket
      */
     @Override
@@ -552,6 +554,7 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * On message handler [POST]
+     *
      * @param resource resource data received from socket
      */
     @Override
