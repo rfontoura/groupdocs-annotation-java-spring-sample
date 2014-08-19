@@ -27,15 +27,37 @@ import java.util.Map;
 @Controller
 public class HomeController extends HomeControllerBase {
 
+    /**
+     * Home page request
+     *
+     * @param model    view model
+     * @param request  HTTP servlet request
+     * @param response http servlet response
+     * @param userName user name
+     * @return rendered page
+     * @throws Exception
+     */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userName", required = false) String userName) throws Exception {
         return index(model, request, response, "GroupDocs_Demo.doc", null, userName);
     }
 
+    /**
+     * Request with parameters
+     *
+     * @param model    view model
+     * @param request  HTTP servlet request
+     * @param response http servlet response
+     * @param file     file name
+     * @param tokenId  file token id
+     * @param userName user name
+     * @return rendered page
+     * @throws Exception
+     */
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "file", required = false) String file, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         // Setting header in jsp page
-        model.addAttribute("groupdocsHeader", annotationHandler().getHeader());
+        model.addAttribute("groupdocsHeader", annotationHandler().getHeader(applicationConfig.getApplicationPath()));
         // Initialization of Viewer with document from this path
         GroupDocsPath path = null;
         if (file != null && !file.isEmpty()) {
@@ -59,16 +81,16 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DELETE
 //                ),
                 getIntFromColor(Color.black));
-        model.addAttribute("groupdocsScripts", annotationHandler().getAnnotationScript(null, initialPath, userName, userGuid));
+        model.addAttribute("groupdocsScripts", annotationHandler().getAnnotationScript(initialPath, userName, userGuid));
         return "index";
     }
 
     /**
      * Get JavaScript file [GET request]
      *
-     * @param script
-     * @param response
-     * @return
+     * @param script   JavaScript name
+     * @param response http servlet response
+     * @return JavaScript file content
      */
     @Override
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
@@ -80,9 +102,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get css file [GET request]
      *
-     * @param script
-     * @param response
-     * @return
+     * @param script   CSS name
+     * @param response http servlet response
+     * @return CSS file content
      */
     @Override
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
@@ -94,9 +116,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get image file [GET request]
      *
-     * @param name
-     * @param response
-     * @return
+     * @param name     image name
+     * @param response http servlet response
+     * @return image content
      */
     @Override
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
@@ -105,6 +127,13 @@ public class HomeController extends HomeControllerBase {
         return null;
     }
 
+    /**
+     * Get font file
+     *
+     * @param name     font name
+     * @param response http servlet response
+     * @return font content
+     */
     @Override
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
     public Object getFontHandler(@PathVariable String name, HttpServletResponse response) {
@@ -112,6 +141,13 @@ public class HomeController extends HomeControllerBase {
         return null;
     }
 
+    /**
+     * Get HTML resources
+     *
+     * @param filePath resource path
+     * @param response http servlet response
+     * @return return HTML resources
+     */
     @Override
     @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
     public Object getHtmlRecoucesHandler(String filePath, HttpServletResponse response) {
@@ -125,7 +161,7 @@ public class HomeController extends HomeControllerBase {
      * @param path     file path
      * @param getPdf   get pdf file
      * @param response http servlet response
-     * @return
+     * @return file content
      */
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
@@ -137,13 +173,13 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get document image files [GET request]
      *
-     * @param guid
-     * @param width
-     * @param quality
-     * @param usePdf
-     * @param pageIndex
-     * @param response
-     * @return
+     * @param guid      file guid
+     * @param width     file width
+     * @param quality   quality
+     * @param usePdf    use PDF format
+     * @param pageIndex index of page
+     * @param response  http servlet response
+     * @return null
      */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
@@ -156,9 +192,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Generate list of images/pages [POST request]
      *
-     * @param request
-     * @param response
-     * @return
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
     @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.POST)
@@ -169,11 +205,11 @@ public class HomeController extends HomeControllerBase {
     /**
      * Generate list of images/pages [GET request]
      *
-     * @param callback
-     * @param data
-     * @param request
-     * @param response
-     * @return
+     * @param callback callback
+     * @param data     request data
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
     @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.GET)
@@ -184,9 +220,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Load tree of files from base directory [POST request]
      *
-     * @param request
-     * @param response
-     * @return
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return files tree data
      */
     @Override
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
@@ -197,10 +233,10 @@ public class HomeController extends HomeControllerBase {
     /**
      * Load tree of files from base directory [GET request]
      *
-     * @param callback
-     * @param data
-     * @param response
-     * @return
+     * @param callback callback
+     * @param data     request data
+     * @param response HTTP servlet response
+     * @return files tree data
      */
     @Override
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.GET)
@@ -211,9 +247,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get thumbs and other images files [POST request]
      *
-     * @param request
-     * @param response
-     * @return
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.POST)
@@ -224,11 +260,11 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get thumbs and other images files [GET request]
      *
-     * @param callback
-     * @param data
-     * @param request
-     * @param response
-     * @return
+     * @param callback callback
+     * @param data     request data
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.GET)
@@ -239,11 +275,12 @@ public class HomeController extends HomeControllerBase {
     /**
      * Converts document to PDF and then to JavaScript for text search and selection [POST request]
      *
-     * @param request
-     * @param response
-     * @return
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
+    @Deprecated
     @RequestMapping(value = GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPdf2JavaScriptHandler(HttpServletRequest request, HttpServletResponse response) {
         return writeOutputJson(annotationHandler().getPdf2JavaScriptHandler(request, response));
@@ -252,12 +289,13 @@ public class HomeController extends HomeControllerBase {
     /**
      * Converts document to PDF and then to JavaScript for text search and selection [GET request]
      *
-     * @param callback
-     * @param data
-     * @param response
-     * @return
+     * @param callback callback
+     * @param data     request data
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
+    @Deprecated
     @RequestMapping(value = GET_PDF_2_JAVA_SCRIPT_HANDLER, method = RequestMethod.GET)
     public ResponseEntity<String> getPdf2JavaScriptHandler(String callback, String data, HttpServletResponse response) {
         return writeOutputJson(annotationHandler().getPdf2JavaScriptHandler(callback, data, response));
@@ -266,9 +304,9 @@ public class HomeController extends HomeControllerBase {
     /**
      * Print document [POST request]
      *
-     * @param request
-     * @param response
-     * @return
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.POST)
@@ -279,11 +317,11 @@ public class HomeController extends HomeControllerBase {
     /**
      * Print document [GET request]
      *
-     * @param callback
-     * @param data
-     * @param request
-     * @param response
-     * @return
+     * @param callback callback
+     * @param data     request data
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
      */
     @Override
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.GET)
@@ -291,6 +329,13 @@ public class HomeController extends HomeControllerBase {
         return writeOutputJson(annotationHandler().getPrintableHtmlHandler(callback, data, request, response));
     }
 
+    /**
+     * Get document content as html
+     *
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response data
+     */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_HTML_HANDLER, method = RequestMethod.GET)
     public Object getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
@@ -299,9 +344,11 @@ public class HomeController extends HomeControllerBase {
     }
 
     /**
-     * @param path
-     * @param response
-     * @return
+     * Get data for print dialog
+     *
+     * @param path     file path
+     * @param response HTTP servlet response
+     * @return response object
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
@@ -312,9 +359,11 @@ public class HomeController extends HomeControllerBase {
     }
 
     /**
-     * @param request
-     * @param response
-     * @return
+     * Reorder page
+     *
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response data
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
@@ -327,7 +376,7 @@ public class HomeController extends HomeControllerBase {
      * Get list of annotations for document [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = LIST_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
@@ -339,7 +388,7 @@ public class HomeController extends HomeControllerBase {
      * Download document with annotations [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = EXPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
@@ -351,7 +400,7 @@ public class HomeController extends HomeControllerBase {
      * Download document as PDF file [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = GET_PDF_VERSION_OF_DOCUMENT_HANDLER, method = RequestMethod.POST)
@@ -363,7 +412,7 @@ public class HomeController extends HomeControllerBase {
      * Request to create annotation on document [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = CREATE_ANNOTATION_HANDLER, method = RequestMethod.POST)
@@ -375,9 +424,9 @@ public class HomeController extends HomeControllerBase {
      * Get avatar for current user [GET request]
      *
      * @param request  HTTP servlet request
-     * @param response
+     * @param response HTTP servlet response
      * @param userId   user id
-     * @return
+     * @return response object
      */
     @RequestMapping(value = GET_AVATAR_HANDLER, method = RequestMethod.GET)
     @Override
@@ -389,7 +438,7 @@ public class HomeController extends HomeControllerBase {
      * Add reply to annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = ADD_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
@@ -401,7 +450,7 @@ public class HomeController extends HomeControllerBase {
      * Edit reply for annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = EDIT_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
@@ -413,7 +462,7 @@ public class HomeController extends HomeControllerBase {
      * Delete reply from annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
@@ -425,7 +474,7 @@ public class HomeController extends HomeControllerBase {
      * Delete annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_HANDLER, method = RequestMethod.POST)
@@ -437,7 +486,7 @@ public class HomeController extends HomeControllerBase {
      * Save text field annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = SAVE_TEXT_FIELD_HANDLER, method = RequestMethod.POST)
@@ -449,7 +498,7 @@ public class HomeController extends HomeControllerBase {
      * Set color for text field annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = SET_TEXT_FIELD_COLOR_HANDLER, method = RequestMethod.POST)
@@ -461,7 +510,7 @@ public class HomeController extends HomeControllerBase {
      * Set annotation marker position [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @Override
     @RequestMapping(value = MOVE_ANNOTATION_MARKER_HANDLER, method = RequestMethod.POST)
@@ -473,7 +522,7 @@ public class HomeController extends HomeControllerBase {
      * Set new size for annotation [POST request]
      *
      * @param request HTTP servlet request
-     * @return
+     * @return response object
      */
     @RequestMapping(value = RESIZE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     @Override
@@ -501,7 +550,6 @@ public class HomeController extends HomeControllerBase {
      * @param response http response
      * @return token id as json
      */
-    @Override
     @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, HttpServletRequest request, HttpServletResponse response) {
         String uploadFileName = null;
@@ -534,6 +582,13 @@ public class HomeController extends HomeControllerBase {
         return writeOutputJson(annotationHandler().importAnnotationsHandler(request, response));
     }
 
+    /**
+     * Get view for print document
+     *
+     * @param request  HTTP servlet request
+     * @param response HTTP servlet response
+     * @return response object
+     */
     @Override
     @RequestMapping(value = GET_PRINT_VIEW_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPrintViewHandler(HttpServletRequest request, HttpServletResponse response) {
