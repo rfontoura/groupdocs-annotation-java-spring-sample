@@ -81,6 +81,13 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DELETE
 //                ),
                 getIntFromColor(Color.black));
+//        if (annotationHandler().getUserAvatar(userGuid) == null){
+//            FileInputStream testAvatar = new FileInputStream(new File("E:\\Images\\333.jpeg"));
+//            byte[] bytes = new byte[testAvatar.available()];
+//            IOUtils.readFully(testAvatar, bytes);
+//            Utils.closeStreams(testAvatar);
+//            annotationHandler().setUserAvatar(userGuid, bytes);
+//        }
         model.addAttribute("groupdocsScripts", annotationHandler().getAnnotationScript(initialPath, userName, userGuid));
         return "index";
     }
