@@ -57,7 +57,7 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "file", required = false) String file, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
         // Setting header in jsp page
-        model.addAttribute("groupdocsHeader", annotationHandler().getHeader(applicationConfig.getApplicationPath()));
+        model.addAttribute("groupdocsHeader", annotationHandler().getHeader(applicationConfig.getApplicationPath(), request));
         // Initialization of Viewer with document from this path
         GroupDocsPath path = null;
         if (file != null && !file.isEmpty()) {
