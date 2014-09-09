@@ -625,4 +625,11 @@ public class HomeController extends HomeControllerBase {
     public void onAtmosphereMessage(AtmosphereResource resource) {
         annotationHandler().onAtmosphereMessage(resource);
     }
+
+    @Override
+    @RequestMapping(value = GET_PRINT_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
+    public Object getPrintDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
+        writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, usePdf, pageIndex, response), response);
+        return null;
+    }
 }
