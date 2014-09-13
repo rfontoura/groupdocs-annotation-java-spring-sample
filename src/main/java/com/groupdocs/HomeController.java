@@ -574,7 +574,7 @@ public class HomeController extends HomeControllerBase {
                 }
             }
         }
-        return writeOutputJson(annotationHandler().uploadFileHandler(userId, uploadFileName, uploadInputStream, true));
+        return writeOutputJson(annotationHandler().uploadFileHandler(userId, uploadFileName, uploadInputStream, false));
     }
 
     /**
