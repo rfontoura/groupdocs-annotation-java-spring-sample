@@ -28,7 +28,7 @@ public class CustomDatabaseConnector implements IDatabaseConnector {
             // create a connection source to our database
             return new JdbcConnectionSource(dbConnection);
         } catch (Exception ex) {
-            Logger.getLogger(CustomDatabaseConnector.class.getName()).log(Level.SEVERE, "Error during create Sql connection: " + ex.getMessage());
+            Logger.getLogger(CustomDatabaseConnector.class.getName()).log(Level.SEVERE, "Error during create Sql connection (Will be used default SQLite database): " + ex.getMessage());
             return null;
         }
     }

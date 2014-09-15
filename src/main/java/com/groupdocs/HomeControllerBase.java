@@ -80,9 +80,9 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
             try {
-//                annotationHandler = new AnnotationHandler(serviceConfiguration);
+                annotationHandler = new AnnotationHandler(serviceConfiguration);
 
-                annotationHandler = new AnnotationHandler(serviceConfiguration, null, new CustomDatabaseConnector(applicationConfig));
+//                annotationHandler = new AnnotationHandler(serviceConfiguration, null, new CustomDatabaseConnector(applicationConfig));
 
 //                annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
 //                InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
