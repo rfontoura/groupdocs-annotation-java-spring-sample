@@ -83,7 +83,7 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DOWNLOAD,
 //                        AccessRights.CAN_DELETE
 //                ),
-                getIntFromColor(Color.black));
+                Utils.colorToInt(Color.black));
 //        if (annotationHandler().getUserAvatar(userGuid) == null){
 //            FileInputStream testAvatar = new FileInputStream(new File("E:\\Images\\333.jpeg"));
 //            byte[] bytes = new byte[testAvatar.available()];
@@ -605,7 +605,7 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DOWNLOAD,
 //                        AccessRights.CAN_DELETE
 //                ),
-                    getIntFromColor(Color.black));
+                    Utils.colorToInt(Color.black));
         } catch (AnnotationException e) {
             e.printStackTrace(); // Logger
         }

@@ -1,5 +1,6 @@
 package com.groupdocs;
 
+import com.groupdocs.annotation.config.ServiceConfigurationBase;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
@@ -28,10 +29,21 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
     protected ApplicationConfig applicationConfig;
     private AnnotationHandler annotationHandler;
 
+    /**
+     * Write object as json
+     * @param obj object to write
+     * @return response object
+     */
     protected static ResponseEntity<String> writeOutputJson(Object obj) {
         return writeOutput(obj, MediaType.APPLICATION_JSON);
     }
 
+    /**
+     * Write object to response with provided media type
+     * @param obj object to write
+     * @param mediaType media type
+     * @return response object
+     */
     protected static ResponseEntity<String> writeOutput(Object obj, MediaType mediaType) {
         HttpHeaders httpHeaders = new HttpHeaders();
         if (mediaType == MediaType.APPLICATION_JSON) {
@@ -42,12 +54,22 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
         return new ResponseEntity<String>(obj.toString(), httpHeaders, HttpStatus.OK);
     }
 
+    /**
+     * Write stream to response
+     * @param o stream
+     * @param response http servlet response
+     */
     protected void writeOutput(Object o, HttpServletResponse response) {
         if (o instanceof InputStream) {
             writeOutput((InputStream) o, response);
         }
     }
 
+    /**
+     * Write stream to response
+     * @param inputStream stream for write
+     * @param response http servlet response
+     */
     protected void writeOutput(InputStream inputStream, HttpServletResponse response) {
         try {
             IOUtils.copy(inputStream, response.getOutputStream());
@@ -58,22 +80,10 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
         }
     }
 
-    protected int getIntFromColor(Color color) {
-        return getIntFromColor(color.getRed(), color.getGreen(), color.getBlue());
-    }
-
-    protected int getIntFromColor(float red, float green, float blue) {
-        int R = Math.round(255 * red);
-        int G = Math.round(255 * green);
-        int B = Math.round(255 * blue);
-
-        R = (R << 16) & 0x00FF0000;
-        G = (G << 8) & 0x0000FF00;
-        B = B & 0x000000FF;
-
-        return 0xFF000000 | R | G | B;
-    }
-
+    /**
+     * Get or create annotation handler
+     * @return annotation handler
+     */
     protected AnnotationHandler annotationHandler() {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
@@ -81,12 +91,12 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
             try {
                 annotationHandler = new AnnotationHandler(serviceConfiguration);
 
-//                annotationHandler = new AnnotationHandler(serviceConfiguration, null, new CustomDatabaseConnector(applicationConfig));
+//                annotationHandler = new AnnotationHandler(serviceConfiguration, new CustomDatabaseConnector(applicationConfig));
 
 //                annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
 //                InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
             } catch (Exception e) {
-                // TODO: // logger
+                // TODO: logger
                 e.printStackTrace();
             }
         }

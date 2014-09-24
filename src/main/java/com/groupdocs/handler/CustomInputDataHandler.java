@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Input data handler - custom implementation
  * @author Aleksey Permyakov, Alex Bobkov
  */
 public class CustomInputDataHandler extends InputDataHandler {
@@ -20,10 +21,19 @@ public class CustomInputDataHandler extends InputDataHandler {
     private final Map<String, String> fileId2FileName = new HashMap<String, String>();
     private String basePath = null;
 
+    /**
+     * Custom constructor
+     * @param serviceConfiguration service configuration
+     */
     public CustomInputDataHandler(ServiceConfiguration serviceConfiguration) {
         basePath = serviceConfiguration.getBasePath();
     }
 
+    /**
+     * Get list of files
+     * @param directory directory to get files
+     * @return list of files
+     */
     @Override
     public Map<String, String> getFileList(String directory) {
         File[] files = new File(basePath + directory).listFiles();
@@ -35,6 +45,11 @@ public class CustomInputDataHandler extends InputDataHandler {
         return fileId2FileName;
     }
 
+    /**
+     * Get file stream
+     * @param guid file identifier
+     * @return file stream
+     */
     @Override
     public InputStream getFile(String guid) {
         try {
@@ -44,6 +59,11 @@ public class CustomInputDataHandler extends InputDataHandler {
         }
     }
 
+    /**
+     * Get type of file
+     * @param guid file identifier
+     * @return type of file
+     */
     @Override
     public FileType getFileType(String guid) {
         String fileName = new File(fileId2FileName.get(guid)).getName();
@@ -53,6 +73,13 @@ public class CustomInputDataHandler extends InputDataHandler {
         return FileType.DIRECTORY;
     }
 
+    /**
+     * Save file - for upload functional
+     * @param inputStream file stream
+     * @param fileName file name
+     * @param timeToLive time in milliseconds
+     * @return file identifier
+     */
     @Override
     public String saveFile(InputStream inputStream, String fileName, Integer timeToLive) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

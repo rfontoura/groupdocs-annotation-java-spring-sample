@@ -10,10 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * CORS filter class
  * Created by liosha on 11.12.13.
  */
 public class CorsFilter extends OncePerRequestFilter {
 
+    /**
+     * Cors filter
+     * @param request http servlet request
+     * @param response http servlet response
+     * @param filterChain filter chain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {

@@ -9,17 +9,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Custom database connector
  * @author Aleksey Permyakov (09.09.2014)
  */
 public class CustomDatabaseConnector implements IDatabaseConnector {
     private String dbDriver;
     private String dbConnection;
 
+    /**
+     * Custom constructor
+     * @param applicationConfig application config
+     */
     public CustomDatabaseConnector(ApplicationConfig applicationConfig) {
         dbDriver = applicationConfig.getDbDriver();
         dbConnection = applicationConfig.getDbConnection();
     }
 
+    /**
+     * Create connection to database
+     *
+     * @return database connection
+     */
     @Override
     public ConnectionSource getConnection() {
         try {
