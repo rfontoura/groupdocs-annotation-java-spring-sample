@@ -69,8 +69,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected boolean enableSidePanel;
     @Property(key = "groupdocs.annotation.scrollOnFocus")
     protected boolean scrollOnFocus;
-    @Property(key = "groupdocs.annotation.strikeOutColor")
-    protected String strikeOutColor;
     @Property(key = "groupdocs.annotation.enabledTools")
     protected int enabledTools;
     @Property(key = "groupdocs.annotation.connectorPosition")
@@ -83,6 +81,10 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected boolean disconnectUncommented;
     @Property(key = "groupdocs.annotation.strikeoutMode")
     protected int strikeoutMode;
+    @Property(key = "groupdocs.annotation.undoEnabled")
+    private boolean undoEnabled;
+    @Property(key = "groupdocs.annotation.anyToolSelection")
+    protected boolean anyToolSelection;
     @Property(key = "groupdocs.annotation.sidebarContainerSelector")
     protected String sidebarContainerSelector;
     @Property(key = "groupdocs.annotation.usePageNumberInUrlHash")
@@ -107,8 +109,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected boolean useBrowserCache;
     @Property(key = "groupdocs.annotation.widgetId")
     protected String widgetId;
-    @Property(key = "groupdocs.annotation.undoEnabled")
-    private boolean undoEnabled;
 
     @Override
     public String getLicensePath() {
@@ -388,15 +388,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     }
 
     @Override
-    public String getStrikeOutColor() {
-        return strikeOutColor;
-    }
-
-    public void setStrikeOutColor(String strikeOutColor) {
-        this.strikeOutColor = strikeOutColor;
-    }
-
-    @Override
     public int getEnabledTools() {
         return enabledTools;
     }
@@ -448,6 +439,15 @@ public class ApplicationConfig extends ServiceConfigurationBase {
 
     public void setStrikeoutMode(int strikeoutMode) {
         this.strikeoutMode = strikeoutMode;
+    }
+
+    @Override
+    public boolean isAnyToolSelection() {
+        return anyToolSelection;
+    }
+
+    public void setAnyToolSelection(boolean anyToolSelection) {
+        this.anyToolSelection = anyToolSelection;
     }
 
     @Override
