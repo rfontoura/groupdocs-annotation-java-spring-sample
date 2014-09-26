@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * Input data handler - custom implementation
+ *
  * @author Aleksey Permyakov, Alex Bobkov
  */
 public class CustomInputDataHandler extends InputDataHandler {
@@ -23,6 +24,7 @@ public class CustomInputDataHandler extends InputDataHandler {
 
     /**
      * Custom constructor
+     *
      * @param serviceConfiguration service configuration
      */
     public CustomInputDataHandler(ServiceConfiguration serviceConfiguration) {
@@ -31,6 +33,7 @@ public class CustomInputDataHandler extends InputDataHandler {
 
     /**
      * Get list of files
+     *
      * @param directory directory to get files
      * @return list of files
      */
@@ -47,6 +50,7 @@ public class CustomInputDataHandler extends InputDataHandler {
 
     /**
      * Get file stream
+     *
      * @param guid file identifier
      * @return file stream
      */
@@ -61,6 +65,7 @@ public class CustomInputDataHandler extends InputDataHandler {
 
     /**
      * Get type of file
+     *
      * @param guid file identifier
      * @return type of file
      */
@@ -75,9 +80,10 @@ public class CustomInputDataHandler extends InputDataHandler {
 
     /**
      * Save file - for upload functional
+     *
      * @param inputStream file stream
-     * @param fileName file name
-     * @param timeToLive time in milliseconds
+     * @param fileName    file name
+     * @param timeToLive  time in milliseconds
      * @return file identifier
      */
     @Override

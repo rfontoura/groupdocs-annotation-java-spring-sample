@@ -1,6 +1,5 @@
 package com.groupdocs;
 
-import com.groupdocs.annotation.config.ServiceConfigurationBase;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
@@ -14,7 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.TimeZone;
@@ -31,6 +29,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
 
     /**
      * Write object as json
+     *
      * @param obj object to write
      * @return response object
      */
@@ -40,7 +39,8 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
 
     /**
      * Write object to response with provided media type
-     * @param obj object to write
+     *
+     * @param obj       object to write
      * @param mediaType media type
      * @return response object
      */
@@ -56,7 +56,8 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
 
     /**
      * Write stream to response
-     * @param o stream
+     *
+     * @param o        stream
      * @param response http servlet response
      */
     protected void writeOutput(Object o, HttpServletResponse response) {
@@ -67,8 +68,9 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
 
     /**
      * Write stream to response
+     *
      * @param inputStream stream for write
-     * @param response http servlet response
+     * @param response    http servlet response
      */
     protected void writeOutput(InputStream inputStream, HttpServletResponse response) {
         try {
@@ -82,6 +84,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
 
     /**
      * Get or create annotation handler
+     *
      * @return annotation handler
      */
     protected AnnotationHandler annotationHandler() {

@@ -15,8 +15,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected String applicationPath;
     @Property(key = "groupdocs.annotation.basePath")
     protected String basePath;
-    @Property(key = "groupdocs.annotation.uploadPath")
-    private String uploadPath;
     @Property(key = "groupdocs.annotation.dbDriver")
     protected String dbDriver;
     @Property(key = "groupdocs.annotation.dbConnection")
@@ -81,8 +79,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected boolean disconnectUncommented;
     @Property(key = "groupdocs.annotation.strikeoutMode")
     protected int strikeoutMode;
-    @Property(key = "groupdocs.annotation.undoEnabled")
-    private boolean undoEnabled;
     @Property(key = "groupdocs.annotation.anyToolSelection")
     protected boolean anyToolSelection;
     @Property(key = "groupdocs.annotation.sidebarContainerSelector")
@@ -109,6 +105,12 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected boolean useBrowserCache;
     @Property(key = "groupdocs.annotation.widgetId")
     protected String widgetId;
+    @Property(key = "groupdocs.annotation.uploadPath")
+    private String uploadPath;
+    @Property(key = "groupdocs.annotation.undoEnabled")
+    private boolean undoEnabled;
+    @Property(key = "groupdocs.annotation.maxCacheSize")
+    private long maxCacheSize;
 
     @Override
     public String getLicensePath() {
@@ -194,6 +196,10 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return localesPath;
     }
 
+    public void setLocalesPath(String localesPath) {
+        this.localesPath = localesPath;
+    }
+
     @Override
     public String getUploadPath() {
         return uploadPath;
@@ -201,10 +207,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
 
     public void setUploadPath(String uploadPath) {
         this.uploadPath = uploadPath;
-    }
-
-    public void setLocalesPath(String localesPath) {
-        this.localesPath = localesPath;
     }
 
     @Override
@@ -329,6 +331,10 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return showFileExplorer;
     }
 
+    public void setShowFileExplorer(boolean showFileExplorer) {
+        this.showFileExplorer = showFileExplorer;
+    }
+
     @Override
     public boolean isUndoEnabled() {
         return undoEnabled;
@@ -338,10 +344,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         this.undoEnabled = undoEnabled;
     }
 
-    public void setShowFileExplorer(boolean showFileExplorer) {
-        this.showFileExplorer = showFileExplorer;
-    }
-
     @Override
     public boolean isUseEmScaling() {
         return useEmScaling;
@@ -349,6 +351,15 @@ public class ApplicationConfig extends ServiceConfigurationBase {
 
     public void setUseEmScaling(boolean useEmScaling) {
         this.useEmScaling = useEmScaling;
+    }
+
+    @Override
+    public Long getMaxCacheSize() {
+        return maxCacheSize;
+    }
+
+    public void setMaxCacheSize(long maxCacheSize) {
+        this.maxCacheSize = maxCacheSize;
     }
 
     @Override

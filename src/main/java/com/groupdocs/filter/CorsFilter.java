@@ -17,8 +17,9 @@ public class CorsFilter extends OncePerRequestFilter {
 
     /**
      * Cors filter
-     * @param request http servlet request
-     * @param response http servlet response
+     *
+     * @param request     http servlet request
+     * @param response    http servlet response
      * @param filterChain filter chain
      * @throws ServletException
      * @throws IOException

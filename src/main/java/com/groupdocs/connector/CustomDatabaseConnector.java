@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 /**
  * Custom database connector
+ *
  * @author Aleksey Permyakov (09.09.2014)
  */
 public class CustomDatabaseConnector implements IDatabaseConnector {
@@ -18,6 +19,7 @@ public class CustomDatabaseConnector implements IDatabaseConnector {
 
     /**
      * Custom constructor
+     *
      * @param applicationConfig application config
      */
     public CustomDatabaseConnector(ApplicationConfig applicationConfig) {
