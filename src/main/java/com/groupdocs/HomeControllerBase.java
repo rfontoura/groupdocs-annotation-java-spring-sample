@@ -1,9 +1,17 @@
 package com.groupdocs;
 
+import com.groupdocs.annotation.connector.IConnector;
+import com.groupdocs.annotation.connector.StorageType;
+import com.groupdocs.annotation.connector.data.JsonDataConnector;
+import com.groupdocs.annotation.connector.data.XmlDataConnector;
+import com.groupdocs.annotation.connector.db.MssqlDatabaseConnector;
+import com.groupdocs.annotation.connector.db.MysqlDatabaseConnector;
+import com.groupdocs.annotation.connector.db.SqliteDatabaseConnector;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
+import com.groupdocs.connector.CustomDatabaseConnector;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,9 +100,43 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
             try {
-                annotationHandler = new AnnotationHandler(serviceConfiguration);
+//                annotationHandler = new AnnotationHandler(serviceConfiguration);
 
-//                annotationHandler = new AnnotationHandler(serviceConfiguration, new CustomDatabaseConnector(applicationConfig));
+                IConnector connector = null;
+                String storageType = applicationConfig.getStorageType();
+                String dbServer = applicationConfig.getDbServer();
+                Integer dbPort = applicationConfig.getDbPort();
+                String dbName = applicationConfig.getDbName();
+                String dbUsername = applicationConfig.getDbUsername();
+                String dbPassword = applicationConfig.getDbPassword();
+                String storagePath = applicationConfig.getStoragePath();
+
+                if (storageType != null && !storageType.isEmpty()){
+                    switch (StorageType.fromValue(storageType)) {
+                        case DEFAULT:
+                            connector = null;
+                            break;
+                        case SQLITE:
+                            connector = new SqliteDatabaseConnector(Utils.getTempPath() + "../customSQLITEdatabaseStorage.db");
+                            break;
+                        case MYSQL:
+                            connector = new MysqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
+                            break;
+                        case MSSQL:
+                            connector = new MssqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
+                            break;
+                        case JSON:
+                            connector = new JsonDataConnector(storagePath);
+                            break;
+                        case XML:
+                            connector = new XmlDataConnector(storagePath);
+                            break;
+                        case CUSTOM:
+                            connector = new CustomDatabaseConnector(com.mysql.jdbc.Driver.class.getName(), dbServer, dbPort, dbName, dbUsername, dbPassword);
+                            break;
+                    }
+                }
+                annotationHandler = new AnnotationHandler(serviceConfiguration, connector);
 
 //                annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
 //                InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));

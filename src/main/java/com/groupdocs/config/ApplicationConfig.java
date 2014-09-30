@@ -15,10 +15,20 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected String applicationPath;
     @Property(key = "groupdocs.annotation.basePath")
     protected String basePath;
-    @Property(key = "groupdocs.annotation.dbDriver")
-    protected String dbDriver;
-    @Property(key = "groupdocs.annotation.dbConnection")
-    protected String dbConnection;
+    @Property(key = "groupdocs.annotation.storageType")
+    protected String storageType;
+    @Property(key = "groupdocs.annotation.dbServer")
+    protected String dbServer;
+    @Property(key = "groupdocs.annotation.dbPort")
+    protected Integer dbPort;
+    @Property(key = "groupdocs.annotation.dbName")
+    protected String dbName;
+    @Property(key = "groupdocs.annotation.dbUsername")
+    protected String dbUsername;
+    @Property(key = "groupdocs.annotation.dbPassword")
+    protected String dbPassword;
+    @Property(key = "groupdocs.annotation.storagePath")
+    protected String storagePath;
     @Property(key = "groupdocs.annotation.useAuthorization")
     protected boolean useAuthorization;
     @Property(key = "groupdocs.annotation.useCache")
@@ -139,20 +149,60 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         this.basePath = basePath;
     }
 
-    public String getDbDriver() {
-        return dbDriver;
+    public String getStorageType() {
+        return storageType;
     }
 
-    public void setDbDriver(String dbDriver) {
-        this.dbDriver = dbDriver;
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
     }
 
-    public String getDbConnection() {
-        return dbConnection;
+    public String getDbServer() {
+        return dbServer;
     }
 
-    public void setDbConnection(String dbConnection) {
-        this.dbConnection = dbConnection;
+    public void setDbServer(String dbServer) {
+        this.dbServer = dbServer;
+    }
+
+    public Integer getDbPort() {
+        return dbPort;
+    }
+
+    public void setDbPort(Integer dbPort) {
+        this.dbPort = dbPort;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public String getDbUsername() {
+        return dbUsername;
+    }
+
+    public void setDbUsername(String dbUsername) {
+        this.dbUsername = dbUsername;
+    }
+
+    public String getDbPassword() {
+        return dbPassword;
+    }
+
+    public void setDbPassword(String dbPassword) {
+        this.dbPassword = dbPassword;
+    }
+
+    public String getStoragePath() {
+        return storagePath;
+    }
+
+    public void setStoragePath(String storagePath) {
+        this.storagePath = storagePath;
     }
 
     @Override
