@@ -6,6 +6,7 @@ import com.groupdocs.annotation.connector.data.JsonDataConnector;
 import com.groupdocs.annotation.connector.data.XmlDataConnector;
 import com.groupdocs.annotation.connector.db.MssqlDatabaseConnector;
 import com.groupdocs.annotation.connector.db.MysqlDatabaseConnector;
+import com.groupdocs.annotation.connector.db.PostgresqlDatabaseConnector;
 import com.groupdocs.annotation.connector.db.SqliteDatabaseConnector;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
@@ -21,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.TimeZone;
@@ -109,15 +111,15 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                 String dbName = applicationConfig.getDbName();
                 String dbUsername = applicationConfig.getDbUsername();
                 String dbPassword = applicationConfig.getDbPassword();
-                String storagePath = applicationConfig.getStoragePath();
+                String storagePath = Utils.or(applicationConfig.getStoragePath(), applicationConfig.getBasePath());
 
-                if (storageType != null && !storageType.isEmpty()){
+                if (storageType != null && !storageType.isEmpty()) {
                     switch (StorageType.fromValue(storageType)) {
                         case DEFAULT:
                             connector = null;
                             break;
                         case SQLITE:
-                            connector = new SqliteDatabaseConnector(Utils.getTempPath() + "../customSQLITEdatabaseStorage.db");
+                            connector = new SqliteDatabaseConnector(storagePath + File.separator + "customSQLITEdatabaseStorage.db");
                             break;
                         case MYSQL:
                             connector = new MysqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
@@ -131,8 +133,11 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                         case XML:
                             connector = new XmlDataConnector(storagePath);
                             break;
+                        case POSTGRE:
+                            connector = new PostgresqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
+                            break;
                         case CUSTOM:
-                            connector = new CustomDatabaseConnector(com.mysql.jdbc.Driver.class.getName(), dbServer, dbPort, dbName, dbUsername, dbPassword);
+                            connector = new CustomDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
                             break;
                     }
                 }

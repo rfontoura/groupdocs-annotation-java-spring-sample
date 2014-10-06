@@ -2,7 +2,6 @@ package com.groupdocs.connector;
 
 import com.groupdocs.annotation.connector.db.AbstractDatabaseConnector;
 import com.groupdocs.annotation.exception.AnnotationException;
-import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * Custom connector for MySQL database.
