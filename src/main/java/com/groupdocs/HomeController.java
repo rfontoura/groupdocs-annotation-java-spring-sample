@@ -1,7 +1,7 @@
 package com.groupdocs;
 
 import com.groupdocs.annotation.domain.AccessRights;
-import com.groupdocs.annotation.domain.request.ImportAnnotationsRequest;
+import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.utils.Utils;
@@ -548,7 +548,7 @@ public class HomeController extends HomeControllerBase {
                 }
             }
         }
-        return writeOutputJson(annotationHandler().uploadFileHandler(userId, uploadFileName, uploadInputStream, false));
+        return writeOutputJson(annotationHandler().uploadFileHandler(uploadFileName, uploadInputStream));
     }
 
     /**
@@ -560,11 +560,11 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
-        ImportAnnotationsRequest importAnnotationsRequest = null;
+        ImportAnnotationsData importAnnotationsData;
         try {
-            importAnnotationsRequest = Utils.getObjectData(Utils.getBody(request), ImportAnnotationsRequest.class);
-            String fileGuid = importAnnotationsRequest.getFileGuid();
-            String userGuid = importAnnotationsRequest.getUserId();
+            importAnnotationsData = Utils.getObjectData(Utils.getBody(request), ImportAnnotationsData.class);
+            String fileGuid = importAnnotationsData.getFileGuid();
+            String userGuid = importAnnotationsData.getUserId();
             annotationHandler().addCollaboratorByGuid(
                     userGuid,
                     fileGuid,
@@ -577,10 +577,11 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DELETE
 //                ),
                     Utils.colorToInt(Color.black));
+            return writeOutputJson(annotationHandler().importAnnotations(fileGuid, userGuid));
         } catch (AnnotationException e) {
             e.printStackTrace(); // Logger
         }
-        return writeOutputJson(annotationHandler().importAnnotationsHandler(importAnnotationsRequest));
+        return null;
     }
 
     /**
@@ -622,8 +623,8 @@ public class HomeController extends HomeControllerBase {
 
     @Override
     @RequestMapping(value = GET_PRINT_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
-    public Object getPrintDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
-        writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, usePdf, pageIndex, response), response);
+    public Object getPrintDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
+        writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
         return null;
     }
 }
