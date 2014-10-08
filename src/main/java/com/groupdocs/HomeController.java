@@ -627,4 +627,10 @@ public class HomeController extends HomeControllerBase {
         writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
         return null;
     }
+
+    @Override
+    @RequestMapping(value = RESTORE_ANNOTATION_REPLIES_HANDLER, method = RequestMethod.POST)
+    public Object restoreAnnotationRepliesHandler(HttpServletRequest request, HttpServletResponse response) {
+        return writeOutputJson(annotationHandler().restoreAnnotationRepliesHandler(request, response));
+    }
 }
