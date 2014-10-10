@@ -119,26 +119,28 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     private Boolean undoEnabled;
     @Property(key = "groupdocs.annotation.rightPanelEnabled")
     protected boolean rightPanelEnabled;
-    @Property(key = "groupdocs.viewer.maxCacheSize")
+    @Property(key = "groupdocs.annotation.maxCacheSize")
     protected Long maxCacheSize;
-    @Property(key = "groupdocs.viewer.fileDisplayName")
+    @Property(key = "groupdocs.annotation.fileDisplayName")
     private String fileDisplayName;
-    @Property(key = "groupdocs.viewer.jqueryFileDownloadCookieName")
+    @Property(key = "groupdocs.annotation.jqueryFileDownloadCookieName")
     private String jqueryFileDownloadCookieName;
-    @Property(key = "groupdocs.viewer.watermarkFontSize")
+    @Property(key = "groupdocs.annotation.watermarkFontSize")
     private Integer watermarkFontSize;
-    @Property(key = "groupdocs.viewer.watermarkPosition")
+    @Property(key = "groupdocs.annotation.watermarkPosition")
     private String watermarkPosition;
-    @Property(key = "groupdocs.viewer.convertWordDocumentsCompletely")
+    @Property(key = "groupdocs.annotation.convertWordDocumentsCompletely")
     private Boolean convertWordDocumentsCompletely;
-    @Property(key = "groupdocs.viewer.ignoreDocumentAbsence")
+    @Property(key = "groupdocs.annotation.ignoreDocumentAbsence")
     private Boolean ignoreDocumentAbsence;
-    @Property(key = "groupdocs.viewer.preloadPagesOnBrowserSide")
+    @Property(key = "groupdocs.annotation.preloadPagesOnBrowserSide")
     private Boolean preloadPagesOnBrowserSide;
-    @Property(key = "groupdocs.viewer.printWithWatermark")
+    @Property(key = "groupdocs.annotation.printWithWatermark")
     private Boolean printWithWatermark;
-    @Property(key = "groupdocs.viewer.supportPageRotation")
+    @Property(key = "groupdocs.annotation.supportPageRotation")
     private Boolean supportPageRotation;
+    @Property(key = "groupdocs.annotation.storeLogic")
+    private String storeLogic;
 
     @Override
     public String getLicensePath() {
@@ -216,7 +218,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     }
 
     public String getStoragePath() {
-        return storagePath;
+        return storagePath == null || "null".equals(storagePath) ? null : storagePath;
     }
 
     public void setStoragePath(String storagePath) {
@@ -851,5 +853,13 @@ public class ApplicationConfig extends ServiceConfigurationBase {
 
     public void setRightPanelEnabled(boolean rightPanelEnabled) {
         this.rightPanelEnabled = rightPanelEnabled;
+    }
+
+    public String getStoreLogic() {
+        return storeLogic;
+    }
+
+    public void setStoreLogic(String storeLogic) {
+        this.storeLogic = storeLogic;
     }
 }

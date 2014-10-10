@@ -2,6 +2,7 @@ package com.groupdocs;
 
 import com.groupdocs.annotation.connector.IConnector;
 import com.groupdocs.annotation.connector.StorageType;
+import com.groupdocs.annotation.connector.StoreLogic;
 import com.groupdocs.annotation.connector.data.JsonDataConnector;
 import com.groupdocs.annotation.connector.data.XmlDataConnector;
 import com.groupdocs.annotation.connector.db.MssqlDatabaseConnector;
@@ -101,6 +102,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
+            String tempPath = serviceConfiguration.getImagesPath();
             try {
 //                annotationHandler = new AnnotationHandler(serviceConfiguration);
 
@@ -111,7 +113,9 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                 String dbName = applicationConfig.getDbName();
                 String dbUsername = applicationConfig.getDbUsername();
                 String dbPassword = applicationConfig.getDbPassword();
-                String storagePath = Utils.or(applicationConfig.getStoragePath(), applicationConfig.getBasePath());
+                StoreLogic storeLogic = StoreLogic.fromValue(applicationConfig.getStoreLogic());
+                String storagePath = Utils.or(applicationConfig.getStoragePath(), tempPath);
+
 
                 if (storageType != null && !storageType.isEmpty()) {
                     switch (StorageType.fromValue(storageType)) {
@@ -119,7 +123,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                             connector = null;
                             break;
                         case SQLITE:
-                            connector = new SqliteDatabaseConnector(storagePath + File.separator + "customSQLITEdatabaseStorage.db");
+                            connector = new SqliteDatabaseConnector(storagePath, "customSQLITEdatabaseStorage.db");
                             break;
                         case MYSQL:
                             connector = new MysqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
@@ -128,10 +132,10 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                             connector = new MssqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
                             break;
                         case JSON:
-                            connector = new JsonDataConnector(storagePath);
+                            connector = new JsonDataConnector(storagePath, storeLogic);
                             break;
                         case XML:
-                            connector = new XmlDataConnector(storagePath);
+                            connector = new XmlDataConnector(storagePath, storeLogic);
                             break;
                         case POSTGRE:
                             connector = new PostgresqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
