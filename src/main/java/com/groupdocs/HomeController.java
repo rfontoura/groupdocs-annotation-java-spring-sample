@@ -577,7 +577,7 @@ public class HomeController extends HomeControllerBase {
 //                        AccessRights.CAN_DELETE
 //                ),
                     Utils.colorToInt(Color.black));
-            return writeOutputJson(annotationHandler().importAnnotations(fileGuid, userGuid));
+            return writeOutputJson(Utils.toJson(annotationHandler().importAnnotations(fileGuid, userGuid)));
         } catch (AnnotationException e) {
             e.printStackTrace(); // Logger
         }
