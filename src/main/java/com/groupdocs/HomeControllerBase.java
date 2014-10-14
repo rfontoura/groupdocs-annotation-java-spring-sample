@@ -14,6 +14,7 @@ import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.connector.CustomDatabaseConnector;
+import com.groupdocs.connector.CustomXmlDataConnector;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +142,8 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                             connector = new PostgresqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
                             break;
                         case CUSTOM:
-                            connector = new CustomDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
+                            connector = new CustomXmlDataConnector();
+//                            connector = new CustomDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
                             break;
                     }
                 }
