@@ -5,7 +5,7 @@ import com.urbanmania.spring.beans.factory.config.annotations.Property;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Aleksey Permyakov
+ * @author Aleksey Permyakov
  */
 @Component
 public class ApplicationConfig extends ServiceConfigurationBase {
@@ -113,14 +113,14 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected Boolean useBrowserCache;
     @Property(key = "groupdocs.annotation.widgetId")
     protected String widgetId;
-    @Property(key = "groupdocs.annotation.uploadPath")
-    private String uploadPath;
-    @Property(key = "groupdocs.annotation.undoEnabled")
-    private Boolean undoEnabled;
     @Property(key = "groupdocs.annotation.rightPanelEnabled")
     protected boolean rightPanelEnabled;
     @Property(key = "groupdocs.annotation.maxCacheSize")
     protected Long maxCacheSize;
+    @Property(key = "groupdocs.annotation.uploadPath")
+    private String uploadPath;
+    @Property(key = "groupdocs.annotation.undoEnabled")
+    private Boolean undoEnabled;
     @Property(key = "groupdocs.annotation.fileDisplayName")
     private String fileDisplayName;
     @Property(key = "groupdocs.annotation.jqueryFileDownloadCookieName")
@@ -163,10 +163,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Override
     public String getBasePath() {
         return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
     }
 
     public String getStorageType() {
@@ -230,17 +226,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return useAuthorization;
     }
 
-    public void setUseAuthorization(Boolean useAuthorization) {
-        this.useAuthorization = useAuthorization;
-    }
-
     @Override
     public Boolean isUseCache() {
         return useCache;
-    }
-
-    public void setUseCache(Boolean useCache) {
-        this.useCache = useCache;
     }
 
     @Override
@@ -293,17 +281,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return showThumbnails;
     }
 
-    public void setShowThumbnails(Boolean showThumbnails) {
-        this.showThumbnails = showThumbnails;
-    }
-
     @Override
     public Boolean isOpenThumbnails() {
         return openThumbnails;
-    }
-
-    public void setOpenThumbnails(Boolean openThumbnails) {
-        this.openThumbnails = openThumbnails;
     }
 
     @Override
@@ -311,13 +291,17 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return initialZoom;
     }
 
+    public void setInitialZoom(Integer initialZoom) {
+        this.initialZoom = initialZoom;
+    }
+
     @Override
     public String getJqueryFileDownloadCookieName() {
         return jqueryFileDownloadCookieName;
     }
 
-    public void setInitialZoom(Integer initialZoom) {
-        this.initialZoom = initialZoom;
+    public void setJqueryFileDownloadCookieName(String jqueryFileDownloadCookieName) {
+        this.jqueryFileDownloadCookieName = jqueryFileDownloadCookieName;
     }
 
     @Override
@@ -325,17 +309,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return zoomToFitWidth;
     }
 
-    public void setZoomToFitWidth(Boolean zoomToFitWidth) {
-        this.zoomToFitWidth = zoomToFitWidth;
-    }
-
     @Override
     public Boolean isZoomToFitHeight() {
         return zoomToFitHeight;
-    }
-
-    public void setZoomToFitHeight(Boolean zoomToFitHeight) {
-        this.zoomToFitHeight = zoomToFitHeight;
     }
 
     @Override
@@ -357,14 +333,13 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return fileDisplayName;
     }
 
-    @Override
-    public Integer getHeight() {
-        return height;
+    public void setFileDisplayName(String fileDisplayName) {
+        this.fileDisplayName = fileDisplayName;
     }
 
     @Override
-    public Boolean isIgnoreDocumentAbsence() {
-        return ignoreDocumentAbsence;
+    public Integer getHeight() {
+        return height;
     }
 
     public void setHeight(Integer height) {
@@ -372,12 +347,13 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     }
 
     @Override
-    public Boolean isShowPrint() {
-        return showPrInteger;
+    public Boolean isIgnoreDocumentAbsence() {
+        return ignoreDocumentAbsence;
     }
 
-    public void setShowPrInteger(Boolean showPrInteger) {
-        this.showPrInteger = showPrInteger;
+    @Override
+    public Boolean isShowPrint() {
+        return showPrInteger;
     }
 
     @Override
@@ -390,22 +366,18 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return supportPageRotation;
     }
 
-    public void setShowZoom(Boolean showZoom) {
-        this.showZoom = showZoom;
-    }
-
     @Override
     public Boolean isShowPaging() {
         return showPaging;
     }
 
-    public void setShowPaging(Boolean showPaging) {
-        this.showPaging = showPaging;
-    }
-
     @Override
     public Integer getPreloadPagesCount() {
         return preloadPagesCount;
+    }
+
+    public void setPreloadPagesCount(Integer preloadPagesCount) {
+        this.preloadPagesCount = preloadPagesCount;
     }
 
     @Override
@@ -418,17 +390,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return null;
     }
 
-    public void setPreloadPagesCount(Integer preloadPagesCount) {
-        this.preloadPagesCount = preloadPagesCount;
-    }
-
     @Override
     public Boolean isShowHeader() {
         return showHeader;
-    }
-
-    public void setShowHeader(Boolean showHeader) {
-        this.showHeader = showHeader;
     }
 
     @Override
@@ -436,17 +400,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return showFileExplorer;
     }
 
-    public void setShowFileExplorer(Boolean showFileExplorer) {
-        this.showFileExplorer = showFileExplorer;
-    }
-
     @Override
     public Boolean isUndoEnabled() {
         return undoEnabled;
-    }
-
-    public void setUndoEnabled(Boolean undoEnabled) {
-        this.undoEnabled = undoEnabled;
     }
 
     @Override
@@ -459,18 +415,26 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return watermarkFontSize;
     }
 
+    public void setWatermarkFontSize(Integer watermarkFontSize) {
+        this.watermarkFontSize = watermarkFontSize;
+    }
+
     @Override
     public String getWatermarkPosition() {
         return watermarkPosition;
     }
 
-    public void setUseEmScaling(Boolean useEmScaling) {
-        this.useEmScaling = useEmScaling;
+    public void setWatermarkPosition(String watermarkPosition) {
+        this.watermarkPosition = watermarkPosition;
     }
 
     @Override
     public Long getMaxCacheSize() {
         return maxCacheSize;
+    }
+
+    public void setMaxCacheSize(Long maxCacheSize) {
+        this.maxCacheSize = maxCacheSize;
     }
 
     public void setMaxCacheSize(long maxCacheSize) {
@@ -482,17 +446,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return enableRightClickMenu;
     }
 
-    public void setEnableRightClickMenu(Boolean enableRightClickMenu) {
-        this.enableRightClickMenu = enableRightClickMenu;
-    }
-
     @Override
     public Boolean isShowToolbar() {
         return showToolbar;
-    }
-
-    public void setShowToolbar(Boolean showToolbar) {
-        this.showToolbar = showToolbar;
     }
 
     @Override
@@ -500,17 +456,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return enableSidePanel;
     }
 
-    public void setEnableSidePanel(Boolean enableSidePanel) {
-        this.enableSidePanel = enableSidePanel;
-    }
-
     @Override
     public Boolean isScrollOnFocus() {
         return scrollOnFocus;
-    }
-
-    public void setScrollOnFocus(Boolean scrollOnFocus) {
-        this.scrollOnFocus = scrollOnFocus;
     }
 
     @Override
@@ -536,26 +484,14 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return saveReplyOnFocusLoss;
     }
 
-    public void setSaveReplyOnFocusLoss(Boolean saveReplyOnFocusLoss) {
-        this.saveReplyOnFocusLoss = saveReplyOnFocusLoss;
-    }
-
     @Override
     public Boolean isClickableAnnotations() {
         return clickableAnnotations;
     }
 
-    public void setClickableAnnotations(Boolean clickableAnnotations) {
-        this.clickableAnnotations = clickableAnnotations;
-    }
-
     @Override
     public Boolean isDisconnectUncommented() {
         return disconnectUncommented;
-    }
-
-    public void setDisconnectUncommented(Boolean disconnectUncommented) {
-        this.disconnectUncommented = disconnectUncommented;
     }
 
     @Override
@@ -572,10 +508,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return anyToolSelection;
     }
 
-    public void setAnyToolSelection(Boolean anyToolSelection) {
-        this.anyToolSelection = anyToolSelection;
-    }
-
     @Override
     public String getSidebarContainerSelector() {
         return sidebarContainerSelector;
@@ -590,17 +522,9 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return usePageNumberInUrlHash;
     }
 
-    public void setUsePageNumberInUrlHash(Boolean usePageNumberInUrlHash) {
-        this.usePageNumberInUrlHash = usePageNumberInUrlHash;
-    }
-
     @Override
     public Boolean isTextSelectionSynchronousCalculation() {
         return textSelectionSynchronousCalculation;
-    }
-
-    public void setTextSelectionSynchronousCalculation(Boolean textSelectionSynchronousCalculation) {
-        this.textSelectionSynchronousCalculation = textSelectionSynchronousCalculation;
     }
 
     @Override
@@ -608,26 +532,14 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return variableHeightPageSupport;
     }
 
-    public void setVariableHeightPageSupport(Boolean variableHeightPageSupport) {
-        this.variableHeightPageSupport = variableHeightPageSupport;
-    }
-
     @Override
     public Boolean isCreateMarkup() {
         return createMarkup;
     }
 
-    public void setCreateMarkup(Boolean createMarkup) {
-        this.createMarkup = createMarkup;
-    }
-
     @Override
     public Boolean isUse_pdf() {
         return use_pdf;
-    }
-
-    public void setUse_pdf(Boolean use_pdf) {
-        this.use_pdf = use_pdf;
     }
 
     @Override
@@ -662,10 +574,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return useBrowserCache;
     }
 
-    public void setUseBrowserCache(Boolean useBrowserCache) {
-        this.useBrowserCache = useBrowserCache;
-    }
-
     @Override
     public String getWidgetId() {
         return widgetId;
@@ -679,132 +587,224 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return filePath;
     }
 
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     public Boolean getUseAuthorization() {
         return useAuthorization;
+    }
+
+    public void setUseAuthorization(Boolean useAuthorization) {
+        this.useAuthorization = useAuthorization;
     }
 
     public Boolean getUseCache() {
         return useCache;
     }
 
+    public void setUseCache(Boolean useCache) {
+        this.useCache = useCache;
+    }
+
     public Boolean getShowThumbnails() {
         return showThumbnails;
+    }
+
+    public void setShowThumbnails(Boolean showThumbnails) {
+        this.showThumbnails = showThumbnails;
     }
 
     public Boolean getOpenThumbnails() {
         return openThumbnails;
     }
 
+    public void setOpenThumbnails(Boolean openThumbnails) {
+        this.openThumbnails = openThumbnails;
+    }
+
     public Boolean getZoomToFitWidth() {
         return zoomToFitWidth;
+    }
+
+    public void setZoomToFitWidth(Boolean zoomToFitWidth) {
+        this.zoomToFitWidth = zoomToFitWidth;
     }
 
     public Boolean getZoomToFitHeight() {
         return zoomToFitHeight;
     }
 
+    public void setZoomToFitHeight(Boolean zoomToFitHeight) {
+        this.zoomToFitHeight = zoomToFitHeight;
+    }
+
     public Boolean getShowPrInteger() {
         return showPrInteger;
+    }
+
+    public void setShowPrInteger(Boolean showPrInteger) {
+        this.showPrInteger = showPrInteger;
     }
 
     public Boolean getShowZoom() {
         return showZoom;
     }
 
+    public void setShowZoom(Boolean showZoom) {
+        this.showZoom = showZoom;
+    }
+
     public Boolean getShowPaging() {
         return showPaging;
+    }
+
+    public void setShowPaging(Boolean showPaging) {
+        this.showPaging = showPaging;
     }
 
     public Boolean getShowHeader() {
         return showHeader;
     }
 
+    public void setShowHeader(Boolean showHeader) {
+        this.showHeader = showHeader;
+    }
+
     public Boolean getShowFileExplorer() {
         return showFileExplorer;
+    }
+
+    public void setShowFileExplorer(Boolean showFileExplorer) {
+        this.showFileExplorer = showFileExplorer;
     }
 
     public Boolean getUseEmScaling() {
         return useEmScaling;
     }
 
+    public void setUseEmScaling(Boolean useEmScaling) {
+        this.useEmScaling = useEmScaling;
+    }
+
     public Boolean getEnableRightClickMenu() {
         return enableRightClickMenu;
+    }
+
+    public void setEnableRightClickMenu(Boolean enableRightClickMenu) {
+        this.enableRightClickMenu = enableRightClickMenu;
     }
 
     public Boolean getShowToolbar() {
         return showToolbar;
     }
 
+    public void setShowToolbar(Boolean showToolbar) {
+        this.showToolbar = showToolbar;
+    }
+
     public Boolean getEnableSidePanel() {
         return enableSidePanel;
+    }
+
+    public void setEnableSidePanel(Boolean enableSidePanel) {
+        this.enableSidePanel = enableSidePanel;
     }
 
     public Boolean getScrollOnFocus() {
         return scrollOnFocus;
     }
 
+    public void setScrollOnFocus(Boolean scrollOnFocus) {
+        this.scrollOnFocus = scrollOnFocus;
+    }
+
     public Boolean getSaveReplyOnFocusLoss() {
         return saveReplyOnFocusLoss;
+    }
+
+    public void setSaveReplyOnFocusLoss(Boolean saveReplyOnFocusLoss) {
+        this.saveReplyOnFocusLoss = saveReplyOnFocusLoss;
     }
 
     public Boolean getClickableAnnotations() {
         return clickableAnnotations;
     }
 
+    public void setClickableAnnotations(Boolean clickableAnnotations) {
+        this.clickableAnnotations = clickableAnnotations;
+    }
+
     public Boolean getDisconnectUncommented() {
         return disconnectUncommented;
+    }
+
+    public void setDisconnectUncommented(Boolean disconnectUncommented) {
+        this.disconnectUncommented = disconnectUncommented;
     }
 
     public Boolean getAnyToolSelection() {
         return anyToolSelection;
     }
 
+    public void setAnyToolSelection(Boolean anyToolSelection) {
+        this.anyToolSelection = anyToolSelection;
+    }
+
     public Boolean getUsePageNumberInUrlHash() {
         return usePageNumberInUrlHash;
+    }
+
+    public void setUsePageNumberInUrlHash(Boolean usePageNumberInUrlHash) {
+        this.usePageNumberInUrlHash = usePageNumberInUrlHash;
     }
 
     public Boolean getTextSelectionSynchronousCalculation() {
         return textSelectionSynchronousCalculation;
     }
 
+    public void setTextSelectionSynchronousCalculation(Boolean textSelectionSynchronousCalculation) {
+        this.textSelectionSynchronousCalculation = textSelectionSynchronousCalculation;
+    }
+
     public Boolean getVariableHeightPageSupport() {
         return variableHeightPageSupport;
+    }
+
+    public void setVariableHeightPageSupport(Boolean variableHeightPageSupport) {
+        this.variableHeightPageSupport = variableHeightPageSupport;
     }
 
     public Boolean getCreateMarkup() {
         return createMarkup;
     }
 
+    public void setCreateMarkup(Boolean createMarkup) {
+        this.createMarkup = createMarkup;
+    }
+
     public Boolean getUse_pdf() {
         return use_pdf;
+    }
+
+    public void setUse_pdf(Boolean use_pdf) {
+        this.use_pdf = use_pdf;
     }
 
     public Boolean getUseBrowserCache() {
         return useBrowserCache;
     }
 
+    public void setUseBrowserCache(Boolean useBrowserCache) {
+        this.useBrowserCache = useBrowserCache;
+    }
+
     public Boolean getUndoEnabled() {
         return undoEnabled;
     }
 
-    public void setMaxCacheSize(Long maxCacheSize) {
-        this.maxCacheSize = maxCacheSize;
-    }
-
-    public void setFileDisplayName(String fileDisplayName) {
-        this.fileDisplayName = fileDisplayName;
-    }
-
-    public void setJqueryFileDownloadCookieName(String jqueryFileDownloadCookieName) {
-        this.jqueryFileDownloadCookieName = jqueryFileDownloadCookieName;
-    }
-
-    public void setWatermarkFontSize(Integer watermarkFontSize) {
-        this.watermarkFontSize = watermarkFontSize;
-    }
-
-    public void setWatermarkPosition(String watermarkPosition) {
-        this.watermarkPosition = watermarkPosition;
+    public void setUndoEnabled(Boolean undoEnabled) {
+        this.undoEnabled = undoEnabled;
     }
 
     public Boolean getConvertWordDocumentsCompletely() {

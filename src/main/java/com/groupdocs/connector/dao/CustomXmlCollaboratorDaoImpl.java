@@ -34,7 +34,7 @@ public class CustomXmlCollaboratorDaoImpl extends CustomAbstractDaoImpl<ICollabo
     protected List<ICollaborator> loadData() {
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + COLLABORATOR_FILE_NAME);
-        if (!file.exists() || !file.isFile()){
+        if (!file.exists() || !file.isFile()) {
             return new ArrayList<ICollaborator>();
         }
         DataInputStream dataInputStream = null;

@@ -34,7 +34,7 @@ public class CustomXmlReplyDaoImpl extends CustomAbstractDaoImpl<IReply> impleme
     protected List<IReply> loadData() {
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + REPLY_FILE_NAME);
-        if (!file.exists() || !file.isFile()){
+        if (!file.exists() || !file.isFile()) {
             return new ArrayList<IReply>();
         }
         DataInputStream dataInputStream = null;

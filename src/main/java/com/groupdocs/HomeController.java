@@ -5,6 +5,7 @@ import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.utils.Utils;
+import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
 import com.groupdocs.viewer.domain.path.GroupDocsPath;
 import com.groupdocs.viewer.domain.path.TokenId;
@@ -64,7 +65,10 @@ public class HomeController extends HomeControllerBase {
         // Initialization of Viewer with document from this path
         GroupDocsPath path = null;
         if (file != null && !file.isEmpty()) {
-            path = new EncodedPath(file, annotationHandler().getConfiguration());
+            ServiceConfiguration configuration = annotationHandler().getConfiguration();
+            if (configuration != null) {
+                path = new EncodedPath(file, configuration);
+            }
         } else if (tokenId != null && !tokenId.isEmpty()) {
             TokenId tki = new TokenId(tokenId, applicationConfig.getEncryptionKey());
             if (!tki.isExpired()) {

@@ -34,7 +34,7 @@ public class CustomXmlDocumentDaoImpl extends CustomAbstractDaoImpl<IDocument> i
     protected List<IDocument> loadData() {
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + DOCUMENT_FILE_NAME);
-        if (!file.exists() || !file.isFile()){
+        if (!file.exists() || !file.isFile()) {
             return new ArrayList<IDocument>();
         }
         DataInputStream dataInputStream = null;

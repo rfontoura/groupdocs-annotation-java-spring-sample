@@ -34,7 +34,7 @@ public class CustomXmlUserDaoImpl extends CustomAbstractDaoImpl<IUser> implement
     protected List<IUser> loadData() {
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + USER_FILE_NAME);
-        if (!file.exists() || !file.isFile()){
+        if (!file.exists() || !file.isFile()) {
             return new ArrayList<IUser>();
         }
         DataInputStream dataInputStream = null;

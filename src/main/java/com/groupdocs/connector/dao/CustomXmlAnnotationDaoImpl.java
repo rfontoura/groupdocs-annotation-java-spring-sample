@@ -4,7 +4,6 @@ import com.groupdocs.annotation.db.DaoFactory;
 import com.groupdocs.annotation.db.dao.interfaces.IAnnotationDao;
 import com.groupdocs.annotation.db.dao.interfaces.IDocumentDao;
 import com.groupdocs.annotation.db.dao.interfaces.ISessionDao;
-import com.groupdocs.annotation.db.tables.interfaces.IAnnDoc;
 import com.groupdocs.annotation.db.tables.interfaces.IAnnotation;
 import com.groupdocs.annotation.db.tables.interfaces.IDocument;
 import com.groupdocs.annotation.db.tables.interfaces.ISession;
@@ -35,13 +34,13 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
                 ISession session = sessionDao.selectBy(Arrays.asList(ISession.ID), annotation.getAnnotationSessionId());
                 IDocument document = documentDao.selectBy(Arrays.asList(IDocument.ID), session.getDocumentId());
                 String documentGuid = document.getDocumentName();
-                if (!fileGuid2list.containsKey(documentGuid)){
+                if (!fileGuid2list.containsKey(documentGuid)) {
                     fileGuid2list.put(documentGuid, new ArrayList<IAnnotation>());
                 }
                 fileGuid2list.get(documentGuid).add(annotation);
             }
 
-            for (Map.Entry<String, List<IAnnotation>> entry : fileGuid2list.entrySet()){
+            for (Map.Entry<String, List<IAnnotation>> entry : fileGuid2list.entrySet()) {
                 String fileGuid = entry.getKey();
                 List<IAnnotation> annotations = entry.getValue();
                 File file = new File(tempPath + File.separator + fileGuid + File.separator + ANNOTATION_FILE_NAME);
@@ -72,8 +71,8 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
 
         List<IAnnotation> annotations = new ArrayList<IAnnotation>();
         File[] directories = tempDirectory.listFiles();
-        for (File directory : directories){
-            if (directory.isFile()){
+        for (File directory : directories) {
+            if (directory.isFile()) {
                 continue;
             }
             File[] files = directory.listFiles(new FilenameFilter() {
@@ -82,7 +81,7 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
                     return name.equals(ANNOTATION_FILE_NAME);
                 }
             });
-            for (File file : files){
+            for (File file : files) {
                 DataInputStream dataInputStream = null;
                 FileInputStream fileInputStream = null;
                 try {

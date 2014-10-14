@@ -34,7 +34,7 @@ public class CustomXmlSessionDaoImpl extends CustomAbstractDaoImpl<ISession> imp
     protected List<ISession> loadData() {
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + SESSION_FILE_NAME);
-        if (!file.exists() || !file.isFile()){
+        if (!file.exists() || !file.isFile()) {
             return new ArrayList<ISession>();
         }
         DataInputStream dataInputStream = null;

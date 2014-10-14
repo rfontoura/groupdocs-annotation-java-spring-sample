@@ -34,7 +34,7 @@ public class CustomXmlSystemInfoDaoImpl extends CustomAbstractDaoImpl<ISystemInf
     protected List<ISystemInfo> loadData() {
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + SYSTEM_INFO_FILE_NAME);
-        if (!file.exists() || !file.isFile()){
+        if (!file.exists() || !file.isFile()) {
             return new ArrayList<ISystemInfo>();
         }
         DataInputStream dataInputStream = null;
