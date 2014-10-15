@@ -11,7 +11,7 @@ How-to install/run
 1. Download GroupDocs.Annotation for Java library http://groupdocs.com/java/document-annotation-library
 2. Install GroupDocs.Annotation for Java library into local maven repository http://groupdocs.com/docs/display/annotationjava/GroupDocs.Annotation+for+Java+-+Installation
 3. Download sample sources to any directory.
-4. Open file `src\main\resources\application.properties` and update configuration (for example update groupdocs.viewer.filePath to set the path to the storage folder).
+4. Open file `src\main\resources\application.properties` and update configuration (for example update groupdocs.viewer.basePath to set the path to the storage folder).
 5. Run file `run.bat` by double click to start sample application.
 6. Open URL `http://127.0.0.1:8080/document-annotation/` in your browser, make sure that port 8080 is free (you can change port number in your tomcat configuration).
 <br/><br/>
@@ -20,7 +20,7 @@ How-to install/run
 1. Download GroupDocs.Annotation for Java library http://groupdocs.com/java/document-annotation-library
 2. Install GroupDocs.Annotation for Java library into local maven repository http://groupdocs.com/docs/display/annotationjava/GroupDocs.Annotation+for+Java+-+Installation
 3. Download sample sources to any directory.
-4. Open file `src\main\resources\application.properties` and update configuration (for example update groupdocs.viewer.filePath to set the path to the storage folder).
+4. Open file `src\main\resources\application.properties` and update configuration (for example update groupdocs.viewer.basePath to set the path to the storage folder).
 5. Run file `run.sh` by double click to start sample application.
 6. Open URL `http://127.0.0.1:8080/document-annotation/` in your browser, make sure that port 8080 is free (you can change port number in your tomcat configuration).
 <br/><br/>
@@ -29,7 +29,7 @@ How-to install/run
 1. Download GroupDocs.Annotation for Java library http://groupdocs.com/java/document-annotation-library
 2. Install GroupDocs.Annotation for Java library into local maven repository http://groupdocs.com/docs/display/annotationjava/GroupDocs.Annotation+for+Java+-+Installation
 3. Download sample sources to any directory.
-4. Open file `src\main\resources\application.properties` and update configuration (for example update groupdocs.viewer.filePath to set the path to the storage folder).
+4. Open file `src\main\resources\application.properties` and update configuration (for example update groupdocs.viewer.basePath to set the path to the storage folder).
 5. Run file `run.command` by double click to start sample application.
 6. Open URL `http://127.0.0.1:8080/document-annotation/` in your browser, make sure that port 8080 is free (you can change port number in your tomcat configuration).
 <br/><br/><br/><br/>

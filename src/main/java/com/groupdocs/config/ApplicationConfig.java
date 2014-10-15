@@ -13,8 +13,8 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected String licensePath;
     @Property(key = "groupdocs.annotation.applicationPath")
     protected String applicationPath;
-    @Property(key = "groupdocs.annotation.filePath")
-    protected String filePath;
+    @Property(key = "groupdocs.annotation.basePath")
+    protected String basePath;
     @Property(key = "groupdocs.annotation.storageType")
     protected String storageType;
     @Property(key = "groupdocs.annotation.dbServer")
@@ -162,7 +162,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
 
     @Override
     public String getBasePath() {
-        return filePath;
+        return basePath;
     }
 
     public String getStorageType() {
@@ -462,7 +462,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     }
 
     @Override
-    public int getEnabledTools() {
+    public Integer getEnabledTools() {
         return enabledTools;
     }
 
@@ -471,7 +471,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     }
 
     @Override
-    public int getConnectorPosition() {
+    public Integer getConnectorPosition() {
         return connectorPosition;
     }
 
@@ -495,7 +495,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     }
 
     @Override
-    public int getStrikeoutMode() {
+    public Integer getStrikeoutMode() {
         return strikeoutMode;
     }
 
@@ -583,12 +583,8 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         this.widgetId = widgetId;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
     }
 
     public Boolean getUseAuthorization() {
