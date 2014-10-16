@@ -1,6 +1,6 @@
 package com.groupdocs.connector;
 
-import com.groupdocs.annotation.connector.db.AbstractDatabaseConnector;
+import com.groupdocs.annotation.data.connector.db.AbstractDatabaseConnector;
 import com.groupdocs.annotation.exception.AnnotationException;
 
 /**

@@ -165,6 +165,10 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return basePath;
     }
 
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
+    }
+
     public String getStorageType() {
         return storageType;
     }
@@ -581,10 +585,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
 
     public void setWidgetId(String widgetId) {
         this.widgetId = widgetId;
-    }
-
-    public void setBasePath(String basePath) {
-        this.basePath = basePath;
     }
 
     public Boolean getUseAuthorization() {

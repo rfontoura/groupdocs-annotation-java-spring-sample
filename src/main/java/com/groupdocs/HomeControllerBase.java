@@ -1,17 +1,18 @@
 package com.groupdocs;
 
-import com.groupdocs.annotation.connector.IConnector;
-import com.groupdocs.annotation.connector.StorageType;
-import com.groupdocs.annotation.connector.StoreLogic;
-import com.groupdocs.annotation.connector.data.JsonDataConnector;
-import com.groupdocs.annotation.connector.data.XmlDataConnector;
-import com.groupdocs.annotation.connector.db.MssqlDatabaseConnector;
-import com.groupdocs.annotation.connector.db.MysqlDatabaseConnector;
-import com.groupdocs.annotation.connector.db.PostgresqlDatabaseConnector;
-import com.groupdocs.annotation.connector.db.SqliteDatabaseConnector;
+import com.groupdocs.annotation.common.Utils;
+import com.groupdocs.annotation.data.connector.IConnector;
+import com.groupdocs.annotation.data.connector.StorageType;
+import com.groupdocs.annotation.data.connector.StoreLogic;
+import com.groupdocs.annotation.data.connector.data.CustomXmlDataConnector;
+import com.groupdocs.annotation.data.connector.data.JsonDataConnector;
+import com.groupdocs.annotation.data.connector.data.XmlDataConnector;
+import com.groupdocs.annotation.data.connector.db.MssqlDatabaseConnector;
+import com.groupdocs.annotation.data.connector.db.MysqlDatabaseConnector;
+import com.groupdocs.annotation.data.connector.db.PostgresqlDatabaseConnector;
+import com.groupdocs.annotation.data.connector.db.SqliteDatabaseConnector;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
-import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import org.apache.commons.io.IOUtils;
@@ -139,7 +140,7 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                             connector = new PostgresqlDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
                             break;
                         case CUSTOM:
-                            connector = new com.groupdocs.annotation.connector.data.CustomXmlDataConnector();
+                            connector = new CustomXmlDataConnector();
 //                            connector = new CustomDatabaseConnector(dbServer, dbPort, dbName, dbUsername, dbPassword);
                             break;
                     }

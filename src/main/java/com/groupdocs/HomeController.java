@@ -1,10 +1,10 @@
 package com.groupdocs;
 
+import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
 import com.groupdocs.annotation.domain.response.StatusResponse;
 import com.groupdocs.annotation.exception.AnnotationException;
-import com.groupdocs.annotation.utils.Utils;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
 import com.groupdocs.viewer.domain.path.GroupDocsPath;
