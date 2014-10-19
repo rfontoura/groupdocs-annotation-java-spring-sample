@@ -601,6 +601,19 @@ public class HomeController extends HomeControllerBase {
         return writeOutputJson(annotationHandler().getPrintViewHandler(request, response));
     }
 
+    @Override
+    @RequestMapping(value = GET_PRINT_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
+    public Object getPrintDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
+        writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
+        return null;
+    }
+
+    @Override
+    @RequestMapping(value = RESTORE_ANNOTATION_REPLIES_HANDLER, method = RequestMethod.POST)
+    public Object restoreAnnotationRepliesHandler(HttpServletRequest request, HttpServletResponse response) {
+        return writeOutputJson(annotationHandler().restoreAnnotationRepliesHandler(request, response));
+    }
+
     /**
      * On ready handler
      *
@@ -623,18 +636,5 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = ATMOSPHERE_ANNOTATION, method = RequestMethod.POST)
     public void onAtmosphereMessage(AtmosphereResource resource) {
         annotationHandler().onAtmosphereMessage(resource);
-    }
-
-    @Override
-    @RequestMapping(value = GET_PRINT_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
-    public Object getPrintDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
-        writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
-        return null;
-    }
-
-    @Override
-    @RequestMapping(value = RESTORE_ANNOTATION_REPLIES_HANDLER, method = RequestMethod.POST)
-    public Object restoreAnnotationRepliesHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().restoreAnnotationRepliesHandler(request, response));
     }
 }

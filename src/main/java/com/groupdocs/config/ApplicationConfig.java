@@ -141,6 +141,8 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     private Boolean supportPageRotation;
     @Property(key = "groupdocs.annotation.storeLogic")
     private String storeLogic;
+    @Property(key = "groupdocs.annotation.printAnnotations")
+    private Boolean printAnnotations;
 
     @Override
     public String getLicensePath() {
@@ -510,6 +512,15 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Override
     public Boolean isAnyToolSelection() {
         return anyToolSelection;
+    }
+
+    @Override
+    public Boolean isPrintAnnotations() {
+        return printAnnotations;
+    }
+
+    public void setPrintAnnotations(Boolean printAnnotations) {
+        this.printAnnotations = printAnnotations;
     }
 
     @Override
