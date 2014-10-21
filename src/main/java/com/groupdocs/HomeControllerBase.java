@@ -2,8 +2,8 @@ package com.groupdocs;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.connector.IConnector;
-import com.groupdocs.annotation.data.connector.StorageType;
-import com.groupdocs.annotation.data.connector.StoreLogic;
+import com.groupdocs.annotation.data.common.StorageType;
+import com.groupdocs.annotation.data.common.StoreLogic;
 import com.groupdocs.annotation.data.connector.data.JsonDataConnector;
 import com.groupdocs.annotation.data.connector.data.XmlDataConnector;
 import com.groupdocs.annotation.data.connector.db.MssqlDatabaseConnector;
