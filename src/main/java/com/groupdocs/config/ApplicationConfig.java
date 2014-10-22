@@ -81,6 +81,8 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected String strikeOutColor;
     @Property(key = "groupdocs.annotation.highlightColor")
     protected String highlightColor;
+    @Property(key = "groupdocs.annotation.underlineColor")
+    protected String underlineColor;
     @Property(key = "groupdocs.annotation.textFieldBackgroundColor")
     protected String textFieldBackgroundColor;
     @Property(key = "groupdocs.annotation.tabNavigationEnabled")
@@ -516,6 +518,25 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      */
     public void setStrikeOutColor(String strikeOutColor) {
         this.strikeOutColor = strikeOutColor;
+    }
+
+    /**
+     * Getter for property 'underlineColor'.
+     *
+     * @return Value for property 'underlineColor'.
+     */
+    @Override
+    public String getUnderlineColor() {
+        return underlineColor;
+    }
+
+    /**
+     * Setter for property 'underlineColor'.
+     *
+     * @param underlineColor Value to set for property 'underlineColor'.
+     */
+    public void setUnderlineColor(String underlineColor) {
+        this.underlineColor = underlineColor;
     }
 
     /**
