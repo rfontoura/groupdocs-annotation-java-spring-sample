@@ -77,6 +77,40 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected Boolean enableSidePanel;
     @Property(key = "groupdocs.annotation.scrollOnFocus")
     protected Boolean scrollOnFocus;
+    @Property(key = "groupdocs.annotation.strikeOutColor")
+    protected String strikeOutColor;
+    @Property(key = "groupdocs.annotation.highlightColor")
+    protected String highlightColor;
+    @Property(key = "groupdocs.annotation.textFieldBackgroundColor")
+    protected String textFieldBackgroundColor;
+    @Property(key = "groupdocs.annotation.tabNavigationEnabled")
+    protected Boolean tabNavigationEnabled;
+    @Property(key = "groupdocs.annotation.minimumImageWidth")
+    protected Integer minimumImageWidth;
+    @Property(key = "groupdocs.annotation.areaToolOptionsPenWidth")
+    protected Integer areaToolOptionsPenWidth;
+    @Property(key = "groupdocs.annotation.areaToolOptionsPenColor")
+    protected String areaToolOptionsPenColor;
+    @Property(key = "groupdocs.annotation.areaToolOptionsPenDashStyle")
+    protected Integer areaToolOptionsPenDashStyle;
+    @Property(key = "groupdocs.annotation.areaToolOptionsBrushColor")
+    protected Integer areaToolOptionsBrushColor;
+    @Property(key = "groupdocs.annotation.polylineToolOptionsPenWidth")
+    protected Integer polylineToolOptionsPenWidth;
+    @Property(key = "groupdocs.annotation.polylineToolOptionsPenColor")
+    protected String polylineToolOptionsPenColor;
+    @Property(key = "groupdocs.annotation.polylineToolOptionsPenDashStyle")
+    protected Integer polylineToolOptionsPenDashStyle;
+    @Property(key = "groupdocs.annotation.polylineToolOptionsBrushColor")
+    protected Integer polylineToolOptionsBrushColor;
+    @Property(key = "groupdocs.annotation.arrowToolOptionsPenWidth")
+    protected Integer arrowToolOptionsPenWidth;
+    @Property(key = "groupdocs.annotation.arrowToolOptionsPenColor")
+    protected String arrowToolOptionsPenColor;
+    @Property(key = "groupdocs.annotation.arrowToolOptionsPenDashStyle")
+    protected Integer arrowToolOptionsPenDashStyle;
+    @Property(key = "groupdocs.annotation.arrowToolOptionsBrushColor")
+    protected Integer arrowToolOptionsBrushColor;
     @Property(key = "groupdocs.annotation.enabledTools")
     protected Integer enabledTools;
     @Property(key = "groupdocs.annotation.connectorPosition")
@@ -467,6 +501,309 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return scrollOnFocus;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getStrikeOutColor() {
+        return strikeOutColor;
+    }
+
+    /**
+     * Setter for property 'strikeOutColor'.
+     *
+     * @param strikeOutColor Value to set for property 'strikeOutColor'.
+     */
+    public void setStrikeOutColor(String strikeOutColor) {
+        this.strikeOutColor = strikeOutColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getHighlightColor() {
+        return highlightColor;
+    }
+
+    /**
+     * Setter for property 'highlightColor'.
+     *
+     * @param highlightColor Value to set for property 'highlightColor'.
+     */
+    public void setHighlightColor(String highlightColor) {
+        this.highlightColor = highlightColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getTextFieldBackgroundColor() {
+        return textFieldBackgroundColor;
+    }
+
+    /**
+     * Setter for property 'textFieldBackgroundColor'.
+     *
+     * @param textFieldBackgroundColor Value to set for property 'textFieldBackgroundColor'.
+     */
+    public void setTextFieldBackgroundColor(String textFieldBackgroundColor) {
+        this.textFieldBackgroundColor = textFieldBackgroundColor;
+    }
+
+    /**
+     * Getter for property 'tabNavigationEnabled'.
+     *
+     * @return Value for property 'tabNavigationEnabled'.
+     */
+    public Boolean isTabNavigationEnabled() {
+        return tabNavigationEnabled;
+    }
+
+    /**
+     * Setter for property 'tabNavigationEnabled'.
+     *
+     * @param tabNavigationEnabled Value to set for property 'tabNavigationEnabled'.
+     */
+    public void setTabNavigationEnabled(Boolean tabNavigationEnabled) {
+        this.tabNavigationEnabled = tabNavigationEnabled;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getMinimumImageWidth() {
+        return minimumImageWidth;
+    }
+
+    /**
+     * Setter for property 'minimumImageWidth'.
+     *
+     * @param minimumImageWidth Value to set for property 'minimumImageWidth'.
+     */
+    public void setMinimumImageWidth(Integer minimumImageWidth) {
+        this.minimumImageWidth = minimumImageWidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getAreaToolOptionsPenWidth() {
+        return areaToolOptionsPenWidth;
+    }
+
+    /**
+     * Setter for property 'areaToolOptionsPenWidth'.
+     *
+     * @param areaToolOptionsPenWidth Value to set for property 'areaToolOptionsPenWidth'.
+     */
+    public void setAreaToolOptionsPenWidth(Integer areaToolOptionsPenWidth) {
+        this.areaToolOptionsPenWidth = areaToolOptionsPenWidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getAreaToolOptionsPenColor() {
+        return areaToolOptionsPenColor;
+    }
+
+    /**
+     * Setter for property 'areaToolOptionsPenColor'.
+     *
+     * @param areaToolOptionsPenColor Value to set for property 'areaToolOptionsPenColor'.
+     */
+    public void setAreaToolOptionsPenColor(String areaToolOptionsPenColor) {
+        this.areaToolOptionsPenColor = areaToolOptionsPenColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getAreaToolOptionsPenDashStyle() {
+        return areaToolOptionsPenDashStyle;
+    }
+
+    /**
+     * Setter for property 'areaToolOptionsPenDashStyle'.
+     *
+     * @param areaToolOptionsPenDashStyle Value to set for property 'areaToolOptionsPenDashStyle'.
+     */
+    public void setAreaToolOptionsPenDashStyle(Integer areaToolOptionsPenDashStyle) {
+        this.areaToolOptionsPenDashStyle = areaToolOptionsPenDashStyle;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getAreaToolOptionsBrushColor() {
+        return areaToolOptionsBrushColor;
+    }
+
+    /**
+     * Setter for property 'areaToolOptionsBrushColor'.
+     *
+     * @param areaToolOptionsBrushColor Value to set for property 'areaToolOptionsBrushColor'.
+     */
+    public void setAreaToolOptionsBrushColor(Integer areaToolOptionsBrushColor) {
+        this.areaToolOptionsBrushColor = areaToolOptionsBrushColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getPolylineToolOptionsPenWidth() {
+        return polylineToolOptionsPenWidth;
+    }
+
+    /**
+     * Setter for property 'polylineToolOptionsPenWidth'.
+     *
+     * @param polylineToolOptionsPenWidth Value to set for property 'polylineToolOptionsPenWidth'.
+     */
+    public void setPolylineToolOptionsPenWidth(Integer polylineToolOptionsPenWidth) {
+        this.polylineToolOptionsPenWidth = polylineToolOptionsPenWidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getPolylineToolOptionsPenColor() {
+        return polylineToolOptionsPenColor;
+    }
+
+    /**
+     * Setter for property 'polylineToolOptionsPenColor'.
+     *
+     * @param polylineToolOptionsPenColor Value to set for property 'polylineToolOptionsPenColor'.
+     */
+    public void setPolylineToolOptionsPenColor(String polylineToolOptionsPenColor) {
+        this.polylineToolOptionsPenColor = polylineToolOptionsPenColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getPolylineToolOptionsPenDashStyle() {
+        return polylineToolOptionsPenDashStyle;
+    }
+
+    /**
+     * Setter for property 'polylineToolOptionsPenDashStyle'.
+     *
+     * @param polylineToolOptionsPenDashStyle Value to set for property 'polylineToolOptionsPenDashStyle'.
+     */
+    public void setPolylineToolOptionsPenDashStyle(Integer polylineToolOptionsPenDashStyle) {
+        this.polylineToolOptionsPenDashStyle = polylineToolOptionsPenDashStyle;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getPolylineToolOptionsBrushColor() {
+        return polylineToolOptionsBrushColor;
+    }
+
+    /**
+     * Setter for property 'polylineToolOptionsBrushColor'.
+     *
+     * @param polylineToolOptionsBrushColor Value to set for property 'polylineToolOptionsBrushColor'.
+     */
+    public void setPolylineToolOptionsBrushColor(Integer polylineToolOptionsBrushColor) {
+        this.polylineToolOptionsBrushColor = polylineToolOptionsBrushColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getArrowToolOptionsPenWidth() {
+        return arrowToolOptionsPenWidth;
+    }
+
+    /**
+     * Setter for property 'arrowToolOptionsPenWidth'.
+     *
+     * @param arrowToolOptionsPenWidth Value to set for property 'arrowToolOptionsPenWidth'.
+     */
+    public void setArrowToolOptionsPenWidth(Integer arrowToolOptionsPenWidth) {
+        this.arrowToolOptionsPenWidth = arrowToolOptionsPenWidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getArrowToolOptionsPenColor() {
+        return arrowToolOptionsPenColor;
+    }
+
+    /**
+     * Setter for property 'arrowToolOptionsPenColor'.
+     *
+     * @param arrowToolOptionsPenColor Value to set for property 'arrowToolOptionsPenColor'.
+     */
+    public void setArrowToolOptionsPenColor(String arrowToolOptionsPenColor) {
+        this.arrowToolOptionsPenColor = arrowToolOptionsPenColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getArrowToolOptionsPenDashStyle() {
+        return arrowToolOptionsPenDashStyle;
+    }
+
+    /**
+     * Setter for property 'arrowToolOptionsPenDashStyle'.
+     *
+     * @param arrowToolOptionsPenDashStyle Value to set for property 'arrowToolOptionsPenDashStyle'.
+     */
+    public void setArrowToolOptionsPenDashStyle(Integer arrowToolOptionsPenDashStyle) {
+        this.arrowToolOptionsPenDashStyle = arrowToolOptionsPenDashStyle;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getArrowToolOptionsBrushColor() {
+        return arrowToolOptionsBrushColor;
+    }
+
+    /**
+     * Setter for property 'arrowToolOptionsBrushColor'.
+     *
+     * @param arrowToolOptionsBrushColor Value to set for property 'arrowToolOptionsBrushColor'.
+     */
+    public void setArrowToolOptionsBrushColor(Integer arrowToolOptionsBrushColor) {
+        this.arrowToolOptionsBrushColor = arrowToolOptionsBrushColor;
+    }
+
+    /**
+     * Getter for property 'printAnnotations'.
+     *
+     * @return Value for property 'printAnnotations'.
+     */
+    public Boolean getPrintAnnotations() {
+        return printAnnotations;
+    }
+
+    public void setPrintAnnotations(Boolean printAnnotations) {
+        this.printAnnotations = printAnnotations;
+    }
+
     @Override
     public Integer getEnabledTools() {
         return enabledTools;
@@ -517,10 +854,6 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Override
     public Boolean isPrintAnnotations() {
         return printAnnotations;
-    }
-
-    public void setPrintAnnotations(Boolean printAnnotations) {
-        this.printAnnotations = printAnnotations;
     }
 
     @Override
