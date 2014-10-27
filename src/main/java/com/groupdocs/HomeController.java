@@ -3,7 +3,7 @@ package com.groupdocs;
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
-import com.groupdocs.annotation.domain.response.StatusResponse;
+import com.groupdocs.annotation.domain.response.StatusResult;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
@@ -548,7 +548,7 @@ public class HomeController extends HomeControllerBase {
                 try {
                     uploadInputStream = multipartFile.getInputStream();
                 } catch (IOException e) {
-                    return writeOutputJson(new StatusResponse(false, "Can't get input stream!"));
+                    return writeOutputJson(new StatusResult(false, "Can't get input stream!"));
                 }
             }
         }
