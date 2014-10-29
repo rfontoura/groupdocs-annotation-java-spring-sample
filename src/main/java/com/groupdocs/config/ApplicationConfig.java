@@ -113,6 +113,12 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     protected Integer arrowToolOptionsPenDashStyle;
     @Property(key = "groupdocs.annotation.arrowToolOptionsBrushColor")
     protected String arrowToolOptionsBrushColor;
+    @Property(key = "groupdocs.annotation.penColor")
+    protected String penColor;
+    @Property(key = "groupdocs.annotation.penWidth")
+    protected Integer penWidth;
+    @Property(key = "groupdocs.annotation.penStyle")
+    protected Integer penStyle;
     @Property(key = "groupdocs.annotation.enabledTools")
     protected Integer enabledTools;
     @Property(key = "groupdocs.annotation.connectorPosition")
@@ -475,11 +481,11 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return maxCacheSize;
     }
 
-    public void setMaxCacheSize(Long maxCacheSize) {
+    public void setMaxCacheSize(long maxCacheSize) {
         this.maxCacheSize = maxCacheSize;
     }
 
-    public void setMaxCacheSize(long maxCacheSize) {
+    public void setMaxCacheSize(Long maxCacheSize) {
         this.maxCacheSize = maxCacheSize;
     }
 
@@ -810,6 +816,57 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      */
     public void setArrowToolOptionsBrushColor(String arrowToolOptionsBrushColor) {
         this.arrowToolOptionsBrushColor = arrowToolOptionsBrushColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getPenWidth() {
+        return penWidth;
+    }
+
+    /**
+     * Setter for property 'penWidth'.
+     *
+     * @param penWidth Value to set for property 'penWidth'.
+     */
+    public void setPenWidth(Integer penWidth) {
+        this.penWidth = penWidth;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getPenColor() {
+        return penColor;
+    }
+
+    /**
+     * Setter for property 'penColor'.
+     *
+     * @param penColor Value to set for property 'penColor'.
+     */
+    public void setPenColor(String penColor) {
+        this.penColor = penColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getPenStyle() {
+        return penStyle;
+    }
+
+    /**
+     * Setter for property 'penStyle'.
+     *
+     * @param penStyle Value to set for property 'penStyle'.
+     */
+    public void setPenStyle(Integer penStyle) {
+        this.penStyle = penStyle;
     }
 
     /**
