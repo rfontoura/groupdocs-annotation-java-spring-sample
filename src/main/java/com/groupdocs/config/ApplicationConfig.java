@@ -96,7 +96,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Property(key = "groupdocs.annotation.areaToolOptionsPenDashStyle")
     protected Integer areaToolOptionsPenDashStyle;
     @Property(key = "groupdocs.annotation.areaToolOptionsBrushColor")
-    protected Integer areaToolOptionsBrushColor;
+    protected String areaToolOptionsBrushColor;
     @Property(key = "groupdocs.annotation.polylineToolOptionsPenWidth")
     protected Integer polylineToolOptionsPenWidth;
     @Property(key = "groupdocs.annotation.polylineToolOptionsPenColor")
@@ -104,7 +104,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Property(key = "groupdocs.annotation.polylineToolOptionsPenDashStyle")
     protected Integer polylineToolOptionsPenDashStyle;
     @Property(key = "groupdocs.annotation.polylineToolOptionsBrushColor")
-    protected Integer polylineToolOptionsBrushColor;
+    protected String polylineToolOptionsBrushColor;
     @Property(key = "groupdocs.annotation.arrowToolOptionsPenWidth")
     protected Integer arrowToolOptionsPenWidth;
     @Property(key = "groupdocs.annotation.arrowToolOptionsPenColor")
@@ -112,7 +112,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
     @Property(key = "groupdocs.annotation.arrowToolOptionsPenDashStyle")
     protected Integer arrowToolOptionsPenDashStyle;
     @Property(key = "groupdocs.annotation.arrowToolOptionsBrushColor")
-    protected Integer arrowToolOptionsBrushColor;
+    protected String arrowToolOptionsBrushColor;
     @Property(key = "groupdocs.annotation.enabledTools")
     protected Integer enabledTools;
     @Property(key = "groupdocs.annotation.connectorPosition")
@@ -475,11 +475,11 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return maxCacheSize;
     }
 
-    public void setMaxCacheSize(long maxCacheSize) {
+    public void setMaxCacheSize(Long maxCacheSize) {
         this.maxCacheSize = maxCacheSize;
     }
 
-    public void setMaxCacheSize(Long maxCacheSize) {
+    public void setMaxCacheSize(long maxCacheSize) {
         this.maxCacheSize = maxCacheSize;
     }
 
@@ -663,7 +663,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      * {@inheritDoc}
      */
     @Override
-    public Integer getAreaToolOptionsBrushColor() {
+    public String getAreaToolOptionsBrushColor() {
         return areaToolOptionsBrushColor;
     }
 
@@ -672,7 +672,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      *
      * @param areaToolOptionsBrushColor Value to set for property 'areaToolOptionsBrushColor'.
      */
-    public void setAreaToolOptionsBrushColor(Integer areaToolOptionsBrushColor) {
+    public void setAreaToolOptionsBrushColor(String areaToolOptionsBrushColor) {
         this.areaToolOptionsBrushColor = areaToolOptionsBrushColor;
     }
 
@@ -731,7 +731,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      * {@inheritDoc}
      */
     @Override
-    public Integer getPolylineToolOptionsBrushColor() {
+    public String getPolylineToolOptionsBrushColor() {
         return polylineToolOptionsBrushColor;
     }
 
@@ -740,7 +740,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      *
      * @param polylineToolOptionsBrushColor Value to set for property 'polylineToolOptionsBrushColor'.
      */
-    public void setPolylineToolOptionsBrushColor(Integer polylineToolOptionsBrushColor) {
+    public void setPolylineToolOptionsBrushColor(String polylineToolOptionsBrushColor) {
         this.polylineToolOptionsBrushColor = polylineToolOptionsBrushColor;
     }
 
@@ -799,7 +799,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      * {@inheritDoc}
      */
     @Override
-    public Integer getArrowToolOptionsBrushColor() {
+    public String getArrowToolOptionsBrushColor() {
         return arrowToolOptionsBrushColor;
     }
 
@@ -808,7 +808,7 @@ public class ApplicationConfig extends ServiceConfigurationBase {
      *
      * @param arrowToolOptionsBrushColor Value to set for property 'arrowToolOptionsBrushColor'.
      */
-    public void setArrowToolOptionsBrushColor(Integer arrowToolOptionsBrushColor) {
+    public void setArrowToolOptionsBrushColor(String arrowToolOptionsBrushColor) {
         this.arrowToolOptionsBrushColor = arrowToolOptionsBrushColor;
     }
 
