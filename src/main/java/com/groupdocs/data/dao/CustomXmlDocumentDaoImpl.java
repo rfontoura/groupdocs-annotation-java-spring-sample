@@ -1,8 +1,8 @@
-package com.groupdocs.connector.dao;
+package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
-import com.groupdocs.annotation.data.dao.interfaces.ICollaboratorDao;
-import com.groupdocs.annotation.data.tables.interfaces.ICollaborator;
+import com.groupdocs.annotation.data.dao.interfaces.IDocumentDao;
+import com.groupdocs.annotation.data.tables.interfaces.IDocument;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * @author Aleksey Permyakov (13.10.2014)
  */
-public class CustomXmlCollaboratorDaoImpl extends CustomAbstractDaoImpl<ICollaborator> implements ICollaboratorDao {
+public class CustomXmlDocumentDaoImpl extends CustomAbstractDaoImpl<IDocument> implements IDocumentDao {
 
-    public static final String COLLABORATOR_FILE_NAME = "Collaborator.xml";
+    public static final String DOCUMENT_FILE_NAME = "Document.xml";
 
     @Override
-    protected void saveData(List<ICollaborator> data) {
+    protected void saveData(List<IDocument> data) {
         String tempPath = Utils.getTempPath();
-        File file = new File(tempPath + File.separator + COLLABORATOR_FILE_NAME);
+        File file = new File(tempPath + File.separator + DOCUMENT_FILE_NAME);
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);
@@ -31,11 +31,14 @@ public class CustomXmlCollaboratorDaoImpl extends CustomAbstractDaoImpl<ICollabo
     }
 
     @Override
-    protected List<ICollaborator> loadData() {
+    protected List<IDocument> loadData() {
+//        // You can use DocumentConstructor.create().end() for create new entity instance
+//        IDocument createdDocumentObject = DocumentConstructor.create().end();
+
         String tempPath = Utils.getTempPath();
-        File file = new File(tempPath + File.separator + COLLABORATOR_FILE_NAME);
+        File file = new File(tempPath + File.separator + DOCUMENT_FILE_NAME);
         if (!file.exists() || !file.isFile()) {
-            return new ArrayList<ICollaborator>();
+            return new ArrayList<IDocument>();
         }
         DataInputStream dataInputStream = null;
         FileInputStream fileInputStream = null;
@@ -50,6 +53,6 @@ public class CustomXmlCollaboratorDaoImpl extends CustomAbstractDaoImpl<ICollabo
         } finally {
             Utils.closeStreams(dataInputStream, fileInputStream);
         }
-        return new ArrayList<ICollaborator>();
+        return new ArrayList<IDocument>();
     }
 }

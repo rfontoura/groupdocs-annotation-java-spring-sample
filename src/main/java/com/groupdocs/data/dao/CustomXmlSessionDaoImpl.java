@@ -1,4 +1,4 @@
-package com.groupdocs.connector.dao;
+package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.ISessionDao;
@@ -32,6 +32,9 @@ public class CustomXmlSessionDaoImpl extends CustomAbstractDaoImpl<ISession> imp
 
     @Override
     protected List<ISession> loadData() {
+//        // You can use SessionConstructor.create().end() for create new entity instance
+//        ISession createdSessionObject = SessionConstructor.create().end();
+
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + SESSION_FILE_NAME);
         if (!file.exists() || !file.isFile()) {

@@ -1,9 +1,9 @@
-package com.groupdocs.connector;
+package com.groupdocs.data.connector;
 
 import com.groupdocs.annotation.data.connector.data.AbstractDataConnector;
 import com.groupdocs.annotation.data.dao.interfaces.*;
 import com.groupdocs.annotation.exception.AnnotationException;
-import com.groupdocs.connector.dao.*;
+import com.groupdocs.data.dao.*;
 
 /**
  * @author Aleksey Permyakov (13.10.2014)

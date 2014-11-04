@@ -1,7 +1,8 @@
-package com.groupdocs.connector.dao;
+package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.DaoFactory;
+import com.groupdocs.annotation.data.constructor.AnnotationConstructor;
 import com.groupdocs.annotation.data.dao.interfaces.IAnnotationDao;
 import com.groupdocs.annotation.data.dao.interfaces.IDocumentDao;
 import com.groupdocs.annotation.data.dao.interfaces.ISessionDao;
@@ -57,12 +58,15 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
                 }
             }
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Can't save data:" + e.getMessage());
+            Logger.getLogger(CustomXmlAnnotationDaoImpl.class.getName()).log(Level.SEVERE, "Can't save data:" + e.getMessage());
         }
     }
 
     @Override
     protected List<IAnnotation> loadData() {
+//        // You can use AnnotationConstructor.create().end() for create new entity instance
+//        IAnnotation createdAnnotationObject = AnnotationConstructor.create().end();
+
         String tempPath = Utils.getTempPath();
         File tempDirectory = new File(tempPath);
         if (!tempDirectory.exists() || tempDirectory.isFile()) {

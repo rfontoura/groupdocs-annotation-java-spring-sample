@@ -1,8 +1,8 @@
-package com.groupdocs.connector.dao;
+package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
-import com.groupdocs.annotation.data.dao.interfaces.ISystemInfoDao;
-import com.groupdocs.annotation.data.tables.interfaces.ISystemInfo;
+import com.groupdocs.annotation.data.dao.interfaces.IUserDao;
+import com.groupdocs.annotation.data.tables.interfaces.IUser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * @author Aleksey Permyakov (13.10.2014)
  */
-public class CustomXmlSystemInfoDaoImpl extends CustomAbstractDaoImpl<ISystemInfo> implements ISystemInfoDao {
+public class CustomXmlUserDaoImpl extends CustomAbstractDaoImpl<IUser> implements IUserDao {
 
-    public static final String SYSTEM_INFO_FILE_NAME = "SystemInfo.xml";
+    public static final String USER_FILE_NAME = "User.xml";
 
     @Override
-    protected void saveData(List<ISystemInfo> data) {
+    protected void saveData(List<IUser> data) {
         String tempPath = Utils.getTempPath();
-        File file = new File(tempPath + File.separator + SYSTEM_INFO_FILE_NAME);
+        File file = new File(tempPath + File.separator + USER_FILE_NAME);
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);
@@ -31,11 +31,11 @@ public class CustomXmlSystemInfoDaoImpl extends CustomAbstractDaoImpl<ISystemInf
     }
 
     @Override
-    protected List<ISystemInfo> loadData() {
+    protected List<IUser> loadData() {
         String tempPath = Utils.getTempPath();
-        File file = new File(tempPath + File.separator + SYSTEM_INFO_FILE_NAME);
+        File file = new File(tempPath + File.separator + USER_FILE_NAME);
         if (!file.exists() || !file.isFile()) {
-            return new ArrayList<ISystemInfo>();
+            return new ArrayList<IUser>();
         }
         DataInputStream dataInputStream = null;
         FileInputStream fileInputStream = null;
@@ -50,6 +50,6 @@ public class CustomXmlSystemInfoDaoImpl extends CustomAbstractDaoImpl<ISystemInf
         } finally {
             Utils.closeStreams(dataInputStream, fileInputStream);
         }
-        return new ArrayList<ISystemInfo>();
+        return new ArrayList<IUser>();
     }
 }

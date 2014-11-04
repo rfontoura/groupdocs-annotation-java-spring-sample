@@ -10,10 +10,14 @@ import com.groupdocs.annotation.data.connector.db.MssqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.MysqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.PostgresqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.SqliteDatabaseConnector;
+import com.groupdocs.annotation.data.constructor.AnnotationConstructor;
+import com.groupdocs.annotation.data.constructor.CollaboratorConstructor;
+import com.groupdocs.annotation.data.constructor.IConstructor;
+import com.groupdocs.annotation.data.tables.interfaces.IAnnotation;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
-import com.groupdocs.connector.CustomDatabaseConnector;
+import com.groupdocs.data.connector.CustomDatabaseConnector;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,6 +148,22 @@ public abstract class HomeControllerBase extends GroupDocsAnnotation {
                             break;
                     }
                 }
+//                // Initialize constructors for create custom entities instead of embedded
+//                AnnotationConstructor.setConstructor(new IConstructor<IAnnotation>() {
+//                    @Override
+//                    public IAnnotation create() {
+//                        return new MyCustomEntityClass();
+//                    }
+//
+//                    @Override
+//                    public IAnnotation create(IAnnotation obj) {
+//                        MyCustomEntityClass /* MyCustomEntityClass implements IAnnotation */ myCustomEntityClass = new MyCustomEntityClass();
+//                        myCustomEntityClass.setAnyPropertyIfNeed(object.getAnyproperty());
+//                        return myCustomEntityClass;
+//                    }
+//                });
+//                CollaboratorConstructor.setConstructor(...); ...
+
                 annotationHandler = new AnnotationHandler(serviceConfiguration, connector);
 
 //                annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));

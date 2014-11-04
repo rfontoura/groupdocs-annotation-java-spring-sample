@@ -1,4 +1,4 @@
-package com.groupdocs.connector.dao;
+package com.groupdocs.data.dao;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

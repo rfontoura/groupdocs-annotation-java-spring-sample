@@ -5,6 +5,7 @@ import com.urbanmania.spring.beans.factory.config.annotations.Property;
 import org.springframework.stereotype.Component;
 
 /**
+ * Spring sample configuration class
  * @author Aleksey Permyakov
  */
 @Component
