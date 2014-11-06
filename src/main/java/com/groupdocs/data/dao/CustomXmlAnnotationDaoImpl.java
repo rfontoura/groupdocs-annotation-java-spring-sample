@@ -2,7 +2,6 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.DaoFactory;
-import com.groupdocs.annotation.data.constructor.AnnotationConstructor;
 import com.groupdocs.annotation.data.dao.interfaces.IAnnotationDao;
 import com.groupdocs.annotation.data.dao.interfaces.IDocumentDao;
 import com.groupdocs.annotation.data.dao.interfaces.ISessionDao;

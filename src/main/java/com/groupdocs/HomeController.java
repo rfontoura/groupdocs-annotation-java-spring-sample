@@ -5,6 +5,9 @@ import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
 import com.groupdocs.annotation.domain.response.StatusResult;
 import com.groupdocs.annotation.exception.AnnotationException;
+import com.groupdocs.annotation.localization.ILocalization;
+import com.groupdocs.annotation.localization.LocalizationRU;
+import com.groupdocs.localization.LocalizationGE;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
 import com.groupdocs.viewer.domain.path.GroupDocsPath;
@@ -60,8 +63,16 @@ public class HomeController extends HomeControllerBase {
      */
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "file", required = false) String file, @RequestParam(value = "tokenId", required = false) String tokenId, @RequestParam(value = "userName", required = false) final String userName) throws Exception {
+        // Configure localization
+        ILocalization localization = null;
+        if ("RU".equalsIgnoreCase(applicationConfig.getLocalization())) {
+            localization = new LocalizationRU();
+        } else if ("GE".equalsIgnoreCase(applicationConfig.getLocalization())) {
+            localization = new LocalizationGE();
+        }
         // Setting header in jsp page
         model.addAttribute("groupdocsHeader", annotationHandler().getHeader(applicationConfig.getApplicationPath(), request));
+
         // Initialization of Viewer with document from this path
         GroupDocsPath path = null;
         if (file != null && !file.isEmpty()) {
@@ -95,7 +106,7 @@ public class HomeController extends HomeControllerBase {
 //            Utils.closeStreams(testAvatar);
 //            annotationHandler().setUserAvatar(userGuid, bytes);
 //        }
-        model.addAttribute("groupdocsScripts", annotationHandler().getAnnotationScript(initialPath, userName, userGuid));
+        model.addAttribute("groupdocsScripts", annotationHandler().getAnnotationScript(initialPath, userName, userGuid, localization));
         return "index";
     }
 

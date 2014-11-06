@@ -10,10 +10,6 @@ import com.groupdocs.annotation.data.connector.db.MssqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.MysqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.PostgresqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.SqliteDatabaseConnector;
-import com.groupdocs.annotation.data.constructor.AnnotationConstructor;
-import com.groupdocs.annotation.data.constructor.CollaboratorConstructor;
-import com.groupdocs.annotation.data.constructor.IConstructor;
-import com.groupdocs.annotation.data.tables.interfaces.IAnnotation;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
@@ -36,7 +32,7 @@ import java.util.logging.Logger;
 /**
  * @author Alex Bobkov
  */
-public abstract class HomeControllerBase extends GroupDocsAnnotation {
+public abstract class HomeControllerBase implements GroupDocsAnnotation {
     @Autowired
     protected ApplicationConfig applicationConfig;
     private AnnotationHandler annotationHandler;
