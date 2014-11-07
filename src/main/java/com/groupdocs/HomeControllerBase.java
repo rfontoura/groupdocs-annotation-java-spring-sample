@@ -1,5 +1,7 @@
 package com.groupdocs;
 
+import com.groupdocs.annotation.common.ICallback;
+import com.groupdocs.annotation.common.Three;
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.common.StorageType;
 import com.groupdocs.annotation.data.common.StoreLogic;
@@ -10,6 +12,9 @@ import com.groupdocs.annotation.data.connector.db.MssqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.MysqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.PostgresqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.SqliteDatabaseConnector;
+import com.groupdocs.annotation.data.tables.interfaces.IDocument;
+import com.groupdocs.annotation.data.tables.interfaces.IUser;
+import com.groupdocs.annotation.enums.AnnotationEvent;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.GroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
@@ -160,9 +165,26 @@ public abstract class HomeControllerBase implements GroupDocsAnnotation {
 //                });
 //                CollaboratorConstructor.setConstructor(...); ...
 
-                annotationHandler = new AnnotationHandler(serviceConfiguration, connector);
-
-//                annotationHandler = new AnnotationHandler(config, new CustomInputDataHandler(config));
+                annotationHandler = AnnotationHandler.create(serviceConfiguration)
+                        .withConnector(connector)
+//                        .withInputDataHandler(new CustomInputDataHandler(applicationConfig))
+//                        .withAccessCallback(new ICallback<Boolean, Three<AnnotationEvent, IUser, IDocument>>() {
+//                            @Override
+//                            public Boolean onCallback(Three<AnnotationEvent, IUser, IDocument> param) {
+//                                AnnotationEvent annotationEvent = param.one;
+//                                switch (annotationEvent) {
+//                                    case CreateAnnotation:
+//                                        // Check permissions and return true of false
+//                                        break;
+//                                    case DeleteAnnotation:
+//                                        // Check permissions and return true of false
+//                                        break;
+//                                    // ...
+//                                }
+//                                return true;
+//                            }
+//                        })
+                        .end();
 //                InputDataHandler.setInputDataHandler(new CustomInputDataHandler(config));
             } catch (Exception e) {
                 // TODO: logger
