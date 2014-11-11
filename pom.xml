@@ -21,9 +21,8 @@
         <servlet.version>3.1.0</servlet.version>
         <spring-framework.version>3.2.5.RELEASE</spring-framework.version>
     </properties>
-	
-    <dependencies>
 
+    <dependencies>
         <!-- Sample build dependencies -->
         <dependency>
             <groupId>com.groupdocs</groupId>
@@ -52,14 +51,11 @@
             <artifactId>spring-property-annotations</artifactId>
             <version>0.1.8</version>
         </dependency>
-
-        <!-- Sample runtime dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
-
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>

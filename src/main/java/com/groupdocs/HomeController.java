@@ -368,6 +368,12 @@ public class HomeController extends HomeControllerBase {
         return writeOutputJson(annotationHandler().reorderPageHandler(request, response));
     }
 
+    @Override
+    @RequestMapping(value = ROTATE_PAGE_HANDLER, method = RequestMethod.POST)
+    public Object rotatePageHandler(HttpServletRequest request, HttpServletResponse response) {
+        return writeOutputJson(annotationHandler().rotatePageHandler(request, response));
+    }
+
     /**
      * Get list of annotations for document [POST request]
      *
@@ -570,7 +576,7 @@ public class HomeController extends HomeControllerBase {
      * @param request  http servlet request
      * @param response http servlet response
      * @return object with response parameters
-     * @see com.groupdocs.annotation.handler.GroupDocsAnnotation
+     * @see com.groupdocs.annotation.handler.IGroupDocsAnnotation
      */
     @Override
     @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
