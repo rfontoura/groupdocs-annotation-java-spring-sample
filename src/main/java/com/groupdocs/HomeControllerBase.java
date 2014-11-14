@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -162,6 +163,7 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 
                 annotationHandler = AnnotationHandler.create(serviceConfiguration)
                         .withConnector(connector)
+                        .withLocale(Locale.CANADA)
 //                        .withInputDataHandler(new CustomInputDataHandler(applicationConfig))
 //                        .withAccessCallback(new ICallback<Boolean, Three<AnnotationEvent, IUser, IDocument>>() {
 //                            @Override
