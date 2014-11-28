@@ -10,6 +10,7 @@ import com.groupdocs.annotation.data.connector.db.MssqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.MysqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.PostgresqlDatabaseConnector;
 import com.groupdocs.annotation.data.connector.db.SqliteDatabaseConnector;
+import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.IGroupDocsAnnotation;
 import com.groupdocs.config.ApplicationConfig;
@@ -107,7 +108,7 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 //                annotationHandler = new AnnotationHandler(serviceConfiguration);
 
                 IConnector connector = null;
-                String storageType = applicationConfig.getStorageType();
+                String storageTypeString = applicationConfig.getStorageType();
                 String dbServer = applicationConfig.getDbServer();
                 Integer dbPort = applicationConfig.getDbPort();
                 String dbName = applicationConfig.getDbName();
@@ -116,9 +117,12 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
                 StoreLogic storeLogic = StoreLogic.fromValue(applicationConfig.getStoreLogic());
                 String storagePath = Utils.or(applicationConfig.getStoragePath(), tempPath);
 
-
-                if (storageType != null && !storageType.isEmpty()) {
-                    switch (StorageType.fromValue(storageType)) {
+                if (storageTypeString != null && !storageTypeString.isEmpty()) {
+                    StorageType storageType = StorageType.fromValue(storageTypeString);
+                    if (storageType == null){
+                        throw new AnnotationException("Unknown storage type: " + storageTypeString);
+                    }
+                    switch (storageType) {
                         case DEFAULT:
                             connector = null;
                             break;

@@ -25,8 +25,8 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
     @Override
     protected void saveData(List<IAnnotation> data) {
         try {
-            ISessionDao sessionDao = DaoFactory.createSessionDao();
-            IDocumentDao documentDao = DaoFactory.createDocumentDao();
+            ISessionDao sessionDao = DaoFactory.getSessionDao();
+            IDocumentDao documentDao = DaoFactory.getDocumentDao();
             String tempPath = Utils.getTempPath();
 
             Map<String, List<IAnnotation>> fileGuid2list = new HashMap<String, List<IAnnotation>>();

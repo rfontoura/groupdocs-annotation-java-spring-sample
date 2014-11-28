@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Atmosphere class resolver
- * Created by Aleksey Permyakov on 13.06.14.
+ * @author Aleksey Permyakov (13.06.14)
  */
 public class AtmosphereResolver implements HandlerMethodArgumentResolver {
     /**
