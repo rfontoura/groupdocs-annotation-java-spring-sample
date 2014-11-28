@@ -34,6 +34,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <servlet-class>org.atmosphere.cpr.MeteorServlet</servlet-class>
         <!-- Available parameters - http://atmosphere.github.io/atmosphere/apidocs/constant-values.html -->
         <init-param>
+            <param-name>org.atmosphere.cpr.noCacheHeaders</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
             <param-name>org.atmosphere.servlet</param-name>
             <param-value>org.springframework.web.servlet.DispatcherServlet</param-value>
         </init-param>
@@ -46,16 +50,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
             <param-value>/</param-value>
         </init-param>
         <!--<init-param>-->
-            <!--<param-name>org.atmosphere.cpr.CometSupport.maxInactiveActivity</param-name>-->
-            <!--<param-value>3600000000</param-value>-->
+        <!--<param-name>org.atmosphere.cpr.CometSupport.maxInactiveActivity</param-name>-->
+        <!--<param-value>3600000000</param-value>-->
         <!--</init-param>-->
         <!--<init-param>-->
-            <!--<param-name>org.atmosphere.useStream</param-name>-->
-            <!--<param-value>true</param-value>-->
+        <!--<param-name>org.atmosphere.useStream</param-name>-->
+        <!--<param-value>true</param-value>-->
         <!--</init-param>-->
         <!--<init-param>-->
-            <!--<param-name>org.atmosphere.useWebSocket</param-name>-->
-            <!--<param-value>true</param-value>-->
+        <!--<param-name>org.atmosphere.useWebSocket</param-name>-->
+        <!--<param-value>true</param-value>-->
         <!--</init-param>-->
         <init-param>
             <param-name>org.atmosphere.useNative</param-name>
@@ -66,12 +70,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
             <param-value>/WEB-INF/mvc-config.xml</param-value>
         </init-param>
         <!--<init-param>-->
-            <!--<param-name>org.atmosphere.disableOnStateEvent</param-name>-->
-            <!--<param-value>true</param-value>-->
+        <!--<param-name>org.atmosphere.disableOnStateEvent</param-name>-->
+        <!--<param-value>true</param-value>-->
         <!--</init-param>-->
         <!--<init-param>-->
-            <!--<param-name>org.atmosphere.cpr.asyncSupport</param-name>-->
-            <!--<param-value>org.atmosphere.container.Tomcat7BIOSupportWithWebSocket</param-value>-->
+        <!--<param-name>org.atmosphere.cpr.asyncSupport</param-name>-->
+        <!--<param-value>org.atmosphere.container.Tomcat7BIOSupportWithWebSocket</param-value>-->
         <!--</init-param>-->
         <load-on-startup>1</load-on-startup>
         <!--<async-supported>true</async-supported>-->

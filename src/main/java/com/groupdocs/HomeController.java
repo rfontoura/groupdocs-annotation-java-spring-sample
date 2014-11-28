@@ -5,11 +5,13 @@ import com.groupdocs.annotation.domain.AccessRights;
 import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
 import com.groupdocs.annotation.domain.response.StatusResult;
 import com.groupdocs.annotation.exception.AnnotationException;
+import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
 import com.groupdocs.viewer.domain.path.GroupDocsPath;
 import com.groupdocs.viewer.domain.path.TokenId;
 import org.atmosphere.cpr.AtmosphereResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -105,11 +107,32 @@ public class HomeController extends HomeControllerBase {
      * @param script   JavaScript name
      * @param response http servlet response
      * @return JavaScript file content
+     * @deprecated Use method getJsHandler(String script, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
-    @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
+    @Deprecated
     public Object getJsHandler(String script, HttpServletResponse response) {
         writeOutput(annotationHandler().getJsHandler(script, response), response);
+        return null;
+    }
+
+    /**
+     * Get JavaScript file [GET request]
+     *
+     * @param script   JavaScript name
+     * @param request  HTTP servlet request
+     * @param response http servlet response
+     * @return JavaScript file content
+     */
+    @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
+    public Object getJsHandler(String script, HttpServletRequest request, HttpServletResponse response) {
+        long dateSince = request.getDateHeader("If-Modified-Since");
+        if (annotationHandler().isResourceModified(dateSince)) {
+            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
+            writeOutput(annotationHandler().getJsHandler(script, response), response);
+        } else {
+            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+        }
         return null;
     }
 
@@ -119,11 +142,32 @@ public class HomeController extends HomeControllerBase {
      * @param script   CSS name
      * @param response http servlet response
      * @return CSS file content
+     * @deprecated Use method getCssHandler(String script, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
-    @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
+    @Deprecated
     public Object getCssHandler(String script, HttpServletResponse response) {
         writeOutput(annotationHandler().getCssHandler(script, response), response);
+        return null;
+    }
+
+    /**
+     * Get css file [GET request]
+     *
+     * @param script   CSS name
+     * @param request  HTTP servlet request
+     * @param response http servlet response
+     * @return CSS file content
+     */
+    @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
+    public Object getCssHandler(String script, HttpServletRequest request, HttpServletResponse response) {
+        long dateSince = request.getDateHeader("If-Modified-Since");
+        if (annotationHandler().isResourceModified(dateSince)) {
+            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
+            writeOutput(annotationHandler().getCssHandler(script, response), response);
+        } else {
+            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+        }
         return null;
     }
 
@@ -133,11 +177,32 @@ public class HomeController extends HomeControllerBase {
      * @param name     image name
      * @param response http servlet response
      * @return image content
+     * @deprecated Use method getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
-    @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
+    @Deprecated
     public Object getImageHandler(@PathVariable String name, HttpServletResponse response) {
         writeOutput(annotationHandler().getImageHandler(name, response), response);
+        return null;
+    }
+
+    /**
+     * Get image file [GET request]
+     *
+     * @param name     image name
+     * @param request  HTTP servlet request
+     * @param response http servlet response
+     * @return image content
+     */
+    @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
+    public Object getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+        long dateSince = request.getDateHeader("If-Modified-Since");
+        if (annotationHandler().isResourceModified(dateSince)) {
+            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
+            writeOutput(annotationHandler().getImageHandler(name, response), response);
+        } else {
+            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+        }
         return null;
     }
 
@@ -147,11 +212,32 @@ public class HomeController extends HomeControllerBase {
      * @param name     font name
      * @param response http servlet response
      * @return font content
+     * @deprecated Use method getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
-    @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
+    @Deprecated
     public Object getFontHandler(@PathVariable String name, HttpServletResponse response) {
         writeOutput(annotationHandler().getFontHandler(name, response), response);
+        return null;
+    }
+
+    /**
+     * Get font file
+     *
+     * @param name     font name
+     * @param request  HTTP servlet request
+     * @param response http servlet response
+     * @return font content
+     */
+    @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
+    public Object getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+        long dateSince = request.getDateHeader("If-Modified-Since");
+        if (annotationHandler().isResourceModified(dateSince)) {
+            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
+            writeOutput(annotationHandler().getFontHandler(name, response), response);
+        } else {
+            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+        }
         return null;
     }
 

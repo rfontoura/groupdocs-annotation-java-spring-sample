@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Spring sample configuration class
+ *
  * @author Aleksey Permyakov
  */
 @Component
@@ -482,11 +483,11 @@ public class ApplicationConfig extends ServiceConfigurationBase {
         return maxCacheSize;
     }
 
-    public void setMaxCacheSize(long maxCacheSize) {
+    public void setMaxCacheSize(Long maxCacheSize) {
         this.maxCacheSize = maxCacheSize;
     }
 
-    public void setMaxCacheSize(Long maxCacheSize) {
+    public void setMaxCacheSize(long maxCacheSize) {
         this.maxCacheSize = maxCacheSize;
     }
 
