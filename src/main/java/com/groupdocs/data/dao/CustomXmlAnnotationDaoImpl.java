@@ -8,7 +8,6 @@ import com.groupdocs.annotation.data.dao.interfaces.ISessionDao;
 import com.groupdocs.annotation.data.tables.interfaces.IAnnotation;
 import com.groupdocs.annotation.data.tables.interfaces.IDocument;
 import com.groupdocs.annotation.data.tables.interfaces.ISession;
-import com.groupdocs.annotation.exception.AnnotationException;
 
 import java.io.*;
 import java.util.*;
@@ -24,9 +23,9 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
 
     @Override
     protected void saveData(List<IAnnotation> data) {
-        try {
-            ISessionDao sessionDao = DaoFactory.getSessionDao();
-            IDocumentDao documentDao = DaoFactory.getDocumentDao();
+        try (DaoFactory daoFactory = DaoFactory.create()) {
+            ISessionDao sessionDao = daoFactory.getSessionDao();
+            IDocumentDao documentDao = daoFactory.getDocumentDao();
             String tempPath = Utils.getTempPath();
 
             Map<String, List<IAnnotation>> fileGuid2list = new HashMap<String, List<IAnnotation>>();
@@ -56,7 +55,7 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
                     }
                 }
             }
-        } catch (AnnotationException e) {
+        } catch (Exception e) {
             Logger.getLogger(CustomXmlAnnotationDaoImpl.class.getName()).log(Level.SEVERE, "Can't save data:" + e.getMessage());
         }
     }

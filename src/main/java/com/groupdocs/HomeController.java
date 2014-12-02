@@ -1,9 +1,6 @@
 package com.groupdocs;
 
-import com.groupdocs.annotation.common.Utils;
-import com.groupdocs.annotation.domain.request.ImportAnnotationsData;
 import com.groupdocs.annotation.domain.response.StatusResult;
-import com.groupdocs.annotation.enums.AccessRights;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.localization.ILocalization;
@@ -25,16 +22,19 @@ import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequ
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.groupdocs.annotation.common.Utils.toJson;
 
 /**
  * Date: 05.12.13
  */
 @Controller
 public class HomeController extends HomeControllerBase {
+    private static final String MESSAGE_HANDLER_THROWS = "Handler throws exception: {0}";
 
     /**
      * Home page request
@@ -89,18 +89,7 @@ public class HomeController extends HomeControllerBase {
             }
         }
         final String initialPath = (path == null) ? "" : path.getPath();
-        final String userGuid = annotationHandler().addCollaborator(
-                userName,
-                initialPath,
-                AccessRights.All,
-//                AccessRights.from(
-//                        AccessRights.CAN_VIEW,
-//                        AccessRights.CAN_ANNOTATE,
-//                        AccessRights.CAN_EXPORT,
-//                        AccessRights.CAN_DOWNLOAD,
-//                        AccessRights.CAN_DELETE
-//                ),
-                Utils.colorToInt(Color.black));
+        final String userGuid = annotationHandler().getUserGuid(userName);
 //        if (annotationHandler().getUserAvatar(userGuid) == null){
 //            FileInputStream testAvatar = new FileInputStream(new File("E:\\Images\\333.jpeg"));
 //            byte[] bytes = new byte[testAvatar.available()];
@@ -261,8 +250,8 @@ public class HomeController extends HomeControllerBase {
      */
     @Override
     @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
-    public Object getHtmlRecoucesHandler(String filePath, HttpServletResponse response) {
-        writeOutput(annotationHandler().getHtmlRecoucesHandler(filePath, response), response);
+    public Object getHtmlResourcesHandler(String filePath, HttpServletResponse response) {
+        writeOutput(annotationHandler().getHtmlResourcesHandler(filePath, response), response);
         return null;
     }
 
@@ -469,7 +458,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = LIST_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object listAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().listAnnotationsHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().listAnnotationsHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -481,7 +475,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = EXPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public Object exportAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().exportAnnotationsHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().exportAnnotationsHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -493,7 +492,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_PDF_VERSION_OF_DOCUMENT_HANDLER, method = RequestMethod.POST)
     public Object getPdfVersionOfDocumentHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().getPdfVersionOfDocumentHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().getPdfVersionOfDocumentHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -505,7 +509,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = CREATE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object createAnnotationHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().createAnnotationHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().createAnnotationHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -519,7 +528,12 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = GET_AVATAR_HANDLER, method = RequestMethod.GET)
     @Override
     public Object getAvatarHandler(HttpServletRequest request, HttpServletResponse response, String userId) {
-        return annotationHandler().getAvatarHandler(request, response, userId);
+        try {
+            return annotationHandler().getAvatarHandler(request, response, userId);
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -531,7 +545,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = ADD_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object addAnnotationReplyHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().addAnnotationReplyHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().addAnnotationReplyHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -543,7 +562,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = EDIT_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object editAnnotationReplyHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().editAnnotationReplyHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().editAnnotationReplyHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -555,7 +579,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_REPLY_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationReplyHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().deleteAnnotationReplyHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().deleteAnnotationReplyHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -567,7 +596,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = DELETE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     public Object deleteAnnotationHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().deleteAnnotationHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().deleteAnnotationHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -579,7 +613,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = SAVE_TEXT_FIELD_HANDLER, method = RequestMethod.POST)
     public Object saveTextFieldHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().saveTextFieldHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().saveTextFieldHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -591,7 +630,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = SET_TEXT_FIELD_COLOR_HANDLER, method = RequestMethod.POST)
     public Object setTextFieldColorHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().setTextFieldColorHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().setTextFieldColorHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -603,7 +647,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = MOVE_ANNOTATION_MARKER_HANDLER, method = RequestMethod.POST)
     public Object moveAnnotationMarkerHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().moveAnnotationMarkerHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().moveAnnotationMarkerHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -615,7 +664,12 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = RESIZE_ANNOTATION_HANDLER, method = RequestMethod.POST)
     @Override
     public Object resizeAnnotationHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().resizeAnnotationHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().resizeAnnotationHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -627,7 +681,12 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = GET_DOCUMENT_COLLABORATORS_HANDLER, method = RequestMethod.POST)
     @Override
     public Object getDocumentCollaboratorsHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().getDocumentCollaboratorsHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().getDocumentCollaboratorsHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -640,22 +699,23 @@ public class HomeController extends HomeControllerBase {
      */
     @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, HttpServletRequest request, HttpServletResponse response) {
-        String uploadFileName = null;
-        InputStream uploadInputStream = null;
-        if (request instanceof DefaultMultipartHttpServletRequest) {
-            Map<String, MultipartFile> fileMap = ((DefaultMultipartHttpServletRequest) request).getFileMap();
-            if (fileMap.keySet().iterator().hasNext()) {
-                String fileName = fileMap.keySet().iterator().next();
-                MultipartFile multipartFile = fileMap.get(fileName);
-                uploadFileName = multipartFile.getOriginalFilename();
-                try {
+        try {
+            String uploadFileName = null;
+            InputStream uploadInputStream = null;
+            if (request instanceof DefaultMultipartHttpServletRequest) {
+                Map<String, MultipartFile> fileMap = ((DefaultMultipartHttpServletRequest) request).getFileMap();
+                if (fileMap.keySet().iterator().hasNext()) {
+                    String fileName = fileMap.keySet().iterator().next();
+                    MultipartFile multipartFile = fileMap.get(fileName);
+                    uploadFileName = multipartFile.getOriginalFilename();
                     uploadInputStream = multipartFile.getInputStream();
-                } catch (IOException e) {
-                    return writeOutputJson(new StatusResult(false, "Can't get input stream!"));
                 }
             }
+            return writeOutputJson(annotationHandler().uploadFileHandler(uploadFileName, uploadInputStream));
+        } catch (Exception e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
-        return writeOutputJson(annotationHandler().uploadFileHandler(uploadFileName, uploadInputStream));
     }
 
     /**
@@ -667,28 +727,12 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = IMPORT_ANNOTATIONS_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> importAnnotationsHandler(HttpServletRequest request, HttpServletResponse response) {
-        ImportAnnotationsData importAnnotationsData;
         try {
-            importAnnotationsData = Utils.getObjectData(Utils.getBody(request), ImportAnnotationsData.class);
-            String fileGuid = importAnnotationsData.getFileGuid();
-            String userGuid = importAnnotationsData.getUserId();
-            annotationHandler().addCollaboratorByGuid(
-                    userGuid,
-                    fileGuid,
-                    AccessRights.All,
-//                AccessRights.from(
-//                        AccessRights.CAN_VIEW,
-//                        AccessRights.CAN_ANNOTATE,
-//                        AccessRights.CAN_EXPORT,
-//                        AccessRights.CAN_DOWNLOAD,
-//                        AccessRights.CAN_DELETE
-//                ),
-                    Utils.colorToInt(Color.black));
-            return writeOutputJson(Utils.toJson(annotationHandler().importAnnotations(fileGuid, userGuid)));
+            return writeOutputJson(annotationHandler().importAnnotationsHandler(request, response));
         } catch (AnnotationException e) {
-            e.printStackTrace(); // Logger
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
-        return null;
     }
 
     /**
@@ -701,20 +745,35 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_PRINT_VIEW_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPrintViewHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().getPrintViewHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().getPrintViewHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
+        }
     }
 
     @Override
     @RequestMapping(value = GET_PRINT_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getPrintDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
-        writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
-        return null;
+        try {
+            writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
+            return null;
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     @Override
     @RequestMapping(value = RESTORE_ANNOTATION_REPLIES_HANDLER, method = RequestMethod.POST)
     public Object restoreAnnotationRepliesHandler(HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().restoreAnnotationRepliesHandler(request, response));
+        try {
+            return writeOutputJson(annotationHandler().restoreAnnotationRepliesHandler(request, response));
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
     }
 
     /**
@@ -726,7 +785,11 @@ public class HomeController extends HomeControllerBase {
     @ResponseBody
     @RequestMapping(value = ATMOSPHERE_ANNOTATION, method = RequestMethod.GET)
     public void onAtmosphereReady(AtmosphereResource resource) {
-        annotationHandler().onAtmosphereReady(resource);
+        try {
+            annotationHandler().onAtmosphereReady(resource);
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+        }
     }
 
     /**
@@ -738,6 +801,10 @@ public class HomeController extends HomeControllerBase {
     @ResponseBody
     @RequestMapping(value = ATMOSPHERE_ANNOTATION, method = RequestMethod.POST)
     public void onAtmosphereMessage(AtmosphereResource resource) {
-        annotationHandler().onAtmosphereMessage(resource);
+        try {
+            annotationHandler().onAtmosphereMessage(resource);
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+        }
     }
 }

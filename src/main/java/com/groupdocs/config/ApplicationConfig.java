@@ -165,8 +165,6 @@ public class ApplicationConfig extends ServiceConfiguration {
     private String uploadPath;
     @Property(key = "groupdocs.annotation.undoEnabled")
     private Boolean undoEnabled;
-    @Property(key = "groupdocs.annotation.fileDisplayName")
-    private String fileDisplayName;
     @Property(key = "groupdocs.annotation.jqueryFileDownloadCookieName")
     private String jqueryFileDownloadCookieName;
     @Property(key = "groupdocs.annotation.watermarkFontSize")
@@ -1610,24 +1608,6 @@ public class ApplicationConfig extends ServiceConfiguration {
     @SuppressWarnings("unused")
     public void setUndoEnabled(Boolean undoEnabled) {
         this.undoEnabled = undoEnabled;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getFileDisplayName() {
-        return fileDisplayName;
-    }
-
-    /**
-     * Setter for property 'fileDisplayName'.
-     *
-     * @param fileDisplayName Value to set for property 'fileDisplayName'.
-     */
-    @SuppressWarnings("unused")
-    public void setFileDisplayName(String fileDisplayName) {
-        this.fileDisplayName = fileDisplayName;
     }
 
     /**
