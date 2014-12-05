@@ -1,5 +1,6 @@
 package com.groupdocs;
 
+import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.domain.response.StatusResult;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.handler.AnnotationHandler;
@@ -24,8 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.groupdocs.annotation.common.Utils.toJson;
 
@@ -461,7 +460,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().listAnnotationsHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -478,7 +477,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().exportAnnotationsHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -495,7 +494,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().getPdfVersionOfDocumentHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -512,7 +511,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().createAnnotationHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -531,7 +530,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return annotationHandler().getAvatarHandler(request, response, userId);
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -548,7 +547,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().addAnnotationReplyHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -565,7 +564,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().editAnnotationReplyHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -582,7 +581,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().deleteAnnotationReplyHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -599,7 +598,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().deleteAnnotationHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -616,7 +615,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().saveTextFieldHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -633,7 +632,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().setTextFieldColorHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -650,7 +649,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().moveAnnotationMarkerHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -667,7 +666,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().resizeAnnotationHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -684,7 +683,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().getDocumentCollaboratorsHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -713,7 +712,7 @@ public class HomeController extends HomeControllerBase {
             }
             return writeOutputJson(annotationHandler().uploadFileHandler(uploadFileName, uploadInputStream));
         } catch (Exception e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
     }
@@ -730,7 +729,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().importAnnotationsHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
     }
@@ -748,7 +747,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().getPrintViewHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
     }
@@ -760,7 +759,7 @@ public class HomeController extends HomeControllerBase {
             writeOutput(annotationHandler().getPrintDocumentPageImageHandler(guid, pageIndex, response), response);
             return null;
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -771,7 +770,7 @@ public class HomeController extends HomeControllerBase {
         try {
             return writeOutputJson(annotationHandler().restoreAnnotationRepliesHandler(request, response));
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
             return toJson(new StatusResult(false, e.getMessage()));
         }
     }
@@ -788,7 +787,7 @@ public class HomeController extends HomeControllerBase {
         try {
             annotationHandler().onAtmosphereReady(resource);
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
         }
     }
 
@@ -804,7 +803,7 @@ public class HomeController extends HomeControllerBase {
         try {
             annotationHandler().onAtmosphereMessage(resource);
         } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, MESSAGE_HANDLER_THROWS, e.getMessage());
+            Utils.log(HomeController.class, e);
         }
     }
 }

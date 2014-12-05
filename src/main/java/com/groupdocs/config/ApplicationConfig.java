@@ -11,154 +11,379 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ApplicationConfig extends ServiceConfiguration {
+    /**
+     * The License path.
+     */
     @Property(key = "groupdocs.annotation.licensePath")
     protected String licensePath;
+    /**
+     * The Application path.
+     */
     @Property(key = "groupdocs.annotation.applicationPath")
     protected String applicationPath;
+    /**
+     * The Base path.
+     */
     @Property(key = "groupdocs.annotation.basePath")
     protected String basePath;
+    /**
+     * The Storage type.
+     */
     @Property(key = "groupdocs.annotation.storageType")
     protected String storageType;
+    /**
+     * The Db server.
+     */
     @Property(key = "groupdocs.annotation.dbServer")
     protected String dbServer;
+    /**
+     * The Db port.
+     */
     @Property(key = "groupdocs.annotation.dbPort")
     protected Integer dbPort;
+    /**
+     * The Db name.
+     */
     @Property(key = "groupdocs.annotation.dbName")
     protected String dbName;
+    /**
+     * The Db username.
+     */
     @Property(key = "groupdocs.annotation.dbUsername")
     protected String dbUsername;
+    /**
+     * The Db password.
+     */
     @Property(key = "groupdocs.annotation.dbPassword")
     protected String dbPassword;
+    /**
+     * The Storage path.
+     */
     @Property(key = "groupdocs.annotation.storagePath")
     protected String storagePath;
+    /**
+     * The Use authorization.
+     */
     @Property(key = "groupdocs.annotation.useAuthorization")
     protected Boolean useAuthorization;
+    /**
+     * The Use cache.
+     */
     @Property(key = "groupdocs.annotation.useCache")
     protected Boolean useCache;
+    /**
+     * The Expiration date.
+     */
     @Property(key = "groupdocs.annotation.expirationDate")
     protected Integer expirationDate;
+    /**
+     * The Encryption key.
+     */
     @Property(key = "groupdocs.annotation.encryptionKey")
     protected String encryptionKey;
+    /**
+     * The Locales path.
+     */
     @Property(key = "groupdocs.annotation.localesPath")
     protected String localesPath;
+    /**
+     * The Quality.
+     */
     @Property(key = "groupdocs.annotation.quality")
     protected Integer quality;
+    /**
+     * The Show thumbnails.
+     */
     @Property(key = "groupdocs.annotation.showThumbnails")
     protected Boolean showThumbnails;
+    /**
+     * The Open thumbnails.
+     */
     @Property(key = "groupdocs.annotation.openThumbnails")
     protected Boolean openThumbnails;
+    /**
+     * The Initial zoom.
+     */
     @Property(key = "groupdocs.annotation.initialZoom")
     protected Integer initialZoom;
+    /**
+     * The Zoom to fit width.
+     */
     @Property(key = "groupdocs.annotation.zoomToFitWidth")
     protected Boolean zoomToFitWidth;
+    /**
+     * The Zoom to fit height.
+     */
     @Property(key = "groupdocs.annotation.zoomToFitHeight")
     protected Boolean zoomToFitHeight;
+    /**
+     * The Width.
+     */
     @Property(key = "groupdocs.annotation.width")
     protected Integer width;
+    /**
+     * The Height.
+     */
     @Property(key = "groupdocs.annotation.height")
     protected Integer height;
+    /**
+     * The Show print.
+     */
     @Property(key = "groupdocs.annotation.showPrint")
     protected Boolean showPrint;
+    /**
+     * The Show zoom.
+     */
     @Property(key = "groupdocs.annotation.showZoom")
     protected Boolean showZoom;
+    /**
+     * The Show paging.
+     */
     @Property(key = "groupdocs.annotation.showPaging")
     protected Boolean showPaging;
+    /**
+     * The Preload pages count.
+     */
     @Property(key = "groupdocs.annotation.preloadPagesCount")
     protected Integer preloadPagesCount;
+    /**
+     * The Show header.
+     */
     @Property(key = "groupdocs.annotation.showHeader")
     protected Boolean showHeader;
+    /**
+     * The Show file explorer.
+     */
     @Property(key = "groupdocs.annotation.showFileExplorer")
     protected Boolean showFileExplorer;
+    /**
+     * The Use em scaling.
+     */
     @Property(key = "groupdocs.annotation.useEmScaling")
     protected Boolean useEmScaling;
+    /**
+     * The Enable right click menu.
+     */
     @Property(key = "groupdocs.annotation.enableRightClickMenu")
     protected Boolean enableRightClickMenu;
+    /**
+     * The Show toolbar.
+     */
     @Property(key = "groupdocs.annotation.showToolbar")
     protected Boolean showToolbar;
+    /**
+     * The Enable side panel.
+     */
     @Property(key = "groupdocs.annotation.enableSidePanel")
     protected Boolean enableSidePanel;
+    /**
+     * The Scroll on focus.
+     */
     @Property(key = "groupdocs.annotation.scrollOnFocus")
     protected Boolean scrollOnFocus;
+    /**
+     * The Strike out color.
+     */
     @Property(key = "groupdocs.annotation.strikeOutColor")
     protected String strikeOutColor;
+    /**
+     * The Highlight color.
+     */
     @Property(key = "groupdocs.annotation.highlightColor")
     protected String highlightColor;
+    /**
+     * The Underline color.
+     */
     @Property(key = "groupdocs.annotation.underlineColor")
     protected String underlineColor;
+    /**
+     * The Text field background color.
+     */
     @Property(key = "groupdocs.annotation.textFieldBackgroundColor")
     protected String textFieldBackgroundColor;
+    /**
+     * The Tab navigation enabled.
+     */
     @Property(key = "groupdocs.annotation.tabNavigationEnabled")
     protected Boolean tabNavigationEnabled;
+    /**
+     * The Minimum image width.
+     */
     @Property(key = "groupdocs.annotation.minimumImageWidth")
     protected Integer minimumImageWidth;
+    /**
+     * The Area tool options pen width.
+     */
     @Property(key = "groupdocs.annotation.areaToolOptionsPenWidth")
     protected Integer areaToolOptionsPenWidth;
+    /**
+     * The Area tool options pen color.
+     */
     @Property(key = "groupdocs.annotation.areaToolOptionsPenColor")
     protected String areaToolOptionsPenColor;
+    /**
+     * The Area tool options pen dash style.
+     */
     @Property(key = "groupdocs.annotation.areaToolOptionsPenDashStyle")
     protected Integer areaToolOptionsPenDashStyle;
+    /**
+     * The Area tool options brush color.
+     */
     @Property(key = "groupdocs.annotation.areaToolOptionsBrushColor")
     protected String areaToolOptionsBrushColor;
+    /**
+     * The Polyline tool options pen width.
+     */
     @Property(key = "groupdocs.annotation.polylineToolOptionsPenWidth")
     protected Integer polylineToolOptionsPenWidth;
+    /**
+     * The Polyline tool options pen color.
+     */
     @Property(key = "groupdocs.annotation.polylineToolOptionsPenColor")
     protected String polylineToolOptionsPenColor;
+    /**
+     * The Polyline tool options pen dash style.
+     */
     @Property(key = "groupdocs.annotation.polylineToolOptionsPenDashStyle")
     protected Integer polylineToolOptionsPenDashStyle;
+    /**
+     * The Polyline tool options brush color.
+     */
     @Property(key = "groupdocs.annotation.polylineToolOptionsBrushColor")
     protected String polylineToolOptionsBrushColor;
+    /**
+     * The Arrow tool options pen width.
+     */
     @Property(key = "groupdocs.annotation.arrowToolOptionsPenWidth")
     protected Integer arrowToolOptionsPenWidth;
+    /**
+     * The Arrow tool options pen color.
+     */
     @Property(key = "groupdocs.annotation.arrowToolOptionsPenColor")
     protected String arrowToolOptionsPenColor;
+    /**
+     * The Arrow tool options pen dash style.
+     */
     @Property(key = "groupdocs.annotation.arrowToolOptionsPenDashStyle")
     protected Integer arrowToolOptionsPenDashStyle;
+    /**
+     * The Arrow tool options brush color.
+     */
     @Property(key = "groupdocs.annotation.arrowToolOptionsBrushColor")
     protected String arrowToolOptionsBrushColor;
+    /**
+     * The Pen color.
+     */
     @Property(key = "groupdocs.annotation.penColor")
     protected String penColor;
+    /**
+     * The Pen width.
+     */
     @Property(key = "groupdocs.annotation.penWidth")
     protected Integer penWidth;
+    /**
+     * The Pen style.
+     */
     @Property(key = "groupdocs.annotation.penStyle")
     protected Integer penStyle;
+    /**
+     * The Enabled tools.
+     */
     @Property(key = "groupdocs.annotation.enabledTools")
     protected Integer enabledTools;
+    /**
+     * The Connector position.
+     */
     @Property(key = "groupdocs.annotation.connectorPosition")
     protected Integer connectorPosition;
+    /**
+     * The Save reply on focus loss.
+     */
     @Property(key = "groupdocs.annotation.saveReplyOnFocusLoss")
     protected Boolean saveReplyOnFocusLoss;
+    /**
+     * The Clickable annotations.
+     */
     @Property(key = "groupdocs.annotation.clickableAnnotations")
     protected Boolean clickableAnnotations;
+    /**
+     * The Disconnect uncommented.
+     */
     @Property(key = "groupdocs.annotation.disconnectUncommented")
     protected Boolean disconnectUncommented;
+    /**
+     * The Strikeout mode.
+     */
     @Property(key = "groupdocs.annotation.strikeoutMode")
     protected Integer strikeoutMode;
+    /**
+     * The Any tool selection.
+     */
     @Property(key = "groupdocs.annotation.anyToolSelection")
     protected Boolean anyToolSelection;
+    /**
+     * The Sidebar container selector.
+     */
     @Property(key = "groupdocs.annotation.sidebarContainerSelector")
     protected String sidebarContainerSelector;
+    /**
+     * The Use page number in url hash.
+     */
     @Property(key = "groupdocs.annotation.usePageNumberInUrlHash")
     protected Boolean usePageNumberInUrlHash;
+    /**
+     * The Text selection synchronous calculation.
+     */
     @Property(key = "groupdocs.annotation.textSelectionSynchronousCalculation")
     protected Boolean textSelectionSynchronousCalculation;
+    /**
+     * The Variable height page support.
+     */
     @Property(key = "groupdocs.annotation.variableHeightPageSupport")
     protected Boolean variableHeightPageSupport;
+    /**
+     * The Create markup.
+     */
     @Property(key = "groupdocs.annotation.createMarkup")
     protected Boolean createMarkup;
+    /**
+     * The Use _ pdf.
+     */
     @Property(key = "groupdocs.annotation.use_pdf")
     protected Boolean use_pdf;
+    /**
+     * The Mode.
+     */
     @Property(key = "groupdocs.annotation.mode")
     protected String mode;
+    /**
+     * The Selection container selector.
+     */
     @Property(key = "groupdocs.annotation.selectionContainerSelector")
     protected String selectionContainerSelector;
+    /**
+     * The Graphics container selector.
+     */
     @Property(key = "groupdocs.annotation.graphicsContainerSelector")
     protected String graphicsContainerSelector;
+    /**
+     * The Use browser cache.
+     */
     @Property(key = "groupdocs.annotation.useBrowserCache")
     protected Boolean useBrowserCache;
+    /**
+     * The Widget id.
+     */
     @Property(key = "groupdocs.annotation.widgetId")
     protected String widgetId;
+    /**
+     * The Right panel enabled.
+     */
     @Property(key = "groupdocs.annotation.rightPanelEnabled")
     protected Boolean rightPanelEnabled;
+    /**
+     * The Max cache size.
+     */
     @Property(key = "groupdocs.annotation.maxCacheSize")
     protected Long maxCacheSize;
     @Property(key = "groupdocs.annotation.uploadPath")
@@ -187,6 +412,8 @@ public class ApplicationConfig extends ServiceConfiguration {
     private Boolean printAnnotations;
     @Property(key = "groupdocs.annotation.localization")
     private String localization;
+    @Property(key = "groupdocs.annotation.fileDisplayName")
+    private String fileDisplayName;
 
     /**
      * {@inheritDoc}
@@ -1671,6 +1898,25 @@ public class ApplicationConfig extends ServiceConfiguration {
      */
     public Boolean isConvertWordDocumentsCompletely() {
         return convertWordDocumentsCompletely;
+    }
+
+    /**
+     * Gets file display name
+     *
+     * @return file display name
+     */
+    @Override
+    public String getFileDisplayName() {
+        return fileDisplayName;
+    }
+
+    /**
+     * Sets file display name.
+     *
+     * @param fileDisplayName the file display name
+     */
+    public void setFileDisplayName(String fileDisplayName) {
+        this.fileDisplayName = fileDisplayName;
     }
 
     /**

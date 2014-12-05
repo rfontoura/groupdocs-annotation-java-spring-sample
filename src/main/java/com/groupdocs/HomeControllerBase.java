@@ -109,7 +109,7 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
         if (annotationHandler == null) {
             TimeZone.setDefault(TimeZone.getTimeZone("Europe/Vilnius"));
             ServiceConfiguration serviceConfiguration = new ServiceConfiguration(applicationConfig);
-            String tempPath = serviceConfiguration.getImagesPath();
+            String tempPath = serviceConfiguration.getTempDir();
             try {
 //                annotationHandler = new AnnotationHandler(serviceConfiguration);
 
