@@ -2,6 +2,7 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.ICollaboratorDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.ICollaborator;
 
 import java.io.*;
@@ -14,6 +15,10 @@ import java.util.List;
 public class CustomXmlCollaboratorDaoImpl extends CustomAbstractDaoImpl<ICollaborator> implements ICollaboratorDao {
 
     public static final String COLLABORATOR_FILE_NAME = "Collaborator.xml";
+
+    public CustomXmlCollaboratorDaoImpl(IEnvironmentCreator environmentCreator) {
+        super(environmentCreator);
+    }
 
     @Override
     protected void saveData(List<ICollaborator> data) {
@@ -32,9 +37,6 @@ public class CustomXmlCollaboratorDaoImpl extends CustomAbstractDaoImpl<ICollabo
 
     @Override
     protected List<ICollaborator> loadData() {
-//        // You can use CollaboratorConstructor.create().end() for create new entity instance
-//        ICollaborator createdCollaboratorObject = CollaboratorConstructor.create().end();
-
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + COLLABORATOR_FILE_NAME);
         if (!file.exists() || !file.isFile()) {

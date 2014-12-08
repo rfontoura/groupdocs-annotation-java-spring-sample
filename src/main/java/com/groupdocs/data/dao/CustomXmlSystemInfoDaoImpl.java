@@ -2,6 +2,7 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.ISystemInfoDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.ISystemInfo;
 
 import java.io.*;
@@ -14,6 +15,10 @@ import java.util.List;
 public class CustomXmlSystemInfoDaoImpl extends CustomAbstractDaoImpl<ISystemInfo> implements ISystemInfoDao {
 
     public static final String SYSTEM_INFO_FILE_NAME = "SystemInfo.xml";
+
+    public CustomXmlSystemInfoDaoImpl(IEnvironmentCreator environmentCreator) {
+        super(environmentCreator);
+    }
 
     @Override
     protected void saveData(List<ISystemInfo> data) {

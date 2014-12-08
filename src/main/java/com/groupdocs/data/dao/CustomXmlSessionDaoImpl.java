@@ -2,6 +2,7 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.ISessionDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.ISession;
 
 import java.io.*;
@@ -14,6 +15,10 @@ import java.util.List;
 public class CustomXmlSessionDaoImpl extends CustomAbstractDaoImpl<ISession> implements ISessionDao {
 
     public static final String SESSION_FILE_NAME = "Session.xml";
+
+    public CustomXmlSessionDaoImpl(IEnvironmentCreator environmentCreator) {
+        super(environmentCreator);
+    }
 
     @Override
     protected void saveData(List<ISession> data) {
@@ -32,9 +37,6 @@ public class CustomXmlSessionDaoImpl extends CustomAbstractDaoImpl<ISession> imp
 
     @Override
     protected List<ISession> loadData() {
-//        // You can use SessionConstructor.create().end() for create new entity instance
-//        ISession createdSessionObject = SessionConstructor.create().end();
-
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + SESSION_FILE_NAME);
         if (!file.exists() || !file.isFile()) {

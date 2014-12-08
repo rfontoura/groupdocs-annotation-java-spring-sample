@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.IDao;
+import com.groupdocs.annotation.data.environment.Environment;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.ITable;
 import com.groupdocs.annotation.exception.AnnotationException;
 
@@ -19,6 +21,12 @@ import java.util.logging.Logger;
  * @author Aleksey Permyakov (13.10.2014)
  */
 public abstract class CustomAbstractDaoImpl<T extends ITable> implements IDao<T> {
+    private final IEnvironmentCreator environmentCreator;
+
+    public CustomAbstractDaoImpl(IEnvironmentCreator environmentCreator) {
+        this.environmentCreator = environmentCreator;
+    }
+
     @Override
     public void createTableIfNotExists() throws AnnotationException {
     }
@@ -135,4 +143,13 @@ public abstract class CustomAbstractDaoImpl<T extends ITable> implements IDao<T>
     protected abstract void saveData(List<T> data);
 
     protected abstract List<T> loadData();
+
+    /**
+     * Get environment.
+     *
+     * @return the environment
+     */
+    protected Environment getEnvironment(){
+        return environmentCreator.createEnvironment();
+    }
 }

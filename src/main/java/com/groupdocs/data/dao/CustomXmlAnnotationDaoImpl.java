@@ -5,9 +5,11 @@ import com.groupdocs.annotation.data.DaoFactory;
 import com.groupdocs.annotation.data.dao.interfaces.IAnnotationDao;
 import com.groupdocs.annotation.data.dao.interfaces.IDocumentDao;
 import com.groupdocs.annotation.data.dao.interfaces.ISessionDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.IAnnotation;
 import com.groupdocs.annotation.data.tables.interfaces.IDocument;
 import com.groupdocs.annotation.data.tables.interfaces.ISession;
+import com.groupdocs.annotation.exception.AnnotationException;
 
 import java.io.*;
 import java.util.*;
@@ -18,12 +20,17 @@ import java.util.logging.Logger;
  * @author Aleksey Permyakov (13.10.2014)
  */
 public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotation> implements IAnnotationDao {
-
     public static final String ANNOTATION_FILE_NAME = "annotation.xml";
+    private final DaoFactory daoFactory;
+
+    public CustomXmlAnnotationDaoImpl(IEnvironmentCreator environmentCreator, DaoFactory daoFactory) {
+        super(environmentCreator);
+        this.daoFactory = daoFactory;
+    }
 
     @Override
     protected void saveData(List<IAnnotation> data) {
-        try (DaoFactory daoFactory = DaoFactory.create()) {
+        try {
             ISessionDao sessionDao = daoFactory.getSessionDao();
             IDocumentDao documentDao = daoFactory.getDocumentDao();
             String tempPath = Utils.getTempPath();
@@ -55,16 +62,13 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
                     }
                 }
             }
-        } catch (Exception e) {
-            Logger.getLogger(CustomXmlAnnotationDaoImpl.class.getName()).log(Level.SEVERE, "Can't save data:" + e.getMessage());
+        } catch (AnnotationException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Can't save data:" + e.getMessage());
         }
     }
 
     @Override
     protected List<IAnnotation> loadData() {
-//        // You can use AnnotationConstructor.create().end() for create new entity instance
-//        IAnnotation createdAnnotationObject = AnnotationConstructor.create().end();
-
         String tempPath = Utils.getTempPath();
         File tempDirectory = new File(tempPath);
         if (!tempDirectory.exists() || tempDirectory.isFile()) {

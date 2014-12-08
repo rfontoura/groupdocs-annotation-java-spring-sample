@@ -2,6 +2,7 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.IUserDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.IUser;
 
 import java.io.*;
@@ -9,11 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The type Custom xml user dao impl.
  * @author Aleksey Permyakov (13.10.2014)
  */
 public class CustomXmlUserDaoImpl extends CustomAbstractDaoImpl<IUser> implements IUserDao {
 
+    /**
+     * The constant USER_FILE_NAME.
+     */
     public static final String USER_FILE_NAME = "User.xml";
+
+    /**
+     * Instantiates a new Custom xml user dao impl.
+     *
+     * @param environmentCreator the environment creator
+     */
+    public CustomXmlUserDaoImpl(IEnvironmentCreator environmentCreator) {
+        super(environmentCreator);
+    }
 
     @Override
     protected void saveData(List<IUser> data) {

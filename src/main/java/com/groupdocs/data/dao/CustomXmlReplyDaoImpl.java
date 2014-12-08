@@ -2,6 +2,7 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.IReplyDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.IReply;
 
 import java.io.*;
@@ -14,6 +15,10 @@ import java.util.List;
 public class CustomXmlReplyDaoImpl extends CustomAbstractDaoImpl<IReply> implements IReplyDao {
 
     public static final String REPLY_FILE_NAME = "Reply.xml";
+
+    public CustomXmlReplyDaoImpl(IEnvironmentCreator environmentCreator) {
+        super(environmentCreator);
+    }
 
     @Override
     protected void saveData(List<IReply> data) {
@@ -32,9 +37,6 @@ public class CustomXmlReplyDaoImpl extends CustomAbstractDaoImpl<IReply> impleme
 
     @Override
     protected List<IReply> loadData() {
-//        // You can use ReplyConstructor.create().end() for create new entity instance
-//        IReply createdReplyObject = ReplyConstructor.create().end();
-
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + REPLY_FILE_NAME);
         if (!file.exists() || !file.isFile()) {

@@ -2,6 +2,7 @@ package com.groupdocs.data.dao;
 
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.dao.interfaces.IDocumentDao;
+import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.IDocument;
 
 import java.io.*;
@@ -14,6 +15,10 @@ import java.util.List;
 public class CustomXmlDocumentDaoImpl extends CustomAbstractDaoImpl<IDocument> implements IDocumentDao {
 
     public static final String DOCUMENT_FILE_NAME = "Document.xml";
+
+    public CustomXmlDocumentDaoImpl(IEnvironmentCreator environmentCreator) {
+        super(environmentCreator);
+    }
 
     @Override
     protected void saveData(List<IDocument> data) {
@@ -32,9 +37,6 @@ public class CustomXmlDocumentDaoImpl extends CustomAbstractDaoImpl<IDocument> i
 
     @Override
     protected List<IDocument> loadData() {
-//        // You can use DocumentConstructor.create().end() for create new entity instance
-//        IDocument createdDocumentObject = DocumentConstructor.create().end();
-
         String tempPath = Utils.getTempPath();
         File file = new File(tempPath + File.separator + DOCUMENT_FILE_NAME);
         if (!file.exists() || !file.isFile()) {
