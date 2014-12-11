@@ -9,28 +9,23 @@ import com.groupdocs.annotation.data.environment.IEnvironmentCreator;
 import com.groupdocs.annotation.data.tables.interfaces.IAnnotation;
 import com.groupdocs.annotation.data.tables.interfaces.IDocument;
 import com.groupdocs.annotation.data.tables.interfaces.ISession;
-import com.groupdocs.annotation.exception.AnnotationException;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Aleksey Permyakov (13.10.2014)
  */
 public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotation> implements IAnnotationDao {
     public static final String ANNOTATION_FILE_NAME = "annotation.xml";
-    private final DaoFactory daoFactory;
 
-    public CustomXmlAnnotationDaoImpl(IEnvironmentCreator environmentCreator, DaoFactory daoFactory) {
+    public CustomXmlAnnotationDaoImpl(IEnvironmentCreator environmentCreator) {
         super(environmentCreator);
-        this.daoFactory = daoFactory;
     }
 
     @Override
     protected void saveData(List<IAnnotation> data) {
-        try {
+        try (DaoFactory daoFactory = DaoFactory.create()) {
             ISessionDao sessionDao = daoFactory.getSessionDao();
             IDocumentDao documentDao = daoFactory.getDocumentDao();
             String tempPath = Utils.getTempPath();
@@ -62,8 +57,8 @@ public class CustomXmlAnnotationDaoImpl extends CustomAbstractDaoImpl<IAnnotatio
                     }
                 }
             }
-        } catch (AnnotationException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Can't save data:" + e.getMessage());
+        } catch (Exception e) {
+            Utils.log(this.getClass(), e);
         }
     }
 
