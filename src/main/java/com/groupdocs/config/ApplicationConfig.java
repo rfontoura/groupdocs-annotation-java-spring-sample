@@ -591,7 +591,7 @@ public class ApplicationConfig extends ServiceConfiguration {
      * @return Value for property 'storagePath'.
      */
     public String getStoragePath() {
-        return storagePath;
+        return "null".equals(storagePath) ? null : storagePath;
     }
 
     /**
