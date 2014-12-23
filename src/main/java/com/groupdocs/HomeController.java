@@ -1,6 +1,7 @@
 package com.groupdocs;
 
 import com.groupdocs.annotation.common.Utils;
+import static com.groupdocs.annotation.common.Utils.toJson;
 import com.groupdocs.annotation.domain.response.StatusResult;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.handler.AnnotationHandler;
@@ -18,22 +19,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.util.Map;
 
-import static com.groupdocs.annotation.common.Utils.toJson;
+import java.io.IOException;
 
 /**
  * Date: 05.12.13
  */
 @Controller
 public class HomeController extends HomeControllerBase {
-    private static final String MESSAGE_HANDLER_THROWS = "Handler throws exception: {0}";
 
     /**
      * Home page request
@@ -130,7 +125,7 @@ public class HomeController extends HomeControllerBase {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
             writeOutput(annotationHandler().getJsHandler(script, response), response);
         } else {
-            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
         return null;
     }
@@ -165,7 +160,7 @@ public class HomeController extends HomeControllerBase {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
             writeOutput(annotationHandler().getCssHandler(script, response), response);
         } else {
-            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
         return null;
     }
@@ -200,7 +195,7 @@ public class HomeController extends HomeControllerBase {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
             writeOutput(annotationHandler().getImageHandler(name, response), response);
         } else {
-            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
         return null;
     }
@@ -235,7 +230,7 @@ public class HomeController extends HomeControllerBase {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
             writeOutput(annotationHandler().getFontHandler(name, response), response);
         } else {
-            return new ResponseEntity<String>(HttpStatus.NOT_MODIFIED);
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }
         return null;
     }
@@ -452,6 +447,7 @@ public class HomeController extends HomeControllerBase {
      * Get list of annotations for document [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -469,6 +465,7 @@ public class HomeController extends HomeControllerBase {
      * Download document with annotations [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -486,6 +483,7 @@ public class HomeController extends HomeControllerBase {
      * Download document as PDF file [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -503,6 +501,7 @@ public class HomeController extends HomeControllerBase {
      * Request to create annotation on document [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -512,7 +511,7 @@ public class HomeController extends HomeControllerBase {
             return writeOutputJson(annotationHandler().createAnnotationHandler(request, response));
         } catch (AnnotationException e) {
             Utils.log(HomeController.class, e);
-            return toJson(new StatusResult(false, e.getMessage()));
+            return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
     }
 
@@ -539,6 +538,7 @@ public class HomeController extends HomeControllerBase {
      * Add reply to annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -556,6 +556,7 @@ public class HomeController extends HomeControllerBase {
      * Edit reply for annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -573,6 +574,7 @@ public class HomeController extends HomeControllerBase {
      * Delete reply from annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -590,6 +592,7 @@ public class HomeController extends HomeControllerBase {
      * Delete annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -607,6 +610,7 @@ public class HomeController extends HomeControllerBase {
      * Save text field annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -624,6 +628,7 @@ public class HomeController extends HomeControllerBase {
      * Set color for text field annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -641,6 +646,7 @@ public class HomeController extends HomeControllerBase {
      * Set annotation marker position [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @Override
@@ -658,6 +664,7 @@ public class HomeController extends HomeControllerBase {
      * Set new size for annotation [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return response object
      */
     @RequestMapping(value = RESIZE_ANNOTATION_HANDLER, method = RequestMethod.POST)
@@ -675,6 +682,7 @@ public class HomeController extends HomeControllerBase {
      * Return list of collaborators [POST request]
      *
      * @param request HTTP servlet request
+     * @param response
      * @return object with response parameters
      */
     @RequestMapping(value = GET_DOCUMENT_COLLABORATORS_HANDLER, method = RequestMethod.POST)
@@ -691,27 +699,23 @@ public class HomeController extends HomeControllerBase {
     /**
      * Upload file to GroupDocs.Annotation [POST request]
      *
+     * @param userId
      * @param fld      action
+     * @param fileName
+     * @param multiple
      * @param request  http request
      * @param response http response
      * @return token id as json
      */
     @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
-    public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, @RequestParam("fileName") String fileName, @RequestParam("multiple") boolean multiple, HttpServletRequest request, HttpServletResponse response) {
         try {
-            String uploadFileName = null;
-            InputStream uploadInputStream = null;
-            if (request instanceof DefaultMultipartHttpServletRequest) {
-                Map<String, MultipartFile> fileMap = ((DefaultMultipartHttpServletRequest) request).getFileMap();
-                if (fileMap.keySet().iterator().hasNext()) {
-                    String fileName = fileMap.keySet().iterator().next();
-                    MultipartFile multipartFile = fileMap.get(fileName);
-                    uploadFileName = multipartFile.getOriginalFilename();
-                    uploadInputStream = multipartFile.getInputStream();
-                }
+            if(multiple){
+                return writeOutputJson(annotationHandler().uploadFileHandler(fileName, request.getInputStream()));
+            }else{
+                return null;
             }
-            return writeOutputJson(annotationHandler().uploadFileHandler(uploadFileName, uploadInputStream));
-        } catch (Exception e) {
+        } catch (IOException | AnnotationException e) {
             Utils.log(HomeController.class, e);
             return writeOutputJson(toJson(new StatusResult(false, e.getMessage())));
         }
