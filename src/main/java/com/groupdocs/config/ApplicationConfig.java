@@ -440,7 +440,7 @@ public class ApplicationConfig extends ServiceConfiguration {
      */
     @Override
     public String getApplicationPath() {
-        return applicationPath;
+        return "null".equalsIgnoreCase(applicationPath) ? null : applicationPath;
     }
 
     /**
