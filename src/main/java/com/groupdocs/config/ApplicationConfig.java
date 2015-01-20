@@ -386,36 +386,91 @@ public class ApplicationConfig extends ServiceConfiguration {
      */
     @Property(key = "groupdocs.annotation.maxCacheSize")
     protected Long maxCacheSize;
+    /**
+     * The Upload path.
+     */
     @Property(key = "groupdocs.annotation.uploadPath")
-    private String uploadPath;
+    protected String uploadPath;
+    /**
+     * The Undo enabled.
+     */
     @Property(key = "groupdocs.annotation.undoEnabled")
-    private Boolean undoEnabled;
+    protected Boolean undoEnabled;
+    /**
+     * The Jquery file download cookie name.
+     */
     @Property(key = "groupdocs.annotation.jqueryFileDownloadCookieName")
-    private String jqueryFileDownloadCookieName;
+    protected String jqueryFileDownloadCookieName;
+    /**
+     * The Watermark font size.
+     */
     @Property(key = "groupdocs.annotation.watermarkFontSize")
-    private Integer watermarkFontSize;
+    protected Integer watermarkFontSize;
+    /**
+     * The Watermark position.
+     */
     @Property(key = "groupdocs.annotation.watermarkPosition")
-    private String watermarkPosition;
+    protected String watermarkPosition;
+    /**
+     * The Convert word documents completely.
+     */
     @Property(key = "groupdocs.annotation.convertWordDocumentsCompletely")
-    private Boolean convertWordDocumentsCompletely;
+    protected Boolean convertWordDocumentsCompletely;
+    /**
+     * The Ignore document absence.
+     */
     @Property(key = "groupdocs.annotation.ignoreDocumentAbsence")
-    private Boolean ignoreDocumentAbsence;
+    protected Boolean ignoreDocumentAbsence;
+    /**
+     * The Preload pages on browser side.
+     */
     @Property(key = "groupdocs.annotation.preloadPagesOnBrowserSide")
-    private Boolean preloadPagesOnBrowserSide;
+    protected Boolean preloadPagesOnBrowserSide;
+    /**
+     * The Print with watermark.
+     */
     @Property(key = "groupdocs.annotation.printWithWatermark")
-    private Boolean printWithWatermark;
+    protected Boolean printWithWatermark;
+    /**
+     * The Support page rotation.
+     */
     @Property(key = "groupdocs.annotation.supportPageRotation")
-    private Boolean supportPageRotation;
+    protected Boolean supportPageRotation;
+    /**
+     * The Store logic.
+     */
     @Property(key = "groupdocs.annotation.storeLogic")
-    private String storeLogic;
+    protected String storeLogic;
+    /**
+     * The Print annotations.
+     */
     @Property(key = "groupdocs.annotation.printAnnotations")
-    private Boolean printAnnotations;
+    protected Boolean printAnnotations;
+    /**
+     * The Localization.
+     */
     @Property(key = "groupdocs.annotation.localization")
-    private String localization;
+    protected String localization;
+    /**
+     * The Disable atmosphere.
+     */
     @Property(key = "groupdocs.annotation.disableAtmosphere")
-    private Boolean disableAtmosphere;
+    protected Boolean disableAtmosphere;
+    /**
+     * The File display name.
+     */
     @Property(key = "groupdocs.annotation.fileDisplayName")
-    private String fileDisplayName;
+    protected String fileDisplayName;
+    /**
+     * The Is case sensitive.
+     */
+    @Property(key = "groupdocs.annotation.isCaseSensitive")
+    protected Boolean isCaseSensitive;
+    /**
+     * The Search for separate words.
+     */
+    @Property(key = "groupdocs.annotation.searchForSeparateWords")
+    protected Boolean searchForSeparateWords;
 
     /**
      * {@inheritDoc}
@@ -1917,6 +1972,7 @@ public class ApplicationConfig extends ServiceConfiguration {
      *
      * @param fileDisplayName the file display name
      */
+    @SuppressWarnings("unused")
     public void setFileDisplayName(String fileDisplayName) {
         this.fileDisplayName = fileDisplayName;
     }
@@ -2055,11 +2111,42 @@ public class ApplicationConfig extends ServiceConfiguration {
         return disableAtmosphere;
     }
 
+    @Override
+    public Boolean isCaseSensitive() {
+        return isCaseSensitive;
+    }
+
+    /**
+     * Sets is case sensitive.
+     *
+     * @param isCaseSensitive the is case sensitive
+     */
+    @SuppressWarnings("unused")
+    public void setIsCaseSensitive(Boolean isCaseSensitive) {
+        this.isCaseSensitive = isCaseSensitive;
+    }
+
+    @Override
+    public Boolean isSearchForSeparateWords() {
+        return searchForSeparateWords;
+    }
+
+    /**
+     * Sets search for separate words.
+     *
+     * @param searchForSeparateWords the search for separate words
+     */
+    @SuppressWarnings("unused")
+    public void setSearchForSeparateWords(Boolean searchForSeparateWords) {
+        this.searchForSeparateWords = searchForSeparateWords;
+    }
+
     /**
      * Sets disable atmosphere.
      *
      * @param disableAtmosphere the disable atmosphere
      */
+    @SuppressWarnings("unused")
     public void setDisableAtmosphere(Boolean disableAtmosphere) {
         this.disableAtmosphere = disableAtmosphere;
     }
