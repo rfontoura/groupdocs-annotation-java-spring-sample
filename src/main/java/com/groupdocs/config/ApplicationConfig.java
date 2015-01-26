@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * Spring sample configuration class
- *
  * @author Aleksey Permyakov
  */
 @Component
@@ -471,6 +470,11 @@ public class ApplicationConfig extends ServiceConfiguration {
      */
     @Property(key = "groupdocs.annotation.searchForSeparateWords")
     protected Boolean searchForSeparateWords;
+    /**
+     * default file name.
+     */
+    @Property(key = "groupdocs.annotation.defaultFileName")
+    private String defaultFileName;
 
     /**
      * {@inheritDoc}
@@ -482,7 +486,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'licensePath'.
-     *
      * @param licensePath Value to set for property 'licensePath'.
      */
     @SuppressWarnings("unused")
@@ -500,7 +503,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'applicationPath'.
-     *
      * @param applicationPath Value to set for property 'applicationPath'.
      */
     @SuppressWarnings("unused")
@@ -518,7 +520,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'basePath'.
-     *
      * @param basePath Value to set for property 'basePath'.
      */
     @SuppressWarnings("unused")
@@ -528,7 +529,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'storageType'.
-     *
      * @return Value for property 'storageType'.
      */
     public String getStorageType() {
@@ -537,7 +537,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'storageType'.
-     *
      * @param storageType Value to set for property 'storageType'.
      */
     @SuppressWarnings("unused")
@@ -547,7 +546,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'dbServer'.
-     *
      * @return Value for property 'dbServer'.
      */
     public String getDbServer() {
@@ -556,7 +554,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'dbServer'.
-     *
      * @param dbServer Value to set for property 'dbServer'.
      */
     @SuppressWarnings("unused")
@@ -566,7 +563,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'dbPort'.
-     *
      * @return Value for property 'dbPort'.
      */
     public Integer getDbPort() {
@@ -575,7 +571,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'dbPort'.
-     *
      * @param dbPort Value to set for property 'dbPort'.
      */
     @SuppressWarnings("unused")
@@ -585,7 +580,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'dbName'.
-     *
      * @return Value for property 'dbName'.
      */
     public String getDbName() {
@@ -594,7 +588,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'dbName'.
-     *
      * @param dbName Value to set for property 'dbName'.
      */
     @SuppressWarnings("unused")
@@ -604,7 +597,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'dbUsername'.
-     *
      * @return Value for property 'dbUsername'.
      */
     public String getDbUsername() {
@@ -613,7 +605,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'dbUsername'.
-     *
      * @param dbUsername Value to set for property 'dbUsername'.
      */
     @SuppressWarnings("unused")
@@ -623,7 +614,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'dbPassword'.
-     *
      * @return Value for property 'dbPassword'.
      */
     public String getDbPassword() {
@@ -632,7 +622,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'dbPassword'.
-     *
      * @param dbPassword Value to set for property 'dbPassword'.
      */
     @SuppressWarnings("unused")
@@ -642,7 +631,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'storagePath'.
-     *
      * @return Value for property 'storagePath'.
      */
     public String getStoragePath() {
@@ -651,7 +639,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'storagePath'.
-     *
      * @param storagePath Value to set for property 'storagePath'.
      */
     @SuppressWarnings("unused")
@@ -661,7 +648,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'useAuthorization'.
-     *
      * @return Value for property 'useAuthorization'.
      */
     public Boolean isUseAuthorization() {
@@ -670,7 +656,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'useAuthorization'.
-     *
      * @param useAuthorization Value to set for property 'useAuthorization'.
      */
     @SuppressWarnings("unused")
@@ -680,7 +665,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'useCache'.
-     *
      * @return Value for property 'useCache'.
      */
     public Boolean isUseCache() {
@@ -689,7 +673,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'useCache'.
-     *
      * @param useCache Value to set for property 'useCache'.
      */
     @SuppressWarnings("unused")
@@ -707,7 +690,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'expirationDate'.
-     *
      * @param expirationDate Value to set for property 'expirationDate'.
      */
     @SuppressWarnings("unused")
@@ -725,7 +707,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'encryptionKey'.
-     *
      * @param encryptionKey Value to set for property 'encryptionKey'.
      */
     @SuppressWarnings("unused")
@@ -743,7 +724,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'localesPath'.
-     *
      * @param localesPath Value to set for property 'localesPath'.
      */
     @SuppressWarnings("unused")
@@ -761,7 +741,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'quality'.
-     *
      * @param quality Value to set for property 'quality'.
      */
     @SuppressWarnings("unused")
@@ -771,7 +750,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showThumbnails'.
-     *
      * @return Value for property 'showThumbnails'.
      */
     public Boolean isShowThumbnails() {
@@ -780,7 +758,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showThumbnails'.
-     *
      * @param showThumbnails Value to set for property 'showThumbnails'.
      */
     @SuppressWarnings("unused")
@@ -790,7 +767,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'openThumbnails'.
-     *
      * @return Value for property 'openThumbnails'.
      */
     public Boolean isOpenThumbnails() {
@@ -799,7 +775,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'openThumbnails'.
-     *
      * @param openThumbnails Value to set for property 'openThumbnails'.
      */
     @SuppressWarnings("unused")
@@ -817,7 +792,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'initialZoom'.
-     *
      * @param initialZoom Value to set for property 'initialZoom'.
      */
     @SuppressWarnings("unused")
@@ -827,7 +801,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'zoomToFitWidth'.
-     *
      * @return Value for property 'zoomToFitWidth'.
      */
     public Boolean isZoomToFitWidth() {
@@ -836,7 +809,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'zoomToFitWidth'.
-     *
      * @param zoomToFitWidth Value to set for property 'zoomToFitWidth'.
      */
     @SuppressWarnings("unused")
@@ -846,7 +818,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'zoomToFitHeight'.
-     *
      * @return Value for property 'zoomToFitHeight'.
      */
     public Boolean isZoomToFitHeight() {
@@ -855,7 +826,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'zoomToFitHeight'.
-     *
      * @param zoomToFitHeight Value to set for property 'zoomToFitHeight'.
      */
     @SuppressWarnings("unused")
@@ -873,7 +843,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'width'.
-     *
      * @param width Value to set for property 'width'.
      */
     @SuppressWarnings("unused")
@@ -891,7 +860,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'height'.
-     *
      * @param height Value to set for property 'height'.
      */
     @SuppressWarnings("unused")
@@ -901,7 +869,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showPrint'.
-     *
      * @return Value for property 'showPrint'.
      */
     public Boolean isShowPrint() {
@@ -910,7 +877,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showPrint'.
-     *
      * @param showPrint Value to set for property 'showPrint'.
      */
     @SuppressWarnings("unused")
@@ -920,7 +886,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showZoom'.
-     *
      * @return Value for property 'showZoom'.
      */
     public Boolean isShowZoom() {
@@ -929,7 +894,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showZoom'.
-     *
      * @param showZoom Value to set for property 'showZoom'.
      */
     @SuppressWarnings("unused")
@@ -939,7 +903,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showPaging'.
-     *
      * @return Value for property 'showPaging'.
      */
     public Boolean isShowPaging() {
@@ -948,7 +911,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showPaging'.
-     *
      * @param showPaging Value to set for property 'showPaging'.
      */
     @SuppressWarnings("unused")
@@ -966,7 +928,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'preloadPagesCount'.
-     *
      * @param preloadPagesCount Value to set for property 'preloadPagesCount'.
      */
     @SuppressWarnings("unused")
@@ -976,7 +937,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showHeader'.
-     *
      * @return Value for property 'showHeader'.
      */
     public Boolean isShowHeader() {
@@ -985,7 +945,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showHeader'.
-     *
      * @param showHeader Value to set for property 'showHeader'.
      */
     @SuppressWarnings("unused")
@@ -995,7 +954,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showFileExplorer'.
-     *
      * @return Value for property 'showFileExplorer'.
      */
     public Boolean isShowFileExplorer() {
@@ -1004,7 +962,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showFileExplorer'.
-     *
      * @param showFileExplorer Value to set for property 'showFileExplorer'.
      */
     @SuppressWarnings("unused")
@@ -1014,7 +971,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'useEmScaling'.
-     *
      * @return Value for property 'useEmScaling'.
      */
     public Boolean isUseEmScaling() {
@@ -1023,7 +979,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'useEmScaling'.
-     *
      * @param useEmScaling Value to set for property 'useEmScaling'.
      */
     @SuppressWarnings("unused")
@@ -1033,7 +988,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'enableRightClickMenu'.
-     *
      * @return Value for property 'enableRightClickMenu'.
      */
     public Boolean isEnableRightClickMenu() {
@@ -1042,7 +996,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'enableRightClickMenu'.
-     *
      * @param enableRightClickMenu Value to set for property 'enableRightClickMenu'.
      */
     @SuppressWarnings("unused")
@@ -1052,7 +1005,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'showToolbar'.
-     *
      * @return Value for property 'showToolbar'.
      */
     public Boolean isShowToolbar() {
@@ -1061,7 +1013,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'showToolbar'.
-     *
      * @param showToolbar Value to set for property 'showToolbar'.
      */
     @SuppressWarnings("unused")
@@ -1071,7 +1022,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'enableSidePanel'.
-     *
      * @return Value for property 'enableSidePanel'.
      */
     public Boolean isEnableSidePanel() {
@@ -1080,7 +1030,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'enableSidePanel'.
-     *
      * @param enableSidePanel Value to set for property 'enableSidePanel'.
      */
     @SuppressWarnings("unused")
@@ -1090,7 +1039,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'scrollOnFocus'.
-     *
      * @return Value for property 'scrollOnFocus'.
      */
     public Boolean isScrollOnFocus() {
@@ -1099,7 +1047,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'scrollOnFocus'.
-     *
      * @param scrollOnFocus Value to set for property 'scrollOnFocus'.
      */
     @SuppressWarnings("unused")
@@ -1117,7 +1064,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'strikeOutColor'.
-     *
      * @param strikeOutColor Value to set for property 'strikeOutColor'.
      */
     @SuppressWarnings("unused")
@@ -1135,7 +1081,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'highlightColor'.
-     *
      * @param highlightColor Value to set for property 'highlightColor'.
      */
     @SuppressWarnings("unused")
@@ -1153,7 +1098,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'underlineColor'.
-     *
      * @param underlineColor Value to set for property 'underlineColor'.
      */
     @SuppressWarnings("unused")
@@ -1171,7 +1115,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'textFieldBackgroundColor'.
-     *
      * @param textFieldBackgroundColor Value to set for property 'textFieldBackgroundColor'.
      */
     @SuppressWarnings("unused")
@@ -1181,7 +1124,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'tabNavigationEnabled'.
-     *
      * @return Value for property 'tabNavigationEnabled'.
      */
     public Boolean isTabNavigationEnabled() {
@@ -1190,7 +1132,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'tabNavigationEnabled'.
-     *
      * @param tabNavigationEnabled Value to set for property 'tabNavigationEnabled'.
      */
     @SuppressWarnings("unused")
@@ -1208,7 +1149,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'minimumImageWidth'.
-     *
      * @param minimumImageWidth Value to set for property 'minimumImageWidth'.
      */
     @SuppressWarnings("unused")
@@ -1226,7 +1166,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'areaToolOptionsPenWidth'.
-     *
      * @param areaToolOptionsPenWidth Value to set for property 'areaToolOptionsPenWidth'.
      */
     @SuppressWarnings("unused")
@@ -1244,7 +1183,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'areaToolOptionsPenColor'.
-     *
      * @param areaToolOptionsPenColor Value to set for property 'areaToolOptionsPenColor'.
      */
     @SuppressWarnings("unused")
@@ -1262,7 +1200,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'areaToolOptionsPenDashStyle'.
-     *
      * @param areaToolOptionsPenDashStyle Value to set for property 'areaToolOptionsPenDashStyle'.
      */
     @SuppressWarnings("unused")
@@ -1280,7 +1217,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'areaToolOptionsBrushColor'.
-     *
      * @param areaToolOptionsBrushColor Value to set for property 'areaToolOptionsBrushColor'.
      */
     @SuppressWarnings("unused")
@@ -1298,7 +1234,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'polylineToolOptionsPenWidth'.
-     *
      * @param polylineToolOptionsPenWidth Value to set for property 'polylineToolOptionsPenWidth'.
      */
     @SuppressWarnings("unused")
@@ -1316,7 +1251,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'polylineToolOptionsPenColor'.
-     *
      * @param polylineToolOptionsPenColor Value to set for property 'polylineToolOptionsPenColor'.
      */
     @SuppressWarnings("unused")
@@ -1334,7 +1268,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'polylineToolOptionsPenDashStyle'.
-     *
      * @param polylineToolOptionsPenDashStyle Value to set for property 'polylineToolOptionsPenDashStyle'.
      */
     @SuppressWarnings("unused")
@@ -1352,7 +1285,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'polylineToolOptionsBrushColor'.
-     *
      * @param polylineToolOptionsBrushColor Value to set for property 'polylineToolOptionsBrushColor'.
      */
     @SuppressWarnings("unused")
@@ -1370,7 +1302,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'arrowToolOptionsPenWidth'.
-     *
      * @param arrowToolOptionsPenWidth Value to set for property 'arrowToolOptionsPenWidth'.
      */
     @SuppressWarnings("unused")
@@ -1388,7 +1319,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'arrowToolOptionsPenColor'.
-     *
      * @param arrowToolOptionsPenColor Value to set for property 'arrowToolOptionsPenColor'.
      */
     @SuppressWarnings("unused")
@@ -1406,7 +1336,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'arrowToolOptionsPenDashStyle'.
-     *
      * @param arrowToolOptionsPenDashStyle Value to set for property 'arrowToolOptionsPenDashStyle'.
      */
     @SuppressWarnings("unused")
@@ -1424,7 +1353,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'arrowToolOptionsBrushColor'.
-     *
      * @param arrowToolOptionsBrushColor Value to set for property 'arrowToolOptionsBrushColor'.
      */
     @SuppressWarnings("unused")
@@ -1442,7 +1370,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'penColor'.
-     *
      * @param penColor Value to set for property 'penColor'.
      */
     @SuppressWarnings("unused")
@@ -1460,7 +1387,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'penWidth'.
-     *
      * @param penWidth Value to set for property 'penWidth'.
      */
     @SuppressWarnings("unused")
@@ -1478,7 +1404,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'penStyle'.
-     *
      * @param penStyle Value to set for property 'penStyle'.
      */
     @SuppressWarnings("unused")
@@ -1496,7 +1421,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'enabledTools'.
-     *
      * @param enabledTools Value to set for property 'enabledTools'.
      */
     @SuppressWarnings("unused")
@@ -1514,7 +1438,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'connectorPosition'.
-     *
      * @param connectorPosition Value to set for property 'connectorPosition'.
      */
     @SuppressWarnings("unused")
@@ -1524,7 +1447,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'saveReplyOnFocusLoss'.
-     *
      * @return Value for property 'saveReplyOnFocusLoss'.
      */
     public Boolean isSaveReplyOnFocusLoss() {
@@ -1533,7 +1455,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'saveReplyOnFocusLoss'.
-     *
      * @param saveReplyOnFocusLoss Value to set for property 'saveReplyOnFocusLoss'.
      */
     @SuppressWarnings("unused")
@@ -1543,7 +1464,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'clickableAnnotations'.
-     *
      * @return Value for property 'clickableAnnotations'.
      */
     public Boolean isClickableAnnotations() {
@@ -1552,7 +1472,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'clickableAnnotations'.
-     *
      * @param clickableAnnotations Value to set for property 'clickableAnnotations'.
      */
     @SuppressWarnings("unused")
@@ -1562,7 +1481,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'disconnectUncommented'.
-     *
      * @return Value for property 'disconnectUncommented'.
      */
     public Boolean isDisconnectUncommented() {
@@ -1571,7 +1489,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'disconnectUncommented'.
-     *
      * @param disconnectUncommented Value to set for property 'disconnectUncommented'.
      */
     @SuppressWarnings("unused")
@@ -1589,7 +1506,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'strikeoutMode'.
-     *
      * @param strikeoutMode Value to set for property 'strikeoutMode'.
      */
     @SuppressWarnings("unused")
@@ -1599,7 +1515,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'anyToolSelection'.
-     *
      * @return Value for property 'anyToolSelection'.
      */
     public Boolean isAnyToolSelection() {
@@ -1608,7 +1523,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'anyToolSelection'.
-     *
      * @param anyToolSelection Value to set for property 'anyToolSelection'.
      */
     @SuppressWarnings("unused")
@@ -1626,7 +1540,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'sidebarContainerSelector'.
-     *
      * @param sidebarContainerSelector Value to set for property 'sidebarContainerSelector'.
      */
     @SuppressWarnings("unused")
@@ -1636,7 +1549,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'usePageNumberInUrlHash'.
-     *
      * @return Value for property 'usePageNumberInUrlHash'.
      */
     public Boolean isUsePageNumberInUrlHash() {
@@ -1645,7 +1557,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'usePageNumberInUrlHash'.
-     *
      * @param usePageNumberInUrlHash Value to set for property 'usePageNumberInUrlHash'.
      */
     @SuppressWarnings("unused")
@@ -1655,7 +1566,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'textSelectionSynchronousCalculation'.
-     *
      * @return Value for property 'textSelectionSynchronousCalculation'.
      */
     public Boolean isTextSelectionSynchronousCalculation() {
@@ -1664,7 +1574,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'textSelectionSynchronousCalculation'.
-     *
      * @param textSelectionSynchronousCalculation Value to set for property 'textSelectionSynchronousCalculation'.
      */
     @SuppressWarnings("unused")
@@ -1674,7 +1583,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'variableHeightPageSupport'.
-     *
      * @return Value for property 'variableHeightPageSupport'.
      */
     public Boolean isVariableHeightPageSupport() {
@@ -1683,7 +1591,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'variableHeightPageSupport'.
-     *
      * @param variableHeightPageSupport Value to set for property 'variableHeightPageSupport'.
      */
     @SuppressWarnings("unused")
@@ -1693,7 +1600,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'createMarkup'.
-     *
      * @return Value for property 'createMarkup'.
      */
     public Boolean isCreateMarkup() {
@@ -1702,7 +1608,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'createMarkup'.
-     *
      * @param createMarkup Value to set for property 'createMarkup'.
      */
     @SuppressWarnings("unused")
@@ -1712,7 +1617,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'use_pdf'.
-     *
      * @return Value for property 'use_pdf'.
      */
     public Boolean isUse_pdf() {
@@ -1721,7 +1625,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'use_pdf'.
-     *
      * @param use_pdf Value to set for property 'use_pdf'.
      */
     @SuppressWarnings("unused")
@@ -1739,7 +1642,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'mode'.
-     *
      * @param mode Value to set for property 'mode'.
      */
     @SuppressWarnings("unused")
@@ -1757,7 +1659,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'selectionContainerSelector'.
-     *
      * @param selectionContainerSelector Value to set for property 'selectionContainerSelector'.
      */
     @SuppressWarnings("unused")
@@ -1775,7 +1676,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'graphicsContainerSelector'.
-     *
      * @param graphicsContainerSelector Value to set for property 'graphicsContainerSelector'.
      */
     @SuppressWarnings("unused")
@@ -1785,7 +1685,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'useBrowserCache'.
-     *
      * @return Value for property 'useBrowserCache'.
      */
     public Boolean isUseBrowserCache() {
@@ -1794,7 +1693,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'useBrowserCache'.
-     *
      * @param useBrowserCache Value to set for property 'useBrowserCache'.
      */
     @SuppressWarnings("unused")
@@ -1812,7 +1710,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'widgetId'.
-     *
      * @param widgetId Value to set for property 'widgetId'.
      */
     @SuppressWarnings("unused")
@@ -1822,7 +1719,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'rightPanelEnabled'.
-     *
      * @return Value for property 'rightPanelEnabled'.
      */
     public Boolean isRightPanelEnabled() {
@@ -1831,7 +1727,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'rightPanelEnabled'.
-     *
      * @param rightPanelEnabled Value to set for property 'rightPanelEnabled'.
      */
     @SuppressWarnings("unused")
@@ -1849,7 +1744,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'maxCacheSize'.
-     *
      * @param maxCacheSize Value to set for property 'maxCacheSize'.
      */
     @SuppressWarnings("unused")
@@ -1867,7 +1761,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'uploadPath'.
-     *
      * @param uploadPath Value to set for property 'uploadPath'.
      */
     @SuppressWarnings("unused")
@@ -1877,7 +1770,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'undoEnabled'.
-     *
      * @return Value for property 'undoEnabled'.
      */
     public Boolean isUndoEnabled() {
@@ -1886,7 +1778,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'undoEnabled'.
-     *
      * @param undoEnabled Value to set for property 'undoEnabled'.
      */
     @SuppressWarnings("unused")
@@ -1904,7 +1795,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'jqueryFileDownloadCookieName'.
-     *
      * @param jqueryFileDownloadCookieName Value to set for property 'jqueryFileDownloadCookieName'.
      */
     @SuppressWarnings("unused")
@@ -1922,7 +1812,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'watermarkFontSize'.
-     *
      * @param watermarkFontSize Value to set for property 'watermarkFontSize'.
      */
     @SuppressWarnings("unused")
@@ -1940,7 +1829,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'watermarkPosition'.
-     *
      * @param watermarkPosition Value to set for property 'watermarkPosition'.
      */
     @SuppressWarnings("unused")
@@ -1950,7 +1838,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'convertWordDocumentsCompletely'.
-     *
      * @return Value for property 'convertWordDocumentsCompletely'.
      */
     public Boolean isConvertWordDocumentsCompletely() {
@@ -1959,7 +1846,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Gets file display name
-     *
      * @return file display name
      */
     @Override
@@ -1969,7 +1855,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Sets file display name.
-     *
      * @param fileDisplayName the file display name
      */
     @SuppressWarnings("unused")
@@ -1979,7 +1864,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'convertWordDocumentsCompletely'.
-     *
      * @param convertWordDocumentsCompletely Value to set for property 'convertWordDocumentsCompletely'.
      */
     @SuppressWarnings("unused")
@@ -1989,7 +1873,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'ignoreDocumentAbsence'.
-     *
      * @return Value for property 'ignoreDocumentAbsence'.
      */
     public Boolean isIgnoreDocumentAbsence() {
@@ -1998,7 +1881,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'ignoreDocumentAbsence'.
-     *
      * @param ignoreDocumentAbsence Value to set for property 'ignoreDocumentAbsence'.
      */
     @SuppressWarnings("unused")
@@ -2008,7 +1890,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'preloadPagesOnBrowserSide'.
-     *
      * @return Value for property 'preloadPagesOnBrowserSide'.
      */
     public Boolean isPreloadPagesOnBrowserSide() {
@@ -2017,7 +1898,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'preloadPagesOnBrowserSide'.
-     *
      * @param preloadPagesOnBrowserSide Value to set for property 'preloadPagesOnBrowserSide'.
      */
     @SuppressWarnings("unused")
@@ -2027,7 +1907,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'printWithWatermark'.
-     *
      * @return Value for property 'printWithWatermark'.
      */
     public Boolean isPrintWithWatermark() {
@@ -2036,7 +1915,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'printWithWatermark'.
-     *
      * @param printWithWatermark Value to set for property 'printWithWatermark'.
      */
     @SuppressWarnings("unused")
@@ -2046,7 +1924,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'supportPageRotation'.
-     *
      * @return Value for property 'supportPageRotation'.
      */
     public Boolean isSupportPageRotation() {
@@ -2055,7 +1932,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'supportPageRotation'.
-     *
      * @param supportPageRotation Value to set for property 'supportPageRotation'.
      */
     @SuppressWarnings("unused")
@@ -2065,7 +1941,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'storeLogic'.
-     *
      * @return Value for property 'storeLogic'.
      */
     public String getStoreLogic() {
@@ -2074,7 +1949,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'storeLogic'.
-     *
      * @param storeLogic Value to set for property 'storeLogic'.
      */
     @SuppressWarnings("unused")
@@ -2084,7 +1958,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'printAnnotations'.
-     *
      * @return Value for property 'printAnnotations'.
      */
     public Boolean isPrintAnnotations() {
@@ -2093,7 +1966,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'printAnnotations'.
-     *
      * @param printAnnotations Value to set for property 'printAnnotations'.
      */
     @SuppressWarnings("unused")
@@ -2103,7 +1975,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Gets disable atmosphere.
-     *
      * @return the disable atmosphere
      */
     @Override
@@ -2118,7 +1989,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Sets is case sensitive.
-     *
      * @param isCaseSensitive the is case sensitive
      */
     @SuppressWarnings("unused")
@@ -2133,7 +2003,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Sets search for separate words.
-     *
      * @param searchForSeparateWords the search for separate words
      */
     @SuppressWarnings("unused")
@@ -2143,7 +2012,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Sets disable atmosphere.
-     *
      * @param disableAtmosphere the disable atmosphere
      */
     @SuppressWarnings("unused")
@@ -2153,7 +2021,6 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Getter for property 'localization'.
-     *
      * @return Value for property 'localization'.
      */
     public String getLocalization() {
@@ -2162,11 +2029,26 @@ public class ApplicationConfig extends ServiceConfiguration {
 
     /**
      * Setter for property 'localization'.
-     *
      * @param localization Value to set for property 'localization'.
      */
     @SuppressWarnings("unused")
     public void setLocalization(String localization) {
         this.localization = localization;
+    }
+
+    /**
+     * Gets default file name.
+     * @return the default file name
+     */
+    public String getDefaultFileName() {
+        return defaultFileName;
+    }
+
+    /**
+     * Sets default file name.
+     * @param defaultFileName the default file name
+     */
+    public void setDefaultFileName(String defaultFileName) {
+        this.defaultFileName = defaultFileName;
     }
 }

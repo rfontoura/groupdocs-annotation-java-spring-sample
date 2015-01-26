@@ -7,7 +7,6 @@ import com.groupdocs.annotation.exception.AnnotationException;
  * Custom connector for MySQL database.
  * GroupDocs.Annotation have embedded MySQL connector.
  * So this connector just example.
- *
  * @author Aleksey Permyakov (09.09.2014)
  */
 public class CustomDatabaseConnector extends AbstractDatabaseConnector {
@@ -16,10 +15,9 @@ public class CustomDatabaseConnector extends AbstractDatabaseConnector {
 
     /**
      * Create database connector
-     *
-     * @param dbServer   database server
-     * @param dbPort     database port
-     * @param dbName     database name
+     * @param dbServer database server
+     * @param dbPort database port
+     * @param dbName database name
      * @param dbUsername database user name
      * @param dbPassword database user password
      */
@@ -29,11 +27,10 @@ public class CustomDatabaseConnector extends AbstractDatabaseConnector {
 
     /**
      * Create database connector
-     *
-     * @param dbDriver   database driver class name
-     * @param dbServer   database server
-     * @param dbPort     database port
-     * @param dbName     database name
+     * @param dbDriver database driver class name
+     * @param dbServer database server
+     * @param dbPort database port
+     * @param dbName database name
      * @param dbUsername database user name
      * @param dbPassword database user password
      */

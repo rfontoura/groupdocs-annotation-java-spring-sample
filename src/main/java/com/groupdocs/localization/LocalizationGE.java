@@ -8,7 +8,6 @@ import java.util.Map;
 
 /**
  * Russian localization
- *
  * @author liosha (06.11.2014)
  */
 public class LocalizationGE implements ILocalization {

@@ -48,7 +48,6 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 
     /**
      * Write object as json
-     *
      * @param obj object to write
      * @return response object
      */
@@ -58,8 +57,7 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 
     /**
      * Write object to response with provided media type
-     *
-     * @param obj       object to write
+     * @param obj object to write
      * @param mediaType media type
      * @return response object
      */
@@ -75,8 +73,7 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 
     /**
      * Write stream to response
-     *
-     * @param o        stream
+     * @param o stream
      * @param response http servlet response
      */
     protected void writeOutput(Object o, HttpServletResponse response) {
@@ -87,9 +84,8 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 
     /**
      * Write stream to response
-     *
      * @param inputStream stream for write
-     * @param response    http servlet response
+     * @param response http servlet response
      */
     protected void writeOutput(InputStream inputStream, HttpServletResponse response) {
         try {
@@ -103,7 +99,6 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 
     /**
      * Get or create annotation handler
-     *
      * @return annotation handler
      */
     protected AnnotationHandler annotationHandler() {
@@ -176,8 +171,8 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
                 Locale.setDefault(Locale.CANADA);
                 //
                 annotationHandler = new AnnotationHandler(serviceConfiguration, connector);
-                if (connector instanceof ICustomConnector){
-                    ((ICustomConnector)connector).setEnvironmentCreator(annotationHandler);
+                if (connector instanceof ICustomConnector) {
+                    ((ICustomConnector) connector).setEnvironmentCreator(annotationHandler);
                 }
                 // This callback will be called for each case when collaborator should be created
                 annotationHandler.setCollaboratorCallback(new ICallback<Pair<Integer, Color>, Pair<IUser, IDocument>>() {

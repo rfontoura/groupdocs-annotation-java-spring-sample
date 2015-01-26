@@ -1,7 +1,9 @@
 package com.groupdocs;
 
 import com.groupdocs.annotation.common.Utils;
+
 import static com.groupdocs.annotation.common.Utils.toJson;
+
 import com.groupdocs.annotation.domain.response.StatusResult;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.handler.AnnotationHandler;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,12 +35,11 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Home page request with parameters
-     *
-     * @param model    view model
-     * @param request  HTTP servlet request
+     * @param model view model
+     * @param request HTTP servlet request
      * @param response http servlet response
-     * @param file     file name
-     * @param tokenId  file token id
+     * @param file file name
+     * @param tokenId file token id
      * @param userName user name
      * @return rendered page
      * @throws Exception
@@ -66,9 +68,9 @@ public class HomeController extends HomeControllerBase {
             if (!tki.isExpired()) {
                 path = tki;
             }
-        }else{
+        } else {
             ServiceConfiguration configuration = annotationHandler().getConfiguration();
-            path = new EncodedPath("GroupDocs_Demo.doc", configuration);
+            path = new EncodedPath(applicationConfig.getDefaultFileName(), configuration);
         }
         final String initialPath = (path == null) ? "" : path.getPath();
         final String userGuid = annotationHandler().getUserGuid(userName);
@@ -85,29 +87,27 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get JavaScript file [GET request]
-     *
-     * @param script   JavaScript name
+     * @param script JavaScript name
      * @param response http servlet response
      * @return JavaScript file content
      * @deprecated Use method getJsHandler(String script, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
     @Deprecated
-    public Object getJsHandler(String script, HttpServletResponse response) {
+    public Object getJsHandler(String script, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getJsHandler(script, response), response);
         return null;
     }
 
     /**
      * Get JavaScript file [GET request]
-     *
-     * @param script   JavaScript name
-     * @param request  HTTP servlet request
+     * @param script JavaScript name
+     * @param request HTTP servlet request
      * @param response http servlet response
      * @return JavaScript file content
      */
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
-    public Object getJsHandler(String script, HttpServletRequest request, HttpServletResponse response) {
+    public Object getJsHandler(String script, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         long dateSince = request.getDateHeader("If-Modified-Since");
         if (annotationHandler().isResourceModified(dateSince)) {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
@@ -120,29 +120,27 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get css file [GET request]
-     *
-     * @param script   CSS name
+     * @param script CSS name
      * @param response http servlet response
      * @return CSS file content
      * @deprecated Use method getCssHandler(String script, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
     @Deprecated
-    public Object getCssHandler(String script, HttpServletResponse response) {
+    public Object getCssHandler(String script, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getCssHandler(script, response), response);
         return null;
     }
 
     /**
      * Get css file [GET request]
-     *
-     * @param script   CSS name
-     * @param request  HTTP servlet request
+     * @param script CSS name
+     * @param request HTTP servlet request
      * @param response http servlet response
      * @return CSS file content
      */
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
-    public Object getCssHandler(String script, HttpServletRequest request, HttpServletResponse response) {
+    public Object getCssHandler(String script, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         long dateSince = request.getDateHeader("If-Modified-Since");
         if (annotationHandler().isResourceModified(dateSince)) {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
@@ -155,29 +153,27 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get image file [GET request]
-     *
-     * @param name     image name
+     * @param name image name
      * @param response http servlet response
      * @return image content
      * @deprecated Use method getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
     @Deprecated
-    public Object getImageHandler(@PathVariable String name, HttpServletResponse response) {
+    public Object getImageHandler(@PathVariable String name, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getImageHandler(name, response), response);
         return null;
     }
 
     /**
      * Get image file [GET request]
-     *
-     * @param name     image name
-     * @param request  HTTP servlet request
+     * @param name image name
+     * @param request HTTP servlet request
      * @param response http servlet response
      * @return image content
      */
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
-    public Object getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+    public Object getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         long dateSince = request.getDateHeader("If-Modified-Since");
         if (annotationHandler().isResourceModified(dateSince)) {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
@@ -190,29 +186,27 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get font file
-     *
-     * @param name     font name
+     * @param name font name
      * @param response http servlet response
      * @return font content
      * @deprecated Use method getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response)
      */
     @Override
     @Deprecated
-    public Object getFontHandler(@PathVariable String name, HttpServletResponse response) {
+    public Object getFontHandler(@PathVariable String name, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getFontHandler(name, response), response);
         return null;
     }
 
     /**
      * Get font file
-     *
-     * @param name     font name
-     * @param request  HTTP servlet request
+     * @param name font name
+     * @param request HTTP servlet request
      * @param response http servlet response
      * @return font content
      */
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
-    public Object getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+    public Object getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         long dateSince = request.getDateHeader("If-Modified-Since");
         if (annotationHandler().isResourceModified(dateSince)) {
             response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
@@ -225,56 +219,52 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get HTML resources
-     *
      * @param filePath resource path
      * @param response http servlet response
      * @return return HTML resources
      */
     @Override
     @RequestMapping(value = GET_HTML_RESOURCES_HANDLER, method = RequestMethod.GET)
-    public Object getHtmlResourcesHandler(String filePath, HttpServletResponse response) {
+    public Object getHtmlResourcesHandler(String filePath, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getHtmlResourcesHandler(filePath, response), response);
         return null;
     }
 
     /**
      * Download file [GET request]
-     *
-     * @param path     file path
-     * @param getPdf   get pdf file
+     * @param path file path
+     * @param getPdf get pdf file
      * @param response http servlet response
      * @return file content
      */
     @Override
     @RequestMapping(value = GET_FILE_HANDLER, method = RequestMethod.GET)
-    public Object getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response) {
+    public Object getFileHandler(@RequestParam("path") String path, @RequestParam(value = "getPdf", required = false) boolean getPdf, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getFileHandler(path, getPdf, response), response);
         return null;
     }
 
     /**
      * Get document image files [GET request]
-     *
-     * @param guid      file guid
-     * @param width     file width
-     * @param quality   quality
-     * @param usePdf    use PDF format
+     * @param guid file guid
+     * @param width file width
+     * @param quality quality
+     * @param usePdf use PDF format
      * @param pageIndex index of page
-     * @param response  http servlet response
+     * @param response http servlet response
      * @return null
      */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
-                                              @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) {
+                                              @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response), response);
         return null;
     }
 
     /**
      * Generate list of images/pages [POST request]
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
@@ -286,10 +276,9 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Generate list of images/pages [GET request]
-     *
      * @param callback callback
-     * @param data     request data
-     * @param request  HTTP servlet request
+     * @param data request data
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
@@ -301,139 +290,129 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Load tree of files from base directory [POST request]
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return files tree data
      */
     @Override
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
-    public ResponseEntity<String> loadFileBrowserTreeDataHandler(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> loadFileBrowserTreeDataHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().loadFileBrowserTreeDataHandler(request, response));
     }
 
     /**
      * Load tree of files from base directory [GET request]
-     *
      * @param callback callback
-     * @param data     request data
+     * @param data request data
      * @param response HTTP servlet response
      * @return files tree data
      */
     @Override
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.GET)
-    public ResponseEntity<String> loadFileBrowserTreeDataHandler(String callback, String data, HttpServletResponse response) {
+    public ResponseEntity<String> loadFileBrowserTreeDataHandler(String callback, String data, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().loadFileBrowserTreeDataHandler(callback, data, response));
     }
 
     /**
      * Get thumbs and other images files [POST request]
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.POST)
-    public ResponseEntity<String> getImageUrlsHandler(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> getImageUrlsHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().getImageUrlsHandler(request, response));
     }
 
     /**
      * Get thumbs and other images files [GET request]
-     *
      * @param callback callback
-     * @param data     request data
-     * @param request  HTTP servlet request
+     * @param data request data
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
     @Override
     @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.GET)
-    public ResponseEntity<String> getImageUrlsHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> getImageUrlsHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().getImageUrlsHandler(callback, data, request, response));
     }
 
     /**
      * Print document [POST request]
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
     @Override
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.POST)
-    public ResponseEntity<String> getPrintableHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> getPrintableHtmlHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutput(annotationHandler().getPrintableHtmlHandler(request, response), MediaType.TEXT_HTML);
     }
 
     /**
      * Print document [GET request]
-     *
      * @param callback callback
-     * @param data     request data
-     * @param request  HTTP servlet request
+     * @param data request data
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
     @Override
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.GET)
-    public ResponseEntity<String> getPrintableHtmlHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<String> getPrintableHtmlHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().getPrintableHtmlHandler(callback, data, request, response));
     }
 
     /**
      * Get document content as html
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response data
      */
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_HTML_HANDLER, method = RequestMethod.GET)
-    public Object getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) {
+    public Object getDocumentPageHtmlHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getDocumentPageHtmlHandler(request, response), response);
         return null;
     }
 
     /**
      * Get data for print dialog
-     *
-     * @param path     file path
+     * @param path file path
      * @param response HTTP servlet response
      * @return response object
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
     @RequestMapping(value = GET_PDF_WITH_PRINT_DIALOG, method = RequestMethod.GET)
-    public Object getPdfWithPrintDialog(String path, HttpServletResponse response) {
+    public Object getPdfWithPrintDialog(String path, HttpServletResponse response) throws AnnotationException {
         writeOutput(annotationHandler().getPdfWithPrintDialog(path, response), response);
         return null;
     }
 
     /**
      * Reorder page
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response data
      * @see com.groupdocs.annotation.handler.AnnotationHandler
      */
     @Override
     @RequestMapping(value = REORDER_PAGE_HANDLER, method = RequestMethod.POST)
-    public Object reorderPageHandler(HttpServletRequest request, HttpServletResponse response) {
+    public Object reorderPageHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().reorderPageHandler(request, response));
     }
 
     @Override
     @RequestMapping(value = ROTATE_PAGE_HANDLER, method = RequestMethod.POST)
-    public Object rotatePageHandler(HttpServletRequest request, HttpServletResponse response) {
+    public Object rotatePageHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().rotatePageHandler(request, response));
     }
 
     /**
      * Get list of annotations for document [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -451,7 +430,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Download document with annotations [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -469,7 +447,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Download document as PDF file [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -487,7 +464,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Request to create annotation on document [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -505,10 +481,9 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get avatar for current user [GET request]
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
-     * @param userId   user id
+     * @param userId user id
      * @return response object
      */
     @RequestMapping(value = GET_AVATAR_HANDLER, method = RequestMethod.GET)
@@ -524,7 +499,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Add reply to annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -542,7 +516,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Edit reply for annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -560,7 +533,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Delete reply from annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -578,7 +550,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Delete annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -596,7 +567,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Save text field annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -614,7 +584,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Set color for text field annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -632,7 +601,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Set annotation marker position [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -650,7 +618,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Set new size for annotation [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return response object
@@ -668,7 +635,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Return list of collaborators [POST request]
-     *
      * @param request HTTP servlet request
      * @param response
      * @return object with response parameters
@@ -686,21 +652,20 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Upload file to GroupDocs.Annotation [POST request]
-     *
      * @param userId
-     * @param fld      action
+     * @param fld action
      * @param fileName
      * @param multiple
-     * @param request  http request
+     * @param request http request
      * @param response http response
      * @return token id as json
      */
     @RequestMapping(value = UPLOAD_FILE_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> uploadFileHandler(@RequestParam("user_id") String userId, @RequestParam("fld") String fld, @RequestParam("fileName") String fileName, @RequestParam("multiple") boolean multiple, HttpServletRequest request, HttpServletResponse response) {
         try {
-            if(multiple){
+            if (multiple) {
                 return writeOutputJson(annotationHandler().uploadFileHandler(fileName, request.getInputStream()));
-            }else{
+            } else {
                 return null;
             }
         } catch (IOException | AnnotationException e) {
@@ -710,7 +675,7 @@ public class HomeController extends HomeControllerBase {
     }
 
     /**
-     * @param request  http servlet request
+     * @param request http servlet request
      * @param response http servlet response
      * @return object with response parameters
      * @see com.groupdocs.annotation.handler.IGroupDocsAnnotation
@@ -728,8 +693,7 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * Get view for print document
-     *
-     * @param request  HTTP servlet request
+     * @param request HTTP servlet request
      * @param response HTTP servlet response
      * @return response object
      */
@@ -769,7 +733,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * On ready handler
-     *
      * @param resource resource data received from socket
      */
     @Override
@@ -785,7 +748,6 @@ public class HomeController extends HomeControllerBase {
 
     /**
      * On message handler [POST]
-     *
      * @param resource resource data received from socket
      */
     @Override
