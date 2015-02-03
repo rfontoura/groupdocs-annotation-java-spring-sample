@@ -14,6 +14,7 @@ import com.groupdocs.viewer.config.ServiceConfiguration;
 import com.groupdocs.viewer.domain.path.EncodedPath;
 import com.groupdocs.viewer.domain.path.GroupDocsPath;
 import com.groupdocs.viewer.domain.path.TokenId;
+import org.apache.commons.io.IOUtils;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
@@ -74,15 +77,25 @@ public class HomeController extends HomeControllerBase {
         }
         final String initialPath = (path == null) ? "" : path.getPath();
         final String userGuid = annotationHandler().getUserGuid(userName);
-//        if (annotationHandler().getUserAvatar(userGuid) == null){
-//            FileInputStream testAvatar = new FileInputStream(new File("E:\\Images\\333.jpeg"));
-//            byte[] bytes = new byte[testAvatar.available()];
-//            IOUtils.readFully(testAvatar, bytes);
-//            Utils.closeStreams(testAvatar);
-//            annotationHandler().setUserAvatar(userGuid, bytes);
-//        }
+//        try {
+//            updateUserAvatar(userGuid, "E:\\\\Images\\\\Avatar.jpeg");
+//        } catch (Exception e) {}
         model.addAttribute("groupdocsScripts", annotationHandler().getAnnotationScript(initialPath, userName, userGuid, localization));
         return "index";
+    }
+
+    private void updateUserAvatar(String userGuid, String avatarPath) throws AnnotationException {
+        try {
+            if (annotationHandler().getUserAvatar(userGuid) == null) {
+                FileInputStream testAvatar = new FileInputStream(new File(avatarPath));
+                byte[] bytes = new byte[testAvatar.available()];
+                IOUtils.readFully(testAvatar, bytes);
+                Utils.closeStreams(testAvatar);
+                annotationHandler().setUserAvatar(userGuid, bytes);
+            }
+        } catch (Exception e) {
+            throw new AnnotationException(e);
+        }
     }
 
     /**
@@ -257,8 +270,13 @@ public class HomeController extends HomeControllerBase {
     @Override
     @RequestMapping(value = GET_DOCUMENT_PAGE_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getDocumentPageImageHandler(@RequestParam("path") String guid, @RequestParam("width") Integer width, @RequestParam("quality") Integer quality,
-                                              @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, HttpServletResponse response) throws AnnotationException {
-        writeOutput(annotationHandler().getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, response), response);
+                                              @RequestParam("usePdf") Boolean usePdf, @RequestParam("pageIndex") Integer pageIndex, @RequestParam("isPrint") Boolean isPrint, HttpServletResponse response) throws AnnotationException {
+        try {
+            writeOutput(annotationHandler().getDocumentPageImageHandler(guid, width, quality, usePdf, pageIndex, isPrint, response), response);
+        } catch (Exception e) {
+            Utils.log(HomeController.class, e);
+            return toJson(new StatusResult(false, e.getMessage()));
+        }
         return null;
     }
 
