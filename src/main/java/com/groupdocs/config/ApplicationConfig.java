@@ -411,6 +411,11 @@ public class ApplicationConfig extends ServiceConfiguration {
     @Property(key = "groupdocs.annotation.watermarkPosition")
     protected String watermarkPosition;
     /**
+     * The Watermark text.
+     */
+    @Property(key = "groupdocs.annotation.watermarkText")
+    protected String watermarkText;
+    /**
      * The Convert word documents completely.
      */
     @Property(key = "groupdocs.annotation.convertWordDocumentsCompletely")
@@ -1834,6 +1839,19 @@ public class ApplicationConfig extends ServiceConfiguration {
     @SuppressWarnings("unused")
     public void setWatermarkPosition(String watermarkPosition) {
         this.watermarkPosition = watermarkPosition;
+    }
+
+    @Override
+    public String getWatermarkText() {
+        return watermarkText;
+    }
+
+    /**
+     * Sets watermark text.
+     * @param watermarkText the watermark text
+     */
+    public void setWatermarkText(String watermarkText) {
+        this.watermarkText = watermarkText;
     }
 
     /**
