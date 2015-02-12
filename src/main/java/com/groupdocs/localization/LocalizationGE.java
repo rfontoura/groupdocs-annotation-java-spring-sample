@@ -70,6 +70,7 @@ public class LocalizationGE implements ILocalization {
         put(LocalizationKeys.Cancel, "Cancel");
         put(LocalizationKeys.Thumbs, "Die Miniaturen");
         put(LocalizationKeys.DOCWithComments, "DOC mit Anmerkungen");
+        put(LocalizationKeys.ImportingInternalDocumentAnnotations, "Importieren internen Dokument Anmerkungen");
     }};
 
     /**
