@@ -26,6 +26,11 @@ public class ApplicationConfig extends ServiceConfiguration {
     @Property(key = "groupdocs.annotation.basePath")
     protected String basePath;
     /**
+     * The cache path
+     */
+    @Property(key = "groupdocs.annotation.cachePath")
+    private String cachePath;
+    /**
      * The Storage type.
      */
     @Property(key = "groupdocs.annotation.storageType")
@@ -1762,6 +1767,22 @@ public class ApplicationConfig extends ServiceConfiguration {
     @Override
     public String getUploadPath() {
         return uploadPath;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getCachePath() {
+        return cachePath;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unused")
+    public void setCachePath(String cachePath) {
+        this.cachePath = cachePath;
     }
 
     /**

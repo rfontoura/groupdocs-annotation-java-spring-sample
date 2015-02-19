@@ -1,8 +1,7 @@
 package com.groupdocs.data.dao;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.groupdocs.annotation.common.Utils;
 import com.groupdocs.annotation.data.constructor.*;
 import com.groupdocs.annotation.data.dao.interfaces.IDao;
@@ -17,7 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  * @author Aleksey Permyakov (13.10.2014)
@@ -39,17 +37,6 @@ public abstract class CustomAbstractDaoImpl<T extends ITable> implements IDao<T>
     }
 
     /**
-     * Restore Java object from xml
-     * @param xmlString xml string
-     * @param <T> type of java object
-     * @return restored object
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T fromXml(String xmlString) {
-        return (T) initializeXStreamWithModels(new com.thoughtworks.xstream.XStream(new com.thoughtworks.xstream.io.xml.StaxDriver())).fromXML(xmlString);
-    }
-
-    /**
      * Initialize {@link com.thoughtworks.xstream.XStream} with models objects
      * @param xStream xstream object
      * @return initialized {@link com.thoughtworks.xstream.XStream} object
@@ -66,6 +53,17 @@ public abstract class CustomAbstractDaoImpl<T extends ITable> implements IDao<T>
         return xStream;
     }
 
+    /**
+     * Restore Java object from xml
+     * @param xmlString xml string
+     * @param <T> type of java object
+     * @return restored object
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T fromXml(String xmlString) {
+        return (T) initializeXStreamWithModels(new com.thoughtworks.xstream.XStream(new com.thoughtworks.xstream.io.xml.StaxDriver())).fromXML(xmlString);
+    }
+
     @Override
     public void createTableIfNotExists() throws AnnotationException {
     }
@@ -76,20 +74,26 @@ public abstract class CustomAbstractDaoImpl<T extends ITable> implements IDao<T>
             @Override
             public boolean check(T entity) {
                 String jsonUser = entity.toString();
-                JsonElement jsonElement = new JsonParser().parse(jsonUser);
-                List<Object> fValues = Arrays.asList(fieldValues);
-                for (int n = 0; n < fieldNames.size(); n++) {
-                    String fieldName = fieldNames.get(n);
-                    Object fieldValue = fValues.get(n);
-                    if (fieldName != null && fieldValue != null && jsonElement instanceof JsonObject) {
-                        JsonElement element = ((JsonObject) jsonElement).get(fieldName);
-                        if (element != null && !element.isJsonNull() && fieldValue.toString().equals(element.getAsString())) {
-                            continue;
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    JsonNode jsonNode = mapper.readTree(jsonUser);
+                    List<Object> fValues = Arrays.asList(fieldValues);
+                    for (int n = 0; n < fieldNames.size(); n++) {
+                        String fieldName = fieldNames.get(n);
+                        Object fieldValue = fValues.get(n);
+                        if (fieldName != null && fieldValue != null) {
+                            JsonNode element = jsonNode.get(fieldName);
+                            if (element != null && !element.isNull() && fieldValue.toString().equals(element.asText())) {
+                                continue;
+                            }
                         }
+                        return false;
                     }
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace(); // TODO:
                     return false;
                 }
-                return true;
             }
         });
     }
@@ -100,17 +104,23 @@ public abstract class CustomAbstractDaoImpl<T extends ITable> implements IDao<T>
             @Override
             public boolean isToAdd(T entity) {
                 String jsonUser = entity.toString();
-                JsonElement jsonElement = new JsonParser().parse(jsonUser);
-                List<Object> fValues = Arrays.asList(fieldValues);
-                for (int n = 0; n < fieldNames.size(); n++) {
-                    String fieldName = fieldNames.get(n);
-                    Object fieldValue = fValues.get(n);
-                    if (fieldName != null && jsonElement instanceof JsonObject && fieldValue.toString().equals(((JsonObject) jsonElement).get(fieldName).getAsString())) {
-                        continue;
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    JsonNode jsonNode = mapper.readTree(jsonUser);
+                    List<Object> fValues = Arrays.asList(fieldValues);
+                    for (int n = 0; n < fieldNames.size(); n++) {
+                        String fieldName = fieldNames.get(n);
+                        Object fieldValue = fValues.get(n);
+                        if (fieldName != null && fieldValue.toString().equals(jsonNode.get(fieldName).asText())) {
+                            continue;
+                        }
+                        return false;
                     }
+                    return true;
+                } catch (Exception e) {
+                    e.printStackTrace(); // TODO:
                     return false;
                 }
-                return true;
             }
         });
     }

@@ -101,48 +101,19 @@ public class HomeController extends HomeControllerBase {
     /**
      * Get JavaScript file [GET request]
      * @param script JavaScript name
-     * @param response http servlet response
-     * @return JavaScript file content
-     * @deprecated Use method getJsHandler(String script, HttpServletRequest request, HttpServletResponse response)
-     */
-    @Override
-    @Deprecated
-    public Object getJsHandler(String script, HttpServletResponse response) throws AnnotationException {
-        writeOutput(annotationHandler().getJsHandler(script, response), response);
-        return null;
-    }
-
-    /**
-     * Get JavaScript file [GET request]
-     * @param script JavaScript name
      * @param request HTTP servlet request
      * @param response http servlet response
      * @return JavaScript file content
      */
     @RequestMapping(value = GET_JS_HANDLER, method = RequestMethod.GET)
     public Object getJsHandler(String script, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
-        long dateSince = request.getDateHeader("If-Modified-Since");
-        if (annotationHandler().isResourceModified(dateSince)) {
-            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
-            writeOutput(annotationHandler().getJsHandler(script, response), response);
-        } else {
+        final Object handler = annotationHandler().getJsHandler(script, request, response);
+        if (handler == null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        } else {
+            writeOutput(handler, response);
+            return null;
         }
-        return null;
-    }
-
-    /**
-     * Get css file [GET request]
-     * @param script CSS name
-     * @param response http servlet response
-     * @return CSS file content
-     * @deprecated Use method getCssHandler(String script, HttpServletRequest request, HttpServletResponse response)
-     */
-    @Override
-    @Deprecated
-    public Object getCssHandler(String script, HttpServletResponse response) throws AnnotationException {
-        writeOutput(annotationHandler().getCssHandler(script, response), response);
-        return null;
     }
 
     /**
@@ -154,28 +125,13 @@ public class HomeController extends HomeControllerBase {
      */
     @RequestMapping(value = GET_CSS_HANDLER, method = RequestMethod.GET)
     public Object getCssHandler(String script, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
-        long dateSince = request.getDateHeader("If-Modified-Since");
-        if (annotationHandler().isResourceModified(dateSince)) {
-            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
-            writeOutput(annotationHandler().getCssHandler(script, response), response);
-        } else {
+        final Object handler = annotationHandler().getCssHandler(script, request, response);
+        if (handler == null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        } else {
+            writeOutput(handler, response);
+            return null;
         }
-        return null;
-    }
-
-    /**
-     * Get image file [GET request]
-     * @param name image name
-     * @param response http servlet response
-     * @return image content
-     * @deprecated Use method getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response)
-     */
-    @Override
-    @Deprecated
-    public Object getImageHandler(@PathVariable String name, HttpServletResponse response) throws AnnotationException {
-        writeOutput(annotationHandler().getImageHandler(name, response), response);
-        return null;
     }
 
     /**
@@ -187,28 +143,13 @@ public class HomeController extends HomeControllerBase {
      */
     @RequestMapping(value = GET_IMAGE_HANDLER, method = RequestMethod.GET)
     public Object getImageHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
-        long dateSince = request.getDateHeader("If-Modified-Since");
-        if (annotationHandler().isResourceModified(dateSince)) {
-            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
-            writeOutput(annotationHandler().getImageHandler(name, response), response);
-        } else {
+        final Object handler = annotationHandler().getImageHandler(name, request, response);
+        if (handler == null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        } else {
+            writeOutput(handler, response);
+            return null;
         }
-        return null;
-    }
-
-    /**
-     * Get font file
-     * @param name font name
-     * @param response http servlet response
-     * @return font content
-     * @deprecated Use method getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response)
-     */
-    @Override
-    @Deprecated
-    public Object getFontHandler(@PathVariable String name, HttpServletResponse response) throws AnnotationException {
-        writeOutput(annotationHandler().getFontHandler(name, response), response);
-        return null;
     }
 
     /**
@@ -220,14 +161,13 @@ public class HomeController extends HomeControllerBase {
      */
     @RequestMapping(value = GET_FONT_HANDLER, method = RequestMethod.GET)
     public Object getFontHandler(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
-        long dateSince = request.getDateHeader("If-Modified-Since");
-        if (annotationHandler().isResourceModified(dateSince)) {
-            response.setDateHeader("Last-Modified", AnnotationHandler.LAST_RESOURCE_MODIFIED);
-            writeOutput(annotationHandler().getFontHandler(name, response), response);
-        } else {
+        final Object handler = annotationHandler().getFontHandler(name, request, response);
+        if (handler == null) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        } else {
+            writeOutput(handler, response);
+            return null;
         }
-        return null;
     }
 
     /**
@@ -293,20 +233,6 @@ public class HomeController extends HomeControllerBase {
     }
 
     /**
-     * Generate list of images/pages [GET request]
-     * @param callback callback
-     * @param data request data
-     * @param request HTTP servlet request
-     * @param response HTTP servlet response
-     * @return response object
-     */
-    @Override
-    @RequestMapping(value = VIEW_DOCUMENT_HANDLER, method = RequestMethod.GET)
-    public ResponseEntity<String> viewDocumentHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) {
-        return writeOutputJson(annotationHandler().viewDocumentHandler(callback, data, request, response));
-    }
-
-    /**
      * Load tree of files from base directory [POST request]
      * @param request HTTP servlet request
      * @param response HTTP servlet response
@@ -316,19 +242,6 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.POST)
     public ResponseEntity<String> loadFileBrowserTreeDataHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutputJson(annotationHandler().loadFileBrowserTreeDataHandler(request, response));
-    }
-
-    /**
-     * Load tree of files from base directory [GET request]
-     * @param callback callback
-     * @param data request data
-     * @param response HTTP servlet response
-     * @return files tree data
-     */
-    @Override
-    @RequestMapping(value = LOAD_FILE_BROWSER_TREE_DATA_HANLER, method = RequestMethod.GET)
-    public ResponseEntity<String> loadFileBrowserTreeDataHandler(String callback, String data, HttpServletResponse response) throws AnnotationException {
-        return writeOutputJson(annotationHandler().loadFileBrowserTreeDataHandler(callback, data, response));
     }
 
     /**
@@ -344,20 +257,6 @@ public class HomeController extends HomeControllerBase {
     }
 
     /**
-     * Get thumbs and other images files [GET request]
-     * @param callback callback
-     * @param data request data
-     * @param request HTTP servlet request
-     * @param response HTTP servlet response
-     * @return response object
-     */
-    @Override
-    @RequestMapping(value = GET_IMAGE_URL_HANDLER, method = RequestMethod.GET)
-    public ResponseEntity<String> getImageUrlsHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
-        return writeOutputJson(annotationHandler().getImageUrlsHandler(callback, data, request, response));
-    }
-
-    /**
      * Print document [POST request]
      * @param request HTTP servlet request
      * @param response HTTP servlet response
@@ -367,20 +266,6 @@ public class HomeController extends HomeControllerBase {
     @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.POST)
     public ResponseEntity<String> getPrintableHtmlHandler(HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
         return writeOutput(annotationHandler().getPrintableHtmlHandler(request, response), MediaType.TEXT_HTML);
-    }
-
-    /**
-     * Print document [GET request]
-     * @param callback callback
-     * @param data request data
-     * @param request HTTP servlet request
-     * @param response HTTP servlet response
-     * @return response object
-     */
-    @Override
-    @RequestMapping(value = GET_PRINTABLE_HTML_HANDLER, method = RequestMethod.GET)
-    public ResponseEntity<String> getPrintableHtmlHandler(String callback, String data, HttpServletRequest request, HttpServletResponse response) throws AnnotationException {
-        return writeOutputJson(annotationHandler().getPrintableHtmlHandler(callback, data, request, response));
     }
 
     /**
@@ -405,9 +290,8 @@ public class HomeController extends HomeControllerBase {
      */
     @Override
     @RequestMapping(value = GET_PDF_WITH_PRINT_DIALOG, method = RequestMethod.GET)
-    public Object getPdfWithPrintDialog(String path, HttpServletResponse response) throws AnnotationException {
-        writeOutput(annotationHandler().getPdfWithPrintDialog(path, response), response);
-        return null;
+    public void getPdfWithPrintDialog(String path, HttpServletResponse response) throws AnnotationException {
+        annotationHandler().getPdfWithPrintDialog(path, response);
     }
 
     /**
