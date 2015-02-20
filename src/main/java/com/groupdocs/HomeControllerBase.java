@@ -191,8 +191,8 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 //        AnnotationHandler annotationHandler = new AnnotationHandler(serviceConfiguration, connector, new CustomInputDataHandler(applicationConfig));
 //        annotationHandler.setInputDataHandler(new CustomInputDataHandler(applicationConfig));
 
-                // Will be called for each case when collaborator ask access to some event from AnnotationEvent
-                // Return value have priority is more than at Collaborator rights
+                // Will be called for each case when collaborators ask access to some event from AnnotationEvent
+                // The access callback result has higher priority than AccessRights from the collaborator callback (annotationHandler.setCollaboratorCallback).
 //        annotationHandler.setAccessCallback(new ICallback<Boolean, Three<AnnotationEvent,IUser,IDocument>>() {
 //            @Override
 //            public Boolean onCallback(Three<AnnotationEvent, IUser, IDocument> param) {
