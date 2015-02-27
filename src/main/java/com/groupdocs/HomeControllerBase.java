@@ -191,24 +191,24 @@ public abstract class HomeControllerBase implements IGroupDocsAnnotation {
 //        AnnotationHandler annotationHandler = new AnnotationHandler(serviceConfiguration, connector, new CustomInputDataHandler(applicationConfig));
 //        annotationHandler.setInputDataHandler(new CustomInputDataHandler(applicationConfig));
 
-                // Will be called for each case when collaborator ask access to some event from AnnotationEvent
-                // Return value have priority is more than at Collaborator rights
-//        annotationHandler.setAccessCallback(new ICallback<Boolean, Three<AnnotationEvent,IUser,IDocument>>() {
-//            @Override
-//            public Boolean onCallback(Three<AnnotationEvent, IUser, IDocument> param) {
-//                AnnotationEvent annotationEvent = param.one;
-//                switch (annotationEvent) {
-//                    case CreateAnnotation:
-//                        // Check permissions and return true of false
-//                        break;
-//                    case DeleteAnnotation:
-//                        // Check permissions and return true of false
-//                        break;
-//                    // ...
-//                }
-//                return true;
-//            }
-//        });
+        // Will be called for each case when collaborators ask access to some event from AnnotationEvent
+        // The access callback result has higher priority than AccessRights from the collaborator callback (annotationHandler.setCollaboratorCallback).
+//                annotationHandler.setAccessCallback(new ICallback<Boolean, AccessCallbackData>() {
+//                    @Override
+//                    public Boolean onCallback(AccessCallbackData param) {
+//                        AnnotationEvent annotationEvent = param.getAnnotationEvent();
+//                        switch (annotationEvent) {
+//                            case CreateAnnotation:
+//                                // Check permissions and return true of false
+//                                break;
+//                            case DeleteAnnotation:
+//                                // Check permissions and return true of false
+//                                break;
+//                            // ...
+//                        }
+//                        return true;
+//                    }
+//                });
             } catch (Exception e) {
                 // TODO: logger
                 e.printStackTrace();
