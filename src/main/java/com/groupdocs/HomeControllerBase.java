@@ -18,6 +18,7 @@ import com.groupdocs.annotation.enums.AccessRights;
 import com.groupdocs.annotation.exception.AnnotationException;
 import com.groupdocs.annotation.handler.AnnotationHandler;
 import com.groupdocs.annotation.handler.IGroupDocsAnnotation;
+import com.groupdocs.annotation.handler.IGroupDocsAtmosphere;
 import com.groupdocs.config.ApplicationConfig;
 import com.groupdocs.data.connector.CustomDatabaseConnector;
 import com.groupdocs.data.connector.ICustomConnector;
@@ -41,7 +42,7 @@ import java.util.logging.Logger;
 /**
  * @author Alex Bobkov
  */
-public abstract class HomeControllerBase implements IGroupDocsAnnotation {
+public abstract class HomeControllerBase implements IGroupDocsAnnotation, IGroupDocsAtmosphere {
     @Autowired
     protected ApplicationConfig applicationConfig;
     private AnnotationHandler annotationHandler;
