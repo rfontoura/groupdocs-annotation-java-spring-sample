@@ -276,6 +276,11 @@ public class ApplicationConfig extends ServiceConfiguration {
     @Property(key = "groupdocs.annotation.arrowToolOptionsBrushColor")
     protected String arrowToolOptionsBrushColor;
     /**
+     * The Distance pen color.
+     */
+    @Property(key = "groupdocs.annotation.distanceToolOptionsPenColor")
+    private String distanceToolOptionsPenColor;
+    /**
      * The Pen color.
      */
     @Property(key = "groupdocs.annotation.penColor")
@@ -1359,6 +1364,23 @@ public class ApplicationConfig extends ServiceConfiguration {
     @Override
     public String getArrowToolOptionsBrushColor() {
         return arrowToolOptionsBrushColor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDistanceToolOptionsPenColor() {
+        return distanceToolOptionsPenColor;
+    }
+
+    /**
+     * Sets distance tool options pen color.
+     * @param distanceToolOptionsPenColor the distance tool options pen color
+     */
+    @SuppressWarnings("unused")
+    public void setDistanceToolOptionsPenColor(String distanceToolOptionsPenColor) {
+        this.distanceToolOptionsPenColor = distanceToolOptionsPenColor;
     }
 
     /**
